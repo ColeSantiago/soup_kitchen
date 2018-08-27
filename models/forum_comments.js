@@ -8,6 +8,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   forum_comments.associate = function(models) {
     // associations can be defined here
+    forum_comments.belongsTo(models.forum_topics, {foreignKey : 'forum_ID'});
+    forum_comments.belongsTo(models.member, {foreignKey : 'member_ID'});
   };
   return forum_comments;
 };

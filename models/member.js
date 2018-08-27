@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   member.associate = function(models) {
     // associations can be defined here
+    member.hasMany(models.weekly_meals);
+    member.hasOne(models.weekly_jobs);
+    member.hasMany(models.forum_topics);
+    member.hasMany(models.forum_comments);
+    member.hasOne(models.member_status);
   };
   return member;
 };

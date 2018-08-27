@@ -4,8 +4,8 @@ const env = require('dotenv').config();
 
 const PORT = process.env.PORT || 3001;
 
-// let models = require('./models');
-// models.sequelize.sync();
+let models = require('./models');
+models.sequelize.sync();
 
 // Creating express app and configuring middleware needed for authentication
 let app = express();
@@ -22,8 +22,8 @@ const routes = require("./routes");
 
 app.use(routes);
 
-// models.sequelize.sync().then(function () {
+models.sequelize.sync().then(function () {
 	app.listen(PORT, function() {
       	console.log("App now listening at localhost:" + PORT);
   	});
-// });
+});

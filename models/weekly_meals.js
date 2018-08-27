@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   weekly_meals.associate = function(models) {
     // associations can be defined here
+    weekly_meals.belongsTo(models.member, {foreignKey : 'member_ID'});
+    weekly_meals.belongsTo(models.monthly_dates, {foreignKey : 'date_ID'});
   };
   return weekly_meals;
 };

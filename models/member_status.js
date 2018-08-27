@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   member_status.associate = function(models) {
     // associations can be defined here
+    member_status.belongsTo(models.member, {foreignKey : 'member_ID'});
   };
   return member_status;
 };

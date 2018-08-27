@@ -6,6 +6,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   monthly_dates.associate = function(models) {
     // associations can be defined here
+    monthly_dates.hasMany(models.weekly_meals);
+    monthly_dates.hasMany(models.weekly_jobs);
   };
   return monthly_dates;
 };
