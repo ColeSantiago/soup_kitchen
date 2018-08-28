@@ -1,14 +1,52 @@
 'use strict';
+let bcrypt = require('bcrypt');
 module.exports = (sequelize, DataTypes) => {
   const member = sequelize.define('member', {
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
-    phone_number: DataTypes.INTEGER,
-    email: DataTypes.STRING,
-    parish: DataTypes.STRING,
-    password: DataTypes.STRING,
+    first_name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    last_name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    phone_number: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        isEmail: true
+      },
+    },
+    parish: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [7, 100]
+      },
+    },
     admin: DataTypes.BOOLEAN
-  }, {});
+  }, {
+      hooks: {
+        beforeCreate: (member) => {
+        const salt = bcrypt.genSaltSync();
+        member.password = bcrypt.hashSync(member.password, salt);
+      }
+    },
+  });
+
+  member.prototype.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+  };
+
   member.associate = function(models) {
     // associations can be defined here
     member.hasMany(models.weekly_meals);

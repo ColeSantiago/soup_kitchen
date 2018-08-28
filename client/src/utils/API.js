@@ -2,7 +2,19 @@ import axios from "axios";
 
 // directs the client side info and functions to the server
 export default {
-  createMember: function(newMemberData) {
-    return axios.post("/api/kitchen/signup", newMemberData);
-  }
+	loadSignUp: function() {
+		return axios.get("/api/kitchen/signup");
+	},
+	loadSignIn: function() {
+		return axios.get("/api/kitchen/signin");
+	},
+	createMember: function(newMemberData) {
+		return axios.post("/api/kitchen/signup", newMemberData);
+	},
+  	loginMember: function(loginData) {
+    	return axios.post("/api/kitchen/signin", loginData);
+  	},
+  	loadDashboard: function() {
+  		return axios.get("/api/kitchen/dashboard");
+  	},
 };
