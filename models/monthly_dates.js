@@ -5,10 +5,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATEONLY,
       allowNull: false,
     },
-    month: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
   }, {});
   monthly_dates.associate = function(models) {
     // associations can be defined here

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 // import API from "../../utils/API";
+import { Link } from "react-router-dom";
 import SquadPhoto from "./images/600x400.png";
 import LocationPhoto from "./images/300x250.png";
 import MapMarker from "./images/marker.svg.png";
@@ -18,7 +19,14 @@ class Homepage extends Component {
   	render() {
     	return (
     		<div>
-    			<nav>This is the nav</nav>
+    			<nav>
+    				<Link className="login-link" to="/signin">
+                        Member Log In
+                    </Link>
+                    <Link className="request-link" to="/signup">
+                        Request a Log In(need to fix)
+                    </Link>
+    			</nav>
     				<header>
 		      			<h1 className="main-title">Bayonne Soup Kitchen</h1>
 		      				<h2 className="sub-title">Helping our neighbors in need</h2>
@@ -57,6 +65,10 @@ class Homepage extends Component {
 								</Marker>
 							</Map>
 			      		</div>
+			    <footer>
+			    	<p className="administration">Administration: Blessed Miriam Teresa Parish</p>
+			    	<p className="made-by">Made by <a rel="noopener noreferrer" target="_blank" href="https://colesantiago.github.io/portfolio/">Cole</a></p>
+			    </footer>
 	    	</div>
     	);
   	}

@@ -17,4 +17,10 @@ export default {
   	loadDashboard: function() {
   		return axios.get("/api/kitchen/dashboard");
   	},
+  	loadDates: function() {
+  		return axios.get("/api/kitchen/dashboard");
+  	},
+  	createDate: function(newDateData) {
+  		return axios.post("/api/kitchen/createdate", newDateData);
+  	},
 };

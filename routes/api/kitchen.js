@@ -77,17 +77,6 @@ router.post("/signin", (req, res) => {
         });
 });
 
-
-// route for member's dashboard
-router.get('/dashboard', function(req, res) {
-    if (req.session.user && req.cookies.user_cole) {
-        res.json({login_status: true})
-    } else {
-        res.json({login_status: false});
-    }
-});
-
-
 // route for member logout
 // router.get('/logout', (req, res) => {
 //     if (req.session.member && req.cookies.member_cole) {
@@ -97,5 +86,36 @@ router.get('/dashboard', function(req, res) {
 //         res.redirect('/login');
 //     }
 // });
+
+
+// route for member's dashboard
+router.get('/dashboard', function(req, res) {
+    if (req.session.user && req.cookies.user_cole) {
+        models.monthly_dates.findAll()
+        .then(function(dateResults){
+        	res.json({
+        		dates: dateResults, 
+        		login_status: true,
+        		user: req.session.user
+        	})
+        })
+    } else {
+        res.json({login_status: false});
+    }
+});
+
+router.post('/createdate', function(req, res) {
+	models.monthly_dates.create({
+		date: req.body.newDate,
+	})
+	.then(date => {
+		res.json({newDate: date})
+	})
+	.catch(error => {
+		console.log(error);
+	})
+});
+
+
 
 module.exports = router;
