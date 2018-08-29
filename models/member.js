@@ -12,14 +12,26 @@ module.exports = (sequelize, DataTypes) => {
     },
     phone_number: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [10, 10],
+          msg: "Please enter a valid phone number"
+        },
+      },
     },
     email: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: {
+        args: true,
+        msg: "Email is already in use"
+      },
       allowNull: false,
       validate: {
-        isEmail: true
+        isEmail: {
+          args: true,
+          msg: "Please provide a valid email address"
+        }
       },
     },
     parish: {
@@ -30,7 +42,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [7, 100]
+        len: {
+          args: [7, 100],
+          msg: "Your password must be between 7 and 100 characters"
+        },
       },
     },
     admin: DataTypes.BOOLEAN

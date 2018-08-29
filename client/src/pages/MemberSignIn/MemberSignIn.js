@@ -8,7 +8,8 @@ class MemberSignIn extends Component {
     state = {
         email: "",
         password: "",
-        login_status: false
+        login_status: false,
+        errorMsg: "",
     };
 
     componentDidMount() {
@@ -33,7 +34,13 @@ class MemberSignIn extends Component {
             password: this.state.password,
         })
         .then(res => {
-        	this.setState({login_status: res.data.login_status})
+        	this.setState({
+        		login_status: res.data.login_status,
+        		errorMsg: res.data.errorMsg
+        	})
+        	if (this.state.errorMsg) {
+        		alert(this.state.errorMsg)
+        	}
 		})
         .catch(err => console.log(err));
     };

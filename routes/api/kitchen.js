@@ -40,8 +40,11 @@ router.post('/signup', (req, res) => {
             }
         })
         .catch(error => {
-        	console.log(error);
-            res.json({allowSignIn: false});
+        	console.log(error.errors[0].message);
+            res.json({
+            	allowSignIn: false,
+            	errorMsg: error.errors[0].message
+            });
         });
 });
 
@@ -58,9 +61,15 @@ router.post("/signin", (req, res) => {
         password = req.body.password;
         models.member.findOne({ where: { email: email } }).then(function (member) {
             if (!member) {
-                res.json({login_status: false});
+                res.json({
+                	login_status: false,
+                	errorMsg: "Your email is incorrect or cannot be found"
+                });
             } else if (!member.validPassword(password)) {
-                res.json({login_status: false});
+                res.json({
+                	login_status: false,
+                	errorMsg: "Your password is incorrect"
+                });
             } else {
                 req.session.user = member.dataValues;
                 res.json({login_status: true});

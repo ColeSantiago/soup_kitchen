@@ -1,8 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const monthly_dates = sequelize.define('monthly_dates', {
-    date: DataTypes.DATEONLY,
-    month: DataTypes.STRING
+    date: {
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+    },
+    month: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   }, {});
   monthly_dates.associate = function(models) {
     // associations can be defined here
