@@ -29,4 +29,16 @@ export default {
   	loadJobSignUp: function(dateID) {
   		return axios.get("/api/kitchen/jobsignup/date/" + dateID)
   	},
+  	jobSignUp: function(userAndJob) {
+  		return axios.post("/api/kitchen/jobsignup", userAndJob)
+  	},
+  	jobUnSignUp: function(id) {
+  		return axios.post("/api/kitchen/jobunsignup", id)
+  	},
+  	mealSignUp: function(userAndMeal) {
+  		return axios.post("/api/kitchen/mealsignup", userAndMeal)
+  	},
+  	mealUnSignUp: function(id) {
+  		return axios.post("/api/kitchen/mealunsignup", id)
+  	},
 };

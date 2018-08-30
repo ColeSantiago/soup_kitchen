@@ -200,13 +200,6 @@ router.post('/createdate', function(req, res) {
 		    	date: date.date,
 		    	is_taken: false
 			},
-			{
-				date_ID: date.id,
-		    	job: "Hot Food Server",
-		    	date: date.date,
-		    	is_taken: false
-			}
-
 		];
 
 		let meals = [
@@ -279,18 +272,112 @@ router.post('/deletedate', function(req, res) {
 router.get('/jobsignup/date/:id', function(req, res) {
 	if (req.session.user && req.cookies.user_cole) {
 		models.weekly_jobs.findAll({
-			where: {date_ID: req.params.id} 
+			where: {
+				date_ID: req.params.id,
+				is_taken: false
+			} 
 		})
-		.then(jobResult => {
-			res.json({
-				jobs: jobResult,
-				login_status: true,
-				user: req.session.user 
+		.then(jobsNeededResult => {
+			models.weekly_jobs.findAll({
+				where: {
+					date_ID: req.params.id,
+					is_taken: true
+				}
 			})
+			.then(jobsTakenResult => {
+				models.weekly_meals.findAll({
+					where: {
+						date_ID: req.params.id,
+						is_taken: false
+					}
+				})
+				.then(mealsNeededResult => {
+					models.weekly_meals.findAll({
+						where: {
+							date_ID: req.params.id,
+							is_taken: true
+						}
+					})
+					.then(mealsTakenResult => {
+						res.json({
+							jobsNeeded: jobsNeededResult,
+							jobsTaken: jobsTakenResult,
+							mealsNeeded: mealsNeededResult,
+							mealsTaken: mealsTakenResult,
+							login_status: true,
+							user: req.session.user 
+						})
+					})
+				})
+			})	
 		})
 	} else {
         res.json({login_status: false});
     }
+});
+
+router.post('/jobsignup', function(req, res) {
+	models.weekly_jobs.update({
+        member_ID: req.body.member_ID,
+        member_name: req.body.member_name,
+        is_taken: true
+    }, {
+        where: {id: req.body.id}
+    })
+    .then(result => {
+    	res.json(result)
+    })
+    .catch(error => {
+    	console.log(error)
+    })
+});
+
+router.post('/jobunsignup', function(req, res) {
+	models.weekly_jobs.update({
+		member_ID: null,
+        member_name: null,
+        is_taken: false
+    }, {
+        where: {id: req.body.id}
+    })
+    .then(result => {
+    	res.json(result)
+    })
+    .catch(error => {
+    	console.log(error)
+    })
+});
+
+router.post('/mealsignup', function(req, res) {
+	models.weekly_meals.update({
+        member_ID: req.body.member_ID,
+        member_name: req.body.member_name,
+        is_taken: true
+    }, {
+        where: {id: req.body.id}
+    })
+    .then(result => {
+    	res.json(result)
+    })
+    .catch(error => {
+    	console.log(error)
+    })
+});
+
+router.post('/mealunsignup', function(req, res) {
+	models.weekly_meals.update({
+		member_ID: null,
+        member_name: null,
+        is_taken: false
+    }, {
+        where: {id: req.body.id}
+    })
+    .then(result => {
+    	res.json(result)
+    })
+    .catch(error => {
+    	console.log(error)
+    })
 });
 
 
