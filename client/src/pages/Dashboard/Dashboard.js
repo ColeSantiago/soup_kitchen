@@ -62,7 +62,17 @@ class Dashboard extends Component {
   		date.getDay() === 3 || 
   		date.getDay() === 4 || 
   		date.getDay() === 5;
-	}
+	};
+
+	deleteDate = (id) => {
+		let dateID = {
+			id: id
+		}
+		API.deleteDate(dateID)
+		.then(res => this.loadDates())
+	    .catch(err => console.log(err));
+	    this.loadDates();
+	};
 
 	render() {
 	    return (
@@ -91,9 +101,17 @@ class Dashboard extends Component {
 			                        <List>
 			                            {this.state.dates.map(date => (
 				                            <ListItem 
-				                                key={date.id} 
+				                                key={date.id}
+				                                id={date.id} 
 				                                title={date.date} 
 				                            >
+				                          	{this.state.admin ? (
+			                            	<div>
+			                            		<button className="delete-date" onClick={() => this.deleteDate(date.id)}> X </button>
+			                            	</div>
+			                            	) : (
+			                            			null
+												)}
 				                              	<Divider />
 				                            </ListItem>
 			                            ))}

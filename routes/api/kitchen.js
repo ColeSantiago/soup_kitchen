@@ -109,13 +109,189 @@ router.post('/createdate', function(req, res) {
 		date: req.body.newDate,
 	})
 	.then(date => {
-		res.json({newDate: date})
-	})
-	.catch(error => {
-		console.log(error);
+		let jobs = [
+			{
+				date_ID: date.id,
+		    	job: "Iced Tea Replenisher",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	job: "Iced Tea Replenisher",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	job: "Coffee/Tea Station",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	job: "Bread Station",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	job: "Food Tray Station",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	job: "Dessert Station",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	job: "Dessert Station",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	job: "Ticket Person",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	job: "Oven Station",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	job: "Hall Moniter/Take Home Bread",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	job: "Sink Station Dryer",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	job: "Hot Food Server",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	job: "Hot Food Server",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	job: "Hot Food Server",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	job: "Salad Server",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	job: "Hot Food Server",
+		    	date: date.date,
+		    	is_taken: false
+			}
+
+		];
+
+		let meals = [
+			{
+				date_ID: date.id,
+		    	meal: "Friday Bread Pickup: Judickes Bakery 7:30-7:45pm",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	meal: "Friday Bread Pickup: Paulantos Bakery 8:15-8:30pm",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	meal: "Saturday Bread Pickup: Vincent & Antonio's Bakery 2:30pm",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	meal: "One Gallon Milk",
+		    	date: date.date,
+		    	is_taken: false
+			},
+			{
+				date_ID: date.id,
+		    	meal: "Two Bags Pretzels",
+		    	date: date.date,
+		    	is_taken: false
+			},
+		];
+		models.weekly_jobs.bulkCreate(jobs, { individualHooks: true })
+		.then(jobResult => {
+			models.weekly_meals.bulkCreate(meals, { individualHooks: true })
+			.then(mealResult => {
+				res.json({newDate: date})
+			})
+			.catch(error => {
+				console.log(error);
+			})
+		})
 	})
 });
 
+router.post('/deletedate', function(req, res) {
+	models.weekly_jobs.destroy({
+		where: {date_ID: req.body.id}
+	})
+	.then(jobResult => {
+		models.weekly_meals.destroy({
+			where: {date_ID: req.body.id}
+		})
+		.then( mealResult => {
+			models.monthly_dates.destroy({
+				where: {id: req.body.id}
+			})
+			.then(dateResult => {
+				res.json(dateResult);
+			})
+			.catch(error => {
+				console.log(error);
+			})
+		})
+	})
+});
+
+router.get('/jobsignup/date/:id', function(req, res) {
+	if (req.session.user && req.cookies.user_cole) {
+		models.weekly_jobs.findAll({
+			where: {date_ID: req.params.id} 
+		})
+		.then(jobResult => {
+			res.json({
+				jobs: jobResult,
+				login_status: true,
+				user: req.session.user 
+			})
+		})
+	} else {
+        res.json({login_status: false});
+    }
+});
 
 
 module.exports = router;

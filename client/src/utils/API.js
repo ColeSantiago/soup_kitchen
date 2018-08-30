@@ -23,4 +23,10 @@ export default {
   	createDate: function(newDateData) {
   		return axios.post("/api/kitchen/createdate", newDateData);
   	},
+  	deleteDate: function(dateID) {
+  		return axios.post("/api/kitchen/deletedate", dateID);
+  	},
+  	loadJobSignUp: function(dateID) {
+  		return axios.get("/api/kitchen/jobsignup/date/" + dateID)
+  	},
 };

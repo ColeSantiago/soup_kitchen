@@ -1,9 +1,10 @@
 import React from "react";
 // import "./List.css";
+import { Link } from "react-router-dom";
 
 export const ListItem = props => (
   <li>
-  	<a className="date-item" href={props.link} target="_blank">{props.title}</a> <br></br>
+  	<Link className="date-item" to={`/jobsignup/date/${props.id}`}>{props.title}</Link> <br></br>
     {props.children}
   </li>
 );

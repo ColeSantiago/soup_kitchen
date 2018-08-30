@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import MemberSignIn from "./pages/MemberSignIn";
 import MemberSignUp from "./pages/MemberSignUp";
 import Homepage from "./pages/Homepage";
+import JobSignUp from "./pages/JobSignUp";
 
 const App = () => (
   <Router>
@@ -18,6 +19,7 @@ const App = () => (
    		   	<Route exact path="/signin" component={MemberSignIn} />
    		   	<Route exact path="/signup" component={MemberSignUp} />
    		   	<Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/jobsignup/date/:id" component={JobSignUp} />
         </Switch> 
     </div>
   </Router>
