@@ -10,6 +10,10 @@ import MemberSignIn from "./pages/MemberSignIn";
 import MemberSignUp from "./pages/MemberSignUp";
 import Homepage from "./pages/Homepage";
 import JobSignUp from "./pages/JobSignUp";
+// import SignOutBtn from "./components/SignOutBtn";
+// import API from "./utils/API";
+
+
 
 const App = () => (
   <Router>

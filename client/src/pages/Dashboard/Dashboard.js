@@ -3,6 +3,7 @@ import API from "../../utils/API";
 import DashboardPhoto from "./images/600x400.png"
 import { List, ListItem } from "../../components/DatesList";
 import { AddDateBtn } from "../../components/addDatesForm";
+import SignOutBtn from "../../components/SignOutBtn";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Divider from 'material-ui/Divider';
 import { Link } from "react-router-dom";
@@ -123,8 +124,7 @@ class Dashboard extends Component {
 				      		<div className="sidebar">
 				      			<h2>Welcome {this.state.user.first_name}!</h2>
 				      			<ul>
-				      				<li><Link to="/mealoutline">Weekly Meal Outline</Link></li>
-				      				<li><Link to="/mealschedule">Weekly Meal Schedule</Link></li>
+				      				<li><Link to="/"><SignOutBtn onClick={() => API.logoutMember()} /></Link></li>
 				      				<li><Link to="/updateinfo">Update Your Personal Info</Link></li>
 				      				<li><Link to="/Forum">Forum</Link></li>
 				      				{this.state.admin ? (

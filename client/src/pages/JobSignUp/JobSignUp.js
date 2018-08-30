@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
-// import { Input, SignUpBtn } from "../../components/SignUpForm";
+import { Input, CreateMealBtn } from "../../components/CreateMealForm";
 import { List, ListItem } from "../../components/JobList";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Divider from 'material-ui/Divider';
@@ -27,6 +27,7 @@ class JobSignUp extends Component {
         mealsTaken: [],
         user: [],
         admin: false,
+        newMeal: "",
     };
 
     componentDidMount() {
@@ -85,7 +86,6 @@ class JobSignUp extends Component {
         }
         API.jobUnSignUp(jobID)
         .then(result => {
-            console.log(result);
             this.loadJobSignUp();
         })
         .catch(error => {
@@ -106,18 +106,61 @@ class JobSignUp extends Component {
         })
     };
 
-    // // handles form input
-    // handleInputChange = event => {
-    //     const { name, value } = event.target;
-    //     this.setState({
-    //       [name]: value
-    //     });
-    // };
+    deleteJob = (id) => {
+        let jobID = {
+            id: id
+        }
+        API.deleteJob(jobID)
+        .then(result => {
+            this.loadJobSignUp();
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    };
 
-    // // handles form submit to create a user
-    // handleFormSubmit = event => {
+    deleteMeal = (id) => {
+        let mealID = {
+            id: id
+        }
+        API.deleteMeal(mealID)
+        .then(result => {
+            this.loadJobSignUp();
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    };
 
-    // };
+    // handles form input
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+          [name]: value
+        });
+    };
+
+    // handles form submit to create a user
+    handleFormSubmit = event => {
+        if(this.state.newMeal) {
+            let newMealData = {
+                date_ID: this.props.match.params.id,
+                meal: this.state.newMeal,
+                date: this.state.mealsTaken.date
+            }
+            API.createMeal(newMealData)
+            .then(result => {
+                this.setState({newMeal: ""})
+                this.loadJobSignUp();
+            })
+            .catch(error => {
+                console.log(error)
+            })
+        } else {
+            alert("Add a meal!");
+        }
+
+    };
 
     render() {
         return (
@@ -145,7 +188,7 @@ class JobSignUp extends Component {
                                                         >
                                                         <button className="job-sign-up-btn" onClick={() => this.jobSignUp(jobNeeded.id)}>Sign Me Up</button>
                                                         {this.state.admin ? (
-                                                            <button className="delete-job" onClick={() => this.deleteJob(jobNeeded.id)}> X </button>
+                                                            <button className="delete-job" onClick={() => this.deleteJob(jobNeeded.id)}> Delete </button>
                                                         ) : (
                                                                 null
                                                             )}
@@ -174,7 +217,7 @@ class JobSignUp extends Component {
                                                             </button>
                                                         ) : (null)}
                                                         {this.state.admin ? (
-                                                            <button className="delete-job" onClick={() => this.jobUnSignUp(jobTaken.id)}> X </button>
+                                                            <button className="delete-job" onClick={() => this.jobUnSignUp(jobTaken.id)}> Unassign </button>
                                                         ) : (
                                                                 null
                                                             )}
@@ -203,7 +246,7 @@ class JobSignUp extends Component {
                                                             >
                                                             <button className="meal-sign-up-btn" onClick={() => this.mealSignUp(mealNeeded.id)}>Sign Me Up</button>
                                                             {this.state.admin ? (
-                                                                <button className="delete-meal" onClick={() => this.deleteMeal(mealNeeded.id)}> X </button>
+                                                                <button className="delete-meal" onClick={() => this.deleteMeal(mealNeeded.id)}> Delete </button>
                                                             ) : (
                                                                     null
                                                                 )}
@@ -230,7 +273,7 @@ class JobSignUp extends Component {
                                                                     <button className="job-meal-up-btn" onClick={() => this.mealUnSignUp(mealTaken.id)}>NeverMind</button>
                                                                 ) : (null)}
                                                                 {this.state.admin ? (
-                                                                    <button className="delete-meal" onClick={() => this.mealUnSignUp(mealTaken.id)}> X </button>
+                                                                    <button className="delete-meal" onClick={() => this.mealUnSignUp(mealTaken.id)}> Unassign </button>
                                                                 ) : (
                                                                         null
                                                                     )}
@@ -242,6 +285,21 @@ class JobSignUp extends Component {
                                                             <p>No one has signed up for anything yet!</p>
                                                         )}
                                             </div>
+                                        <div>
+                                            {this.state.admin ? (
+                                                <form className="add-meal-form">
+                                                    <Input
+                                                        value={this.state.newMeal}
+                                                        onChange={this.handleInputChange}
+                                                        name="newMeal"
+                                                        floatingLabelText="Add a Meal"
+                                                    />
+                                                    <CreateMealBtn onClick={this.handleFormSubmit} />
+                                                </form>
+                                            ) : (
+                                                    null
+                                                )}
+                                        </div>
                                     </div>
                                 </Tab>
                             </Tabs>

@@ -78,14 +78,14 @@ router.post("/signin", (req, res) => {
 });
 
 // route for member logout
-// router.get('/logout', (req, res) => {
-//     if (req.session.member && req.cookies.member_cole) {
-//         res.clearCookie('member_cole');
-//         res.redirect('/');
-//     } else {
-//         res.redirect('/login');
-//     }
-// });
+router.get('/logout', (req, res) => {
+    if (req.session.user && req.cookies.user_cole) {
+        res.clearCookie('user_cole');
+        res.json({login_status: false});
+    } else {
+        res.json({login_status: false});
+    }
+});
 
 
 // route for member's dashboard
@@ -348,6 +348,16 @@ router.post('/jobunsignup', function(req, res) {
     })
 });
 
+router.post('/deletejob', function(req, res) {
+	models.weekly_jobs.destroy({where: {id: req.body.id}})
+	.then(result => {
+		res.json(result)
+	})
+    .catch(error => {
+    	console.log(error)
+    })
+});
+
 router.post('/mealsignup', function(req, res) {
 	models.weekly_meals.update({
         member_ID: req.body.member_ID,
@@ -375,6 +385,31 @@ router.post('/mealunsignup', function(req, res) {
     .then(result => {
     	res.json(result)
     })
+    .catch(error => {
+    	console.log(error)
+    })
+});
+
+router.post('/deletemeal', function(req, res) {
+	models.weekly_meals.destroy({where: {id: req.body.id}})
+	.then(result => {
+		res.json(result)
+	})
+    .catch(error => {
+    	console.log(error)
+    })
+});
+
+router. post('/createmeal', function(req, res) {
+	models.weekly_meals.create({
+		date_ID: req.body.date_ID,
+	    meal: req.body.meal,
+	    date: req.body.date,
+	    is_taken: false
+	})
+	.then(result => {
+		res.json(result)
+	})
     .catch(error => {
     	console.log(error)
     })

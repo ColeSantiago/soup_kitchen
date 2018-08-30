@@ -14,6 +14,9 @@ export default {
   	loginMember: function(loginData) {
     	return axios.post("/api/kitchen/signin", loginData);
   	},
+  	logoutMember: function() {
+  		return axios.get("/api/kitchen/logout");
+  	},
   	loadDashboard: function() {
   		return axios.get("/api/kitchen/dashboard");
   	},
@@ -35,10 +38,19 @@ export default {
   	jobUnSignUp: function(id) {
   		return axios.post("/api/kitchen/jobunsignup", id)
   	},
+  	deleteJob: function(id) {
+  		return axios.post("/api/kitchen/deletejob", id)
+  	},
   	mealSignUp: function(userAndMeal) {
   		return axios.post("/api/kitchen/mealsignup", userAndMeal)
   	},
   	mealUnSignUp: function(id) {
   		return axios.post("/api/kitchen/mealunsignup", id)
+  	},
+  	deleteMeal: function(id) {
+  		return axios.post("/api/kitchen/deletemeal", id)
+  	},
+  	createMeal: function(newMealData) {
+  		return axios.post("/api/kitchen/createmeal", newMealData)
   	},
 };
