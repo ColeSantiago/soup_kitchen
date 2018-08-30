@@ -169,6 +169,7 @@ class JobSignUp extends Component {
                 {this.state.login_status === true ? (
                     <div>
                         <h1>Bayonne Soup Kitchen Sign Up</h1>
+                        <Link to="/dashboard">Dashboard</Link>
                               <Tabs
                                 value={this.state.value}
                                 onChange={this.handleChange}

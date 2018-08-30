@@ -95,6 +95,63 @@ class Dashboard extends Component {
 				      				Morbi a rhoncus elit. Pellentesque ullamcorper nec mi at commodo
 				      			</p>
 			      			</div>
+			      			{this.state.admin ? (
+				      			<div className="admin-div">
+				      				<h1>Admin Specific</h1>
+					      				<div className="Meal Outline">
+					      					<ul>
+					      						<li>Meals for approximately 50 guests</li>
+					      						<br></br>
+					      						<li>Main Meal</li>
+					      						<li>4 Large aluminum trays</li>
+					      						<li>(Ex...pasta, sausage & peppers, kielbasa, etc.)</li>
+					      						<li>Or 4 Hams, turkeys, etc.</li>
+					      						<br></br>
+					      						<li>Side Dish (starch)</li>
+					      						<li>3 Large aluminum trays (or 6 half ones)</li>
+					      						<br></br>
+					      						<li>Side dish (vegetable)</li>
+					      						<li>3 Large aluminum trays (or 6 half ones)</li>
+					      						<br></br>
+					      						<li>Garden Salad with dressing on the side</li>
+					      						<li>3 Large aluminum trays</li>
+					      						<br></br>
+					      						<li>1 Gallon of Milk</li>
+					      						<br></br>
+					      						<li>Mini pretzels or snack to put bowls on tables (optional)</li>
+					      						<br></br>
+					      						<li>2 bags of ice</li>
+					      					</ul>
+					      				</div>
+						      			<div className="schedule-div">
+						      				<h1>Weekly Schedule</h1>
+						      					<h2>Friday</h2>
+						      						<p>
+						      							Pick up key from Blessed Miriam Teresa Rectory 326 Avenue C - Open from 9:30-5:30.
+						      							Phone Number: 201-437-4090. If during a holiday weekend - please call Monday to make sure
+						      							they are open on Friday or if the hours are changed.
+						      						</p>
+						      						<ul>
+						      							<li>Pick up breads:</li>
+						      							<li>7:30pm - 7:45pm - Judickes</li>
+						      							<li>8:15 - Paulantos</li>
+						      						</ul>
+						      					<h2>Saturday</h2>
+						      						<ul>
+						      							<li>Pick up bread:</li>
+						      							<li>2:30pm - Vincent & Antonio's</li>
+						      						</ul>
+						      						<p>Arrive at Bayonne Soup Kitchen (All Saints Catholic Academy Cafeteria) at 3:00pm</p>
+						      						<ul>
+						      							<li>Set up 3:00pm - 4:00pm</li>
+						      							<li>Serve 4:00pm - 5:00pm</li>
+						      						</ul>
+						      						<h1>Clean up promptly at 5:00pm (not before).</h1>
+						      						<h2>Return key in slot of rectory door</h2>
+						      						<h1>Thank you!!!</h1>
+						      			</div>
+				      			</div>
+			      			) : (null)}
 			      			<div className="dates-div">
 				      		 	<h1 className="date-heading">Upcoming Soup Kitchen Dates</h1>
 			                    <h2 className="date-sub-heading">Click a date to sign up for a job or a meal.</h2>
