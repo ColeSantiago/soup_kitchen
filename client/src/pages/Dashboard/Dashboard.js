@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import API from "../../utils/API";
 import DashboardPhoto from "./images/600x400.png"
 import { List, ListItem } from "../../components/DatesList";
-import { AddDateBtn } from "../../components/addDatesForm";
 import SignOutBtn from "../../components/SignOutBtn";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Divider from 'material-ui/Divider';
 import { Link } from "react-router-dom";
 import DatePicker from 'material-ui/DatePicker';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 class Dashboard extends Component {
 	state = {
@@ -164,9 +166,7 @@ class Dashboard extends Component {
 				                                title={date.date} 
 				                            >
 				                          	{this.state.admin ? (
-			                            	<div>
-			                            		<button className="delete-date" onClick={() => this.deleteDate(date.id)}> X </button>
-			                            	</div>
+			                            		<DeleteForeverIcon className="delete-date" onClick={() => this.deleteDate(date.id)}/>
 			                            	) : (
 			                            			null
 												)}
@@ -198,7 +198,9 @@ class Dashboard extends Component {
 						      					mode="landscape"
 						      					shouldDisableDate={this.disableDays}
 						      				/>
-						      				<AddDateBtn onClick={this.handleFormSubmit}/>
+						      				<FloatingActionButton mini={true}>
+                                                <ContentAdd onClick={this.handleFormSubmit} />
+                                            </FloatingActionButton>
 					      				</form>
 					      			</div>
 				      			) : (null)}

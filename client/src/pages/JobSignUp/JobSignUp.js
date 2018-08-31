@@ -1,11 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
-import { Input, CreateMealBtn } from "../../components/CreateMealForm";
+import { Input } from "../../components/CreateMealForm";
 import { List, ListItem } from "../../components/JobList";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Divider from 'material-ui/Divider';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import BlockIcon from '@material-ui/icons/Block';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
+import IconButton from 'material-ui/IconButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 // import "./JobSignUp.css";
 
 const styles = {
@@ -15,7 +23,17 @@ const styles = {
     marginBottom: 12,
     fontWeight: 400,
   },
+  mediumIcon: {
+    width: 48,
+    height: 48,
+  },
+  medium: {
+    width: 96,
+    height: 96,
+    padding: 24,
+  },
 };
+
 
 class JobSignUp extends Component {
     state = {
@@ -169,7 +187,14 @@ class JobSignUp extends Component {
                 {this.state.login_status === true ? (
                     <div>
                         <h1>Bayonne Soup Kitchen Sign Up</h1>
-                        <Link to="/dashboard">Dashboard</Link>
+                        <Link to="/dashboard">
+                            <IconButton
+                              iconStyle={styles.mediumIcon}
+                              style={styles.medium}
+                            >
+                                <ActionHome />
+                            </IconButton>
+                        </Link>
                               <Tabs
                                 value={this.state.value}
                                 onChange={this.handleChange}
@@ -187,9 +212,13 @@ class JobSignUp extends Component {
                                                             id={jobNeeded.id} 
                                                             title={jobNeeded.job} 
                                                         >
-                                                        <button className="job-sign-up-btn" onClick={() => this.jobSignUp(jobNeeded.id)}>Sign Me Up</button>
+                                                        <IconButton tooltip="Sign Me Up" touch={true} tooltipPosition="top-right">
+                                                            <HowToRegIcon className="job-sign-up-btn" onClick={() => this.jobSignUp(jobNeeded.id)}/>
+                                                        </IconButton>
                                                         {this.state.admin ? (
-                                                            <button className="delete-job" onClick={() => this.deleteJob(jobNeeded.id)}> Delete </button>
+                                                            <IconButton tooltip="Delete Job" touch={true} tooltipPosition="top-right">
+                                                                <DeleteForeverIcon className="delete-job" onClick={() => this.deleteJob(jobNeeded.id)} />
+                                                            </IconButton>
                                                         ) : (
                                                                 null
                                                             )}
@@ -213,12 +242,14 @@ class JobSignUp extends Component {
                                                             takenBy={jobTaken.member_name} 
                                                         >
                                                         {this.state.user.id === jobTaken.member_ID ? (
-                                                            <button className="job-sign-up-btn" onClick={() => this.jobUnSignUp(jobTaken.id)}>
-                                                                NeverMind
-                                                            </button>
+                                                            <IconButton tooltip="Nevermind" touch={true} tooltipPosition="top-right">
+                                                                <BlockIcon className="job-sign-up-btn" onClick={() => this.jobUnSignUp(jobTaken.id)}/>
+                                                            </IconButton>
                                                         ) : (null)}
                                                         {this.state.admin ? (
-                                                            <button className="delete-job" onClick={() => this.jobUnSignUp(jobTaken.id)}> Unassign </button>
+                                                            <IconButton tooltip="Unassign Job" touch={true} tooltipPosition="top-right">
+                                                                <RemoveCircleIcon className="delete-job" onClick={() => this.jobUnSignUp(jobTaken.id)}/>
+                                                            </IconButton>
                                                         ) : (
                                                                 null
                                                             )}
@@ -245,9 +276,13 @@ class JobSignUp extends Component {
                                                                 title={mealNeeded.meal}
                                                                 takenBy={mealNeeded.member_name} 
                                                             >
-                                                            <button className="meal-sign-up-btn" onClick={() => this.mealSignUp(mealNeeded.id)}>Sign Me Up</button>
+                                                            <IconButton tooltip="Sign Me Up" touch={true} tooltipPosition="top-right">
+                                                                <HowToRegIcon className="meal-sign-up-btn" onClick={() => this.mealSignUp(mealNeeded.id)}/>
+                                                            </IconButton>
                                                             {this.state.admin ? (
-                                                                <button className="delete-meal" onClick={() => this.deleteMeal(mealNeeded.id)}> Delete </button>
+                                                                <IconButton tooltip="Delete Meal" touch={true} tooltipPosition="top-right">
+                                                                    <DeleteForeverIcon className="delete-meal" onClick={() => this.deleteMeal(mealNeeded.id)}/>
+                                                                </IconButton>
                                                             ) : (
                                                                     null
                                                                 )}
@@ -271,10 +306,14 @@ class JobSignUp extends Component {
                                                                     takenBy={mealTaken.member_name} 
                                                                 >
                                                                 {this.state.user.id === mealTaken.member_ID ? (
-                                                                    <button className="job-meal-up-btn" onClick={() => this.mealUnSignUp(mealTaken.id)}>NeverMind</button>
+                                                                    <IconButton tooltip="Nevermind" touch={true} tooltipPosition="top-right">
+                                                                        <BlockIcon className="job-meal-up-btn" onClick={() => this.mealUnSignUp(mealTaken.id)}/>
+                                                                    </IconButton>
                                                                 ) : (null)}
                                                                 {this.state.admin ? (
-                                                                    <button className="delete-meal" onClick={() => this.mealUnSignUp(mealTaken.id)}> Unassign </button>
+                                                                    <IconButton tooltip="Unassign Meal" touch={true} tooltipPosition="top-right">
+                                                                        <RemoveCircleIcon className="delete-meal" onClick={() => this.mealUnSignUp(mealTaken.id)}/>
+                                                                    </IconButton>
                                                                 ) : (
                                                                         null
                                                                     )}
@@ -295,7 +334,9 @@ class JobSignUp extends Component {
                                                         name="newMeal"
                                                         floatingLabelText="Add a Meal"
                                                     />
-                                                    <CreateMealBtn onClick={this.handleFormSubmit} />
+                                                    <FloatingActionButton mini={true}>
+                                                      <ContentAdd onClick={this.handleFormSubmit} />
+                                                    </FloatingActionButton>
                                                 </form>
                                             ) : (
                                                     null
