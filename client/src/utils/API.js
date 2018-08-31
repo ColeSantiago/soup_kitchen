@@ -53,4 +53,13 @@ export default {
   	createMeal: function(newMealData) {
   		return axios.post("/api/kitchen/createmeal", newMealData)
   	},
+  	loadMemberPage: function() {
+  		return axios.get("/api/kitchen/memberpage")
+  	},
+  	deleteMember: function(id) {
+  		return axios.post("/api/kitchen/deletemember", id)
+  	},
+  	toggleAdmin: function(memberInfo) {
+  		return axios.post("/api/kitchen/toggleadmin", memberInfo)
+  	},
 };

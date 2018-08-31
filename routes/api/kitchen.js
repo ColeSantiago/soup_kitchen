@@ -3,19 +3,6 @@ const router = require("express").Router();
 const models = require("../../models/index.js");
 const nodemailer = require("nodemailer");
 
-let sessionChecker = (req, res, next) => {
-    if (req.session.user && req.cookies.user_cole) {
-        console.log(req.session.user)
-        console.log(req.cookies.user_cole)
-    } else {
-        next();
-    }    
-};
-
-// router.get('/', sessionChecker, (req, res) => {
-//     res.redirect('/login');
-// });
-
 // route for member signup
 router.get('/signup', (req, res) => {
 	if(req.session.user && req.cookies.user_cole) {
@@ -24,30 +11,29 @@ router.get('/signup', (req, res) => {
 });
 
 router.post('/signup', (req, res) => {
-        models.member.create({
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            phone_number: req.body.phone_number,
-            email: req.body.email,
-            parish:req.body.parish,
-            password: req.body.password
-        })
-        .then(member => {
-        	if (member) {
-            	res.json({allowSignIn: true});
-            } else {
-            	res.json({allowSignIn: false});
-            }
-        })
-        .catch(error => {
-        	console.log(error.errors[0].message);
-            res.json({
-            	allowSignIn: false,
-            	errorMsg: error.errors[0].message
-            });
+    models.member.create({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        phone_number: req.body.phone_number,
+        email: req.body.email,
+        parish:req.body.parish,
+        password: req.body.password
+    })
+    .then(member => {
+    	if (member) {
+        	res.json({allowSignIn: true});
+        } else {
+        	res.json({allowSignIn: false});
+        }
+    })
+    .catch(error => {
+    	console.log(error.errors[0].message);
+        res.json({
+        	allowSignIn: false,
+        	errorMsg: error.errors[0].message
         });
+    });
 });
-
 
 // route for member Login
 router.get('/signin', (req, res) => {
@@ -237,12 +223,8 @@ router.post('/createdate', function(req, res) {
 		models.weekly_jobs.bulkCreate(jobs, { individualHooks: true })
 		.then(jobResult => {
 			models.weekly_meals.bulkCreate(meals, { individualHooks: true })
-			.then(mealResult => {
-				res.json({newDate: date})
-			})
-			.catch(error => {
-				console.log(error);
-			})
+			.then(mealResult => {res.json({newDate: date})})
+			.catch(error => {console.log(error)})
 		})
 	})
 });
@@ -259,12 +241,8 @@ router.post('/deletedate', function(req, res) {
 			models.monthly_dates.destroy({
 				where: {id: req.body.id}
 			})
-			.then(dateResult => {
-				res.json(dateResult);
-			})
-			.catch(error => {
-				console.log(error);
-			})
+			.then(dateResult => {res.json(dateResult)})
+			.catch(error => {console.log(error)})
 		})
 	})
 });
@@ -324,12 +302,8 @@ router.post('/jobsignup', function(req, res) {
     }, {
         where: {id: req.body.id}
     })
-    .then(result => {
-    	res.json(result)
-    })
-    .catch(error => {
-    	console.log(error)
-    })
+    .then(result => {res.json(result)})
+    .catch(error => {console.log(error)})
 });
 
 router.post('/jobunsignup', function(req, res) {
@@ -340,22 +314,14 @@ router.post('/jobunsignup', function(req, res) {
     }, {
         where: {id: req.body.id}
     })
-    .then(result => {
-    	res.json(result)
-    })
-    .catch(error => {
-    	console.log(error)
-    })
+    .then(result => {res.json(result)})
+    .catch(error => {console.log(error)})
 });
 
 router.post('/deletejob', function(req, res) {
 	models.weekly_jobs.destroy({where: {id: req.body.id}})
-	.then(result => {
-		res.json(result)
-	})
-    .catch(error => {
-    	console.log(error)
-    })
+	.then(result => {res.json(result)})
+    .catch(error => {console.log(error)})
 });
 
 router.post('/mealsignup', function(req, res) {
@@ -366,12 +332,8 @@ router.post('/mealsignup', function(req, res) {
     }, {
         where: {id: req.body.id}
     })
-    .then(result => {
-    	res.json(result)
-    })
-    .catch(error => {
-    	console.log(error)
-    })
+    .then(result => {res.json(result)})
+    .catch(error => {console.log(error)})
 });
 
 router.post('/mealunsignup', function(req, res) {
@@ -382,12 +344,8 @@ router.post('/mealunsignup', function(req, res) {
     }, {
         where: {id: req.body.id}
     })
-    .then(result => {
-    	res.json(result)
-    })
-    .catch(error => {
-    	console.log(error)
-    })
+    .then(result => {res.json(result)})
+    .catch(error => {console.log(error)})
 });
 
 router.post('/deletemeal', function(req, res) {
@@ -400,19 +358,78 @@ router.post('/deletemeal', function(req, res) {
     })
 });
 
-router. post('/createmeal', function(req, res) {
+router.post('/createmeal', function(req, res) {
 	models.weekly_meals.create({
 		date_ID: req.body.date_ID,
 	    meal: req.body.meal,
 	    date: req.body.date,
 	    is_taken: false
 	})
-	.then(result => {
-		res.json(result)
+	.then(result => {res.json(result)})
+    .catch(error => {console.log(error)})
+});
+
+router.get('/memberpage', function(req, res) {
+	if (req.session.user && req.cookies.user_cole && req.session.user.admin) {
+		models.member.findAll()
+		.then(result => {
+			res.json({
+				login_status: true,
+            	user: req.session.user,
+            	members: result
+			})
+		})
+		.catch(error => {
+	    	console.log(error)
+	    })
+	} else {
+		res.json({login_status: false})
+	}
+
+});
+
+router.post('/deletemember', function(req, res) {
+	models.weekly_jobs.update({
+		member_ID: null,
+		member_name: null,
+		is_taken: false,
+	}, {
+		where: {member_ID: req.body.id}
 	})
-    .catch(error => {
-    	console.log(error)
-    })
+	.then(jobResult => {
+		models.weekly_meals.update({
+		member_ID: null,
+		member_name: null,
+		is_taken: false,
+	}, {
+		where: {member_ID: req.body.id}
+	})
+	.then(mealResult => {
+		models.member.destroy({where: {id: req.body.id}})
+	})
+	.then(memberResult => {res.json(memberResult)})
+    .catch(error => {console.log(error)})
+	})
+});
+
+router.post('/toggleadmin', function(req, res) {
+	if(req.body.admin === false) {
+		models.member.update({
+		admin: true
+	}, {
+		where: {id: req.body.id}
+	})
+	.then(result => {res.json(result)})
+    .catch(error => {console.log(error)})
+	} else {
+		models.member.update({
+		admin: false
+	}, {
+		where: {id: req.body.id}
+	})
+	.then(result => {res.json(result)})
+    .catch(error => {console.log(error)})
+	}
 });
 
 

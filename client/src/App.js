@@ -10,6 +10,7 @@ import MemberSignIn from "./pages/MemberSignIn";
 import MemberSignUp from "./pages/MemberSignUp";
 import Homepage from "./pages/Homepage";
 import JobSignUp from "./pages/JobSignUp";
+import MemberPage from "./pages/MemberPage";
 // import SignOutBtn from "./components/SignOutBtn";
 // import API from "./utils/API";
 
@@ -24,6 +25,7 @@ const App = () => (
    		   	<Route exact path="/signup" component={MemberSignUp} />
    		   	<Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/jobsignup/date/:id" component={JobSignUp} />
+          <Route exact path="/memberpage" component={MemberPage} />
         </Switch> 
     </div>
   </Router>

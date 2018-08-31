@@ -185,7 +185,7 @@ class Dashboard extends Component {
 				      				<li><Link to="/updateinfo">Update Your Personal Info</Link></li>
 				      				<li><Link to="/Forum">Forum</Link></li>
 				      				{this.state.admin ? (
-				      					<li><Link to="/memberlist">Member List</Link></li>
+				      					<li><Link to="/memberpage">Member List</Link></li>
 				      				) : (null)}
 				      			</ul>
 				      			{this.state.admin ? (
