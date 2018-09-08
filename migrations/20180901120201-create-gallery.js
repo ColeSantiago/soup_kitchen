@@ -1,17 +1,20 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('member_statuses', {
+    return queryInterface.createTable('galleries', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      member_ID: {
+      photo_link: {
+        type: Sequelize.STRING
+      },
+      likes: {
         type: Sequelize.INTEGER
       },
-      online: {
+      dashboard: {
         type: Sequelize.BOOLEAN
       },
       createdAt: {
@@ -25,6 +28,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('member_statuses');
+    return queryInterface.dropTable('galleries');
   }
 };

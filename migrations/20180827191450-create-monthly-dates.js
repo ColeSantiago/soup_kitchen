@@ -11,9 +11,6 @@ module.exports = {
       date: {
         type: Sequelize.DATEONLY
       },
-      month: {
-        type: Sequelize.STRING
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

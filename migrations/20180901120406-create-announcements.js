@@ -1,24 +1,18 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('forum_comments', {
+    return queryInterface.createTable('announcements', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      forumId: {
-        type: Sequelize.INTEGER
-      },
-      comment: {
-        type: Sequelize.BLOB
-      },
-      memberId: {
-        type: Sequelize.INTEGER
-      },
-      member_name: {
+      photo_link: {
         type: Sequelize.STRING
+      },
+      text: {
+        type: Sequelize.BLOB
       },
       createdAt: {
         allowNull: false,
@@ -31,6 +25,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('forum_comments');
+    return queryInterface.dropTable('announcements');
   }
 };

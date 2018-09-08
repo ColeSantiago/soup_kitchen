@@ -16,7 +16,7 @@ router.post('/signup', (req, res) => {
         last_name: req.body.last_name,
         phone_number: req.body.phone_number,
         email: req.body.email,
-        parish:req.body.parish,
+        affiliation:req.body.parish,
         password: req.body.password
     })
     .then(member => {
@@ -97,91 +97,91 @@ router.post('/createdate', function(req, res) {
 	.then(date => {
 		let jobs = [
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	job: "Iced Tea Replenisher",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	job: "Iced Tea Replenisher",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	job: "Coffee/Tea Station",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	job: "Bread Station",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	job: "Food Tray Station",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	job: "Dessert Station",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	job: "Dessert Station",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	job: "Ticket Person",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	job: "Oven Station",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	job: "Hall Moniter/Take Home Bread",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	job: "Sink Station Dryer",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	job: "Hot Food Server",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	job: "Hot Food Server",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	job: "Hot Food Server",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	job: "Salad Server",
 		    	date: date.date,
 		    	is_taken: false
@@ -190,31 +190,31 @@ router.post('/createdate', function(req, res) {
 
 		let meals = [
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	meal: "Friday Bread Pickup: Judickes Bakery 7:30-7:45pm",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	meal: "Friday Bread Pickup: Paulantos Bakery 8:15-8:30pm",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	meal: "Saturday Bread Pickup: Vincent & Antonio's Bakery 2:30pm",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	meal: "One Gallon Milk",
 		    	date: date.date,
 		    	is_taken: false
 			},
 			{
-				date_ID: date.id,
+				monthlyDateId: date.id,
 		    	meal: "Two Bags Pretzels",
 		    	date: date.date,
 		    	is_taken: false
@@ -231,11 +231,11 @@ router.post('/createdate', function(req, res) {
 
 router.post('/deletedate', function(req, res) {
 	models.weekly_jobs.destroy({
-		where: {date_ID: req.body.id}
+		where: {monthlyDateId: req.body.id}
 	})
 	.then(jobResult => {
 		models.weekly_meals.destroy({
-			where: {date_ID: req.body.id}
+			where: {monthlyDateId: req.body.id}
 		})
 		.then( mealResult => {
 			models.monthly_dates.destroy({
@@ -251,28 +251,28 @@ router.get('/jobsignup/date/:id', function(req, res) {
 	if (req.session.user && req.cookies.user_cole) {
 		models.weekly_jobs.findAll({
 			where: {
-				date_ID: req.params.id,
+				monthlyDateId: req.params.id,
 				is_taken: false
 			} 
 		})
 		.then(jobsNeededResult => {
 			models.weekly_jobs.findAll({
 				where: {
-					date_ID: req.params.id,
+					monthlyDateId: req.params.id,
 					is_taken: true
 				}
 			})
 			.then(jobsTakenResult => {
 				models.weekly_meals.findAll({
 					where: {
-						date_ID: req.params.id,
+						monthlyDateId: req.params.id,
 						is_taken: false
 					}
 				})
 				.then(mealsNeededResult => {
 					models.weekly_meals.findAll({
 						where: {
-							date_ID: req.params.id,
+							monthlyDateId: req.params.id,
 							is_taken: true
 						}
 					})
@@ -296,7 +296,7 @@ router.get('/jobsignup/date/:id', function(req, res) {
 
 router.post('/jobsignup', function(req, res) {
 	models.weekly_jobs.update({
-        member_ID: req.body.member_ID,
+        memberId: req.body.member_ID,
         member_name: req.body.member_name,
         is_taken: true
     }, {
@@ -308,7 +308,7 @@ router.post('/jobsignup', function(req, res) {
 
 router.post('/jobunsignup', function(req, res) {
 	models.weekly_jobs.update({
-		member_ID: null,
+		memberId: null,
         member_name: null,
         is_taken: false
     }, {
@@ -326,7 +326,7 @@ router.post('/deletejob', function(req, res) {
 
 router.post('/mealsignup', function(req, res) {
 	models.weekly_meals.update({
-        member_ID: req.body.member_ID,
+        memberId: req.body.member_ID,
         member_name: req.body.member_name,
         is_taken: true
     }, {
@@ -338,7 +338,7 @@ router.post('/mealsignup', function(req, res) {
 
 router.post('/mealunsignup', function(req, res) {
 	models.weekly_meals.update({
-		member_ID: null,
+		memberId: null,
         member_name: null,
         is_taken: false
     }, {
@@ -350,17 +350,13 @@ router.post('/mealunsignup', function(req, res) {
 
 router.post('/deletemeal', function(req, res) {
 	models.weekly_meals.destroy({where: {id: req.body.id}})
-	.then(result => {
-		res.json(result)
-	})
-    .catch(error => {
-    	console.log(error)
-    })
+	.then(result => {res.json(result)})
+    .catch(error => {console.log(error)})
 });
 
 router.post('/createmeal', function(req, res) {
 	models.weekly_meals.create({
-		date_ID: req.body.date_ID,
+		monthlyDateId: req.body.date_ID,
 	    meal: req.body.meal,
 	    date: req.body.date,
 	    is_taken: false
@@ -379,9 +375,7 @@ router.get('/memberpage', function(req, res) {
             	members: result
 			})
 		})
-		.catch(error => {
-	    	console.log(error)
-	    })
+		.catch(error => {console.log(error)})
 	} else {
 		res.json({login_status: false})
 	}
@@ -390,19 +384,19 @@ router.get('/memberpage', function(req, res) {
 
 router.post('/deletemember', function(req, res) {
 	models.weekly_jobs.update({
-		member_ID: null,
+		memberId: null,
 		member_name: null,
 		is_taken: false,
 	}, {
-		where: {member_ID: req.body.id}
+		where: {memberId: req.body.id}
 	})
 	.then(jobResult => {
 		models.weekly_meals.update({
-		member_ID: null,
+		memberId: null,
 		member_name: null,
 		is_taken: false,
 	}, {
-		where: {member_ID: req.body.id}
+		where: {memberId: req.body.id}
 	})
 	.then(mealResult => {
 		models.member.destroy({where: {id: req.body.id}})
@@ -431,6 +425,29 @@ router.post('/toggleadmin', function(req, res) {
     .catch(error => {console.log(error)})
 	}
 });
+
+router.get('/gallery', function(req, res) {
+	models.gallery.findAll()
+	.then(galleryResult => {
+		res.json({
+			gallery: galleryResult,
+			user: req.session.user
+		})
+	})
+	.catch(error => {console.log(error)})
+});
+
+router.post('/savephoto', function(req, res) {
+	models.gallery.create({
+		photo_link: req.body.photo_link,
+		likes: 0,
+		dashboard: false
+	})
+	.then(result => {res.json(result)})
+	.catch(error => {console.log(error)})
+});
+
+
 
 
 module.exports = router;

@@ -11,10 +11,9 @@ import MemberSignUp from "./pages/MemberSignUp";
 import Homepage from "./pages/Homepage";
 import JobSignUp from "./pages/JobSignUp";
 import MemberPage from "./pages/MemberPage";
+import Gallery from "./pages/Gallery";
 // import SignOutBtn from "./components/SignOutBtn";
 // import API from "./utils/API";
-
-
 
 const App = () => (
   <Router>
@@ -26,6 +25,7 @@ const App = () => (
    		   	<Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/jobsignup/date/:id" component={JobSignUp} />
           <Route exact path="/memberpage" component={MemberPage} />
+          <Route exact path="/gallery" component={Gallery} />
         </Switch> 
     </div>
   </Router>

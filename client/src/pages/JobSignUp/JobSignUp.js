@@ -227,7 +227,7 @@ class JobSignUp extends Component {
                                                     ))}
                                                 </List>
                                             ) : (
-                                                    null
+                                                    <p>All Jobs are signed up for. Thank You!</p>
                                                 )}
                                         </div>
                                         <div className="jobsTaken-div">
@@ -241,7 +241,7 @@ class JobSignUp extends Component {
                                                             title={jobTaken.job}
                                                             takenBy={jobTaken.member_name} 
                                                         >
-                                                        {this.state.user.id === jobTaken.member_ID ? (
+                                                        {this.state.user.id === jobTaken.memberId ? (
                                                             <IconButton tooltip="Nevermind" touch={true} tooltipPosition="top-right">
                                                                 <BlockIcon className="job-sign-up-btn" onClick={() => this.jobUnSignUp(jobTaken.id)}/>
                                                             </IconButton>
@@ -291,7 +291,7 @@ class JobSignUp extends Component {
                                                         ))}
                                                     </List>
                                                 ) : (
-                                                        null
+                                                        <p>All Meals are signed up for. Thank You!</p>
                                                     )}
                                             </div>
                                             <div className="mealsTaken-div">
@@ -305,7 +305,7 @@ class JobSignUp extends Component {
                                                                     title={mealTaken.meal}
                                                                     takenBy={mealTaken.member_name} 
                                                                 >
-                                                                {this.state.user.id === mealTaken.member_ID ? (
+                                                                {this.state.user.id === mealTaken.memberId ? (
                                                                     <IconButton tooltip="Nevermind" touch={true} tooltipPosition="top-right">
                                                                         <BlockIcon className="job-meal-up-btn" onClick={() => this.mealUnSignUp(mealTaken.id)}/>
                                                                     </IconButton>

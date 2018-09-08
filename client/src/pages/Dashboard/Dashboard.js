@@ -10,6 +10,8 @@ import DatePicker from 'material-ui/DatePicker';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { Input } from "../../components/CreateMealForm";
+// import IconButton from 'material-ui/IconButton';
 
 class Dashboard extends Component {
 	state = {
@@ -19,6 +21,8 @@ class Dashboard extends Component {
 		member: [],
 		newDate: null,
 		user: [],
+		announcmentText: "",
+		announcment: ""
 	};
 	
 	componentDidMount() {
@@ -42,12 +46,12 @@ class Dashboard extends Component {
 	};
 
 	// handles form input
-  	handleInputChange = (event, date) => {
+  	handleCalInputChange = (event, date) => {
   		this.setState({newDate: date})
 	};
 
 	// handles form submit to create a date
-  	handleFormSubmit = event => {
+  	handleCalFormSubmit = event => {
 	    API.createDate({
             newDate: this.state.newDate,
           })
@@ -77,6 +81,23 @@ class Dashboard extends Component {
 	    this.loadDates();
 	};
 
+	// handles form input
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+          [name]: value
+        });
+    };
+
+    handleFormSubmit = () => {
+    	if(this.state.announcmentText) {
+    		this.setState({
+    			announcment: this.state.announcmentText,
+    			announcmentText: ""
+    		})
+    	}
+    };
+
 	render() {
 	    return (
 	    	<MuiThemeProvider>
@@ -96,6 +117,7 @@ class Dashboard extends Component {
 				      				consequat a. Maecenas elementum ex tristique arcu accumsan, eu ultricies nulla porttitor. 
 				      				Morbi a rhoncus elit. Pellentesque ullamcorper nec mi at commodo
 				      			</p>
+				      			<p>{this.state.announcment}</p>
 			      			</div>
 			      			{this.state.admin ? (
 				      			<div className="admin-div">
@@ -183,7 +205,8 @@ class Dashboard extends Component {
 				      			<ul>
 				      				<li><Link to="/"><SignOutBtn onClick={() => API.logoutMember()} /></Link></li>
 				      				<li><Link to="/updateinfo">Update Your Personal Info</Link></li>
-				      				<li><Link to="/Forum">Forum</Link></li>
+				      				<li><Link to="/forum">Forum</Link></li>
+				      				<li><Link to="/gallery">Photo Gallery</Link></li>
 				      				{this.state.admin ? (
 				      					<li><Link to="/memberpage">Member List</Link></li>
 				      				) : (null)}
@@ -193,15 +216,26 @@ class Dashboard extends Component {
 					      				<form>
 						      				<DatePicker 
 						      					value={this.state.newDate}
-						      					onChange={this.handleInputChange} 
+						      					onChange={this.handleCalInputChange} 
 						      					hintText="Add Another Saturday" 
 						      					mode="landscape"
 						      					shouldDisableDate={this.disableDays}
 						      				/>
 						      				<FloatingActionButton mini={true}>
-                                                <ContentAdd onClick={this.handleFormSubmit} />
+                                                <ContentAdd onClick={this.handleCalFormSubmit} />
                                             </FloatingActionButton>
 					      				</form>
+					      				<form className="add-meal-form">
+                                            <Input
+                                                value={this.state.announcmentText}
+                                                onChange={this.handleInputChange}
+                                                name="announcmentText"
+                                                floatingLabelText="Update Announcment"
+                                            />
+                                            <FloatingActionButton mini={true}>
+                                              <ContentAdd onClick={this.handleFormSubmit} />
+                                            </FloatingActionButton>
+                                        </form>
 					      			</div>
 				      			) : (null)}
 				      		</div>

@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const forum_comments = sequelize.define('forum_comments', {
-    forum_ID: DataTypes.INTEGER,
+    forumId: DataTypes.INTEGER,
     comment: {
       type: DataTypes.BLOB,
       allowNull: false,
@@ -12,13 +12,13 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     }, 
-    member_ID: DataTypes.INTEGER,
+    memberId: DataTypes.INTEGER,
     member_name: DataTypes.STRING
   }, {});
   forum_comments.associate = function(models) {
     // associations can be defined here
-    forum_comments.belongsTo(models.forum_topics, {foreignKey : 'forum_ID'});
-    forum_comments.belongsTo(models.member, {foreignKey : 'member_ID'});
+    forum_comments.belongsTo(models.forum_topics, {foreignKey : 'forumId'});
+    forum_comments.belongsTo(models.member, {foreignKey : 'memberId'});
   };
   return forum_comments;
 };

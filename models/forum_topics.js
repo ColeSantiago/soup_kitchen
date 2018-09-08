@@ -21,12 +21,12 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    member_ID: DataTypes.INTEGER,
+    memberId: DataTypes.INTEGER,
     member_name: DataTypes.STRING
   }, {});
   forum_topics.associate = function(models) {
     // associations can be defined here
-    forum_topics.belongsTo(models.member, {foreignKey : 'member_ID'});
+    forum_topics.belongsTo(models.member, {foreignKey : 'memberId'});
     forum_topics.hasMany(models.forum_comments);
   };
   return forum_topics;

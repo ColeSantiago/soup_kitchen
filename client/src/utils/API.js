@@ -62,4 +62,10 @@ export default {
   	toggleAdmin: function(memberInfo) {
   		return axios.post("/api/kitchen/toggleadmin", memberInfo)
   	},
+    loadGallery: function() {
+      return axios.get("/api/kitchen/gallery")
+    },
+    savePhoto: function(photoInfo) {
+      return axios.post("/api/kitchen/savephoto", photoInfo)
+    },
 };

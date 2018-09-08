@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
     },
-    parish: {
+    affiliation: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -68,7 +68,6 @@ module.exports = (sequelize, DataTypes) => {
     member.hasOne(models.weekly_jobs);
     member.hasMany(models.forum_topics);
     member.hasMany(models.forum_comments);
-    member.hasOne(models.member_status);
   };
   return member;
 };

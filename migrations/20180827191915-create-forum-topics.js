@@ -14,7 +14,7 @@ module.exports = {
       message: {
         type: Sequelize.BLOB
       },
-      member_ID: {
+      memberId: {
         type: Sequelize.INTEGER
       },
       member_name: {

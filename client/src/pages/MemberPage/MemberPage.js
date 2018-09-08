@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
-// import { Input, SignInBtn } from "../../components/SignInForm";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import PersonIcon from '@material-ui/icons/Person';
 import MailIcon from '@material-ui/icons/Mail';
@@ -12,6 +11,20 @@ import MenuIcon from '@material-ui/icons/Menu';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Subheader from 'material-ui/Subheader';
 import {List, ListItem} from 'material-ui/List';
+import IconButton from 'material-ui/IconButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
+
+const styles = {
+  mediumIcon: {
+    width: 48,
+    height: 48,
+  },
+  medium: {
+    width: 96,
+    height: 96,
+    padding: 24,
+  },
+};
 
 class MemberPage extends Component {
     state = {
@@ -59,24 +72,19 @@ class MemberPage extends Component {
         .catch(err => console.log(err));
     };
 
-    // // handles form input
-    // handleInputChange = event => {
-    //     const { name, value } = event.target;
-    //     this.setState({
-    //         [name]: value
-    //     });
-    // };
-
-    // // form submit to login user and set the states to true
-    // handleFormSubmit(event) {
-
-    // };
-
     render() {
         return(
             <MuiThemeProvider>
             	{this.state.login_status === true ? (
                     <div className="member-div">
+                        <Link to="/dashboard">
+                            <IconButton
+                              iconStyle={styles.mediumIcon}
+                              style={styles.medium}
+                            >
+                                <ActionHome />
+                            </IconButton>
+                        </Link>
                         {this.state.members.length ? (
                             <List>
                                 <Subheader>Members</Subheader>

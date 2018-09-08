@@ -8,13 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      date_ID: {
+      monthlyDateId: {
         type: Sequelize.INTEGER
       },
       job: {
         type: Sequelize.STRING
       },
-      member_ID: {
+      memberId: {
         type: Sequelize.INTEGER
       },
       member_name: {
