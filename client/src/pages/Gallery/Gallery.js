@@ -37,7 +37,7 @@ class Gallery extends Component {
 			uploadedFileCloudinaryUrl: "",
 			gallery: [],
 			user: [],
-			admin: true,
+			admin: false,
 			open: false,
 			photoLimit: 10,
 			loading: false
@@ -60,8 +60,6 @@ class Gallery extends Component {
 			})
 		})
 		.catch(err => console.log(err));
-
-		console.log(this.state.gallery)
 	};
 
 	// loads 10 more photos to the dashboard when clicked

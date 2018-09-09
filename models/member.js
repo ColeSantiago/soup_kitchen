@@ -22,10 +22,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING,
-      unique: {
-        args: true,
-        msg: "Email is already in use"
-      },
       allowNull: false,
       validate: {
         isEmail: {
@@ -49,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     admin: DataTypes.BOOLEAN
-  }, {
+  },{
       hooks: {
         beforeCreate: (member) => {
         const salt = bcrypt.genSaltSync();

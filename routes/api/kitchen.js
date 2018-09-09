@@ -11,28 +11,37 @@ router.get('/signup', (req, res) => {
 });
 
 router.post('/signup', (req, res) => {
-    models.member.create({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        phone_number: req.body.phone_number,
-        email: req.body.email,
-        affiliation:req.body.parish,
-        password: req.body.password
-    })
-    .then(member => {
-    	if (member) {
-        	res.json({allowSignIn: true});
-        } else {
-        	res.json({allowSignIn: false});
-        }
-    })
-    .catch(error => {
-    	console.log(error.errors[0].message);
-        res.json({
-        	allowSignIn: false,
-        	errorMsg: error.errors[0].message
-        });
-    });
+	models.member.findOne({where: {email: req.body.email } }).then(function(email) {
+		if(email) {
+			res.json({
+				errorMsg: "Email is already in use",
+				allowSignIn: false
+			})
+		} else {
+		    models.member.create({
+		        first_name: req.body.first_name,
+		        last_name: req.body.last_name,
+		        phone_number: req.body.phone_number,
+		        email: req.body.email,
+		        affiliation:req.body.parish,
+		        password: req.body.password
+		    })
+		    .then(member => {
+		    	if (member) {
+		        	res.json({allowSignIn: true});
+		        } else {
+		        	res.json({allowSignIn: false});
+		        }
+		    })
+		    .catch(error => {
+		    	console.log(error.errors[0].message);
+		        res.json({
+		        	allowSignIn: false,
+		        	errorMsg: error.errors[0].message
+		        });
+		    });
+		}
+	});
 });
 
 // route for member Login
@@ -443,6 +452,12 @@ router.post('/savephoto', function(req, res) {
 		likes: 0,
 		dashboard: false
 	})
+	.then(result => {res.json(result)})
+	.catch(error => {console.log(error)})
+});
+
+router.post('/deletephoto', function(req, res) {
+	models.gallery.destroy({ where: {id: req.body.id}})
 	.then(result => {res.json(result)})
 	.catch(error => {console.log(error)})
 });

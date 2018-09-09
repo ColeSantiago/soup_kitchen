@@ -68,4 +68,7 @@ export default {
     savePhoto: function(photoInfo) {
       return axios.post("/api/kitchen/savephoto", photoInfo)
     },
+    deletePhoto: function(photoId) {
+      return axios.post("/api/kitchen/deletephoto", photoId)
+    },
 };

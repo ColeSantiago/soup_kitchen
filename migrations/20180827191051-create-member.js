@@ -28,10 +28,6 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
-        unique: {
-        args: true,
-        msg: "Email is already in use"
-        },
         allowNull: false,
         validate: {
           isEmail: {
