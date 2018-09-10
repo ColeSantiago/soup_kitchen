@@ -471,19 +471,26 @@ router.get('/updateinfo', function(req, res) {
 });
 
 router.post('/updateinfo', function(req, res) {
-	// console.log(req.body.password)
-	models.member.update({
-		first_name: req.body.first_name,
-		last_name: req.body.last_name,
-		email: req.body.email,
-		phone_number: req.body.phone_number,
-		affiliation: req.body.affiliation,
-		password: req.body.password
-	}, {
-		where: {id: req.body.id}
-	})
-	.then(result => {res.json(result)})
-    .catch(error => {res.json({errorMsg: error.errors[0].message})})
+	models.member.findOne({where: {email: req.body.email } }).then(function(email) {
+		if(email && email.id !== req.body.id) {
+			res.json({
+				errorMsg: "Email is already in use"
+			})
+		} else {
+			models.member.update({
+				first_name: req.body.first_name,
+				last_name: req.body.last_name,
+				email: req.body.email,
+				phone_number: req.body.phone_number,
+				affiliation: req.body.affiliation,
+				password: req.body.password
+			}, {
+				where: {id: req.body.id}
+			})
+			.then(result => {res.json(result)})
+		    .catch(error => {res.json({errorMsg: error.errors[0].message})})
+    	}
+    })
 });
 
 

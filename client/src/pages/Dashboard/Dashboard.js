@@ -205,7 +205,10 @@ class Dashboard extends Component {
 				      			<ul>
 				      				<li><Link to="/"><SignOutBtn onClick={() => API.logoutMember()} /></Link></li>
 				      				<li><Link to="/updateinfo">Update Your Personal Info</Link></li>
-				      				<li><Link to="/forum">Forum</Link></li>
+				      				{
+				      					/*Forum Link
+				      					<li><Link to="/forum">Forum</Link></li>*/
+				      				}
 				      				<li><Link to="/gallery">Photo Gallery</Link></li>
 				      				{this.state.admin ? (
 				      					<li><Link to="/memberpage">Member List</Link></li>

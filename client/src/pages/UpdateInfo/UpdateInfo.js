@@ -86,11 +86,12 @@ class MemberSignUp extends Component {
                 this.setState({
                     errorMsg: res.data.errorMsg
                 })
-                alert("Your info has been updated")
-                this.loadUpdate();
                 if (this.state.errorMsg) {
                    alert(this.state.errorMsg) 
-                }   
+                } else {
+                    alert("Your info has been updated")
+                    this.loadUpdate();
+                }  
             })
             .catch(err => console.log(err));
         } else {

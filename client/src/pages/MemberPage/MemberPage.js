@@ -110,7 +110,7 @@ class MemberPage extends Component {
                                         />,
                                         <ListItem
                                             key={3}
-                                            primaryText={member.parish}
+                                            primaryText={member.affiliation}
                                             leftIcon={<LocationCityIcon />}
                                             disabled={true}
                                         />,
