@@ -10,8 +10,6 @@ import DatePicker from 'material-ui/DatePicker';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { Input } from "../../components/CreateMealForm";
-// import IconButton from 'material-ui/IconButton';
 
 class Dashboard extends Component {
 	state = {
@@ -21,17 +19,22 @@ class Dashboard extends Component {
 		member: [],
 		newDate: null,
 		user: [],
-		announcmentText: "",
-		announcment: ""
+		announcementText: "",
+		announcement: ""
 	};
 	
 	componentDidMount() {
+		this.loadDashboard();
+	};
+
+	loadDashboard = () => {
 		API.loadDashboard()
     	.then(res => {
     		this.setState({
     			login_status: res.data.login_status,
     			user: res.data.user,
-    			admin: res.data.user.admin
+    			admin: res.data.user.admin,
+    			announcement: res.data.announcement[0].text
     		})
    		})
     	.catch(err => console.log(err));
@@ -90,11 +93,19 @@ class Dashboard extends Component {
     };
 
     handleFormSubmit = () => {
-    	if(this.state.announcmentText) {
-    		this.setState({
-    			announcment: this.state.announcmentText,
-    			announcmentText: ""
+    	if(this.state.announcementText) {
+    		let announcementText = {
+    			text: this.state.announcementText
+    		}
+    		API.updateAnnouncement(announcementText)
+    		.then(res => { 
+    			this.setState({
+	    			announcementText: "",
+	    			announcement: res.data.text
+	    		})
+    			this.loadDashboard()
     		})
+    		.catch(err => console.log(err));
     	}
     };
 
@@ -117,7 +128,7 @@ class Dashboard extends Component {
 				      				consequat a. Maecenas elementum ex tristique arcu accumsan, eu ultricies nulla porttitor. 
 				      				Morbi a rhoncus elit. Pellentesque ullamcorper nec mi at commodo
 				      			</p>
-				      			<p>{this.state.announcment}</p>
+				      			<p>{this.state.announcement}</p>
 			      			</div>
 			      			{this.state.admin ? (
 				      			<div className="admin-div">
@@ -229,11 +240,10 @@ class Dashboard extends Component {
                                             </FloatingActionButton>
 					      				</form>
 					      				<form className="add-meal-form">
-                                            <Input
-                                                value={this.state.announcmentText}
+                                            <textarea
+                                                value={this.state.announcementText}
                                                 onChange={this.handleInputChange}
-                                                name="announcmentText"
-                                                floatingLabelText="Update Announcment"
+                                                name="announcementText"
                                             />
                                             <FloatingActionButton mini={true}>
                                               <ContentAdd onClick={this.handleFormSubmit} />

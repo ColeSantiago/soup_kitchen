@@ -89,11 +89,15 @@ router.get('/dashboard', function(req, res) {
     if (req.session.user && req.cookies.user_cole) {
         models.monthly_dates.findAll()
         .then(function(dateResults){
-        	res.json({
-        		dates: dateResults, 
-        		login_status: true,
-        		user: req.session.user
-        	})
+        	models.announcements.findAll()
+        	.then(function(announcementResults) {
+        		res.json({
+	        		dates: dateResults, 
+	        		login_status: true,
+	        		user: req.session.user,
+	        		announcement: announcementResults
+	        	})
+        	})	
         })
     } else {
         res.json({login_status: false});
@@ -491,6 +495,20 @@ router.post('/updateinfo', function(req, res) {
 		    .catch(error => {res.json({errorMsg: error.errors[0].message})})
     	}
     })
+});
+
+router.post('/updateannouncement', function(req, res) {
+	console.log(req.body)
+	models.announcements.destroy({where: {}})
+	.then(result => {
+		models.announcements.create({
+			text: req.body.text
+		})
+		.then(announcementResult => {
+			res.json(announcementResult)
+		})
+		.catch(error => {console.log(error)})
+	})
 });
 
 
