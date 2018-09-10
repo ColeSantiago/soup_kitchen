@@ -71,4 +71,10 @@ export default {
     deletePhoto: function(photoId) {
       return axios.post("/api/kitchen/deletephoto", photoId)
     },
+    loadUpdate: function() {
+      return axios.get("/api/kitchen/updateinfo")
+    },
+    updateInfo: function(memberId) {
+      return axios.post("api/kitchen/updateinfo", memberId)
+    },
 };

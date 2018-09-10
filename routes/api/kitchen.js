@@ -24,7 +24,8 @@ router.post('/signup', (req, res) => {
 		        phone_number: req.body.phone_number,
 		        email: req.body.email,
 		        affiliation:req.body.parish,
-		        password: req.body.password
+		        password: req.body.password,
+		        admin: false
 		    })
 		    .then(member => {
 		    	if (member) {
@@ -462,7 +463,28 @@ router.post('/deletephoto', function(req, res) {
 	.catch(error => {console.log(error)})
 });
 
+router.get('/updateinfo', function(req, res) {
+	models.member.findOne({where: {id: req.session.user.id}}).then(function(member) {
+		res.json({user: member})
+	})
+	.catch(error => {console.log(error)})
+});
 
+router.post('/updateinfo', function(req, res) {
+	// console.log(req.body.password)
+	models.member.update({
+		first_name: req.body.first_name,
+		last_name: req.body.last_name,
+		email: req.body.email,
+		phone_number: req.body.phone_number,
+		affiliation: req.body.affiliation,
+		password: req.body.password
+	}, {
+		where: {id: req.body.id}
+	})
+	.then(result => {res.json(result)})
+    .catch(error => {res.json({errorMsg: error.errors[0].message})})
+});
 
 
 module.exports = router;

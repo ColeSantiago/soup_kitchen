@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Dropzone from "react-dropzone";
 import request from "superagent";
 
@@ -15,9 +15,8 @@ import Snackbar from 'material-ui/Snackbar';
 // import CircularProgress from 'material-ui/CircularProgress';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 
-// cloudinary info
-// const CLOUDINARY_UPLOAD_PRESET = "a5flcvfp";
-// const CLOUDINARY_UPLOAD_URL = "https://api.cloudinary.com/v1_1/colee/image/upload";
+import IconButton from 'material-ui/IconButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
 
 const style = {
   container: {
@@ -26,6 +25,15 @@ const style = {
   refresh: {
     display: 'inline-block',
     position: 'relative',
+  },
+  mediumIcon: {
+    width: 48,
+    height: 48,
+  },
+  medium: {
+    width: 96,
+    height: 96,
+    padding: 24,
   },
 };
 
@@ -127,7 +135,7 @@ class Gallery extends Component {
 					photo_link: response.body.secure_url,
 				}
 				API.savePhoto(photoData)
-				.then(res => console.log(res))
+				.then(res => console.log('Photo Uploaded'))
 				.catch(err => console.log(err));
 			}
 			this.handleClick();
@@ -139,6 +147,14 @@ class Gallery extends Component {
 		return (
 			<MuiThemeProvider>
 				<div>
+					<Link to="/dashboard">
+                        <IconButton
+                          iconStyle={style.mediumIcon}
+                          style={style.medium}
+                        >
+                            <ActionHome />
+                        </IconButton>
+                    </Link>
 					{this.state.admin ? (
 						<div className="dropzone-div">
 							<Dropzone

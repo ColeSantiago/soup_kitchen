@@ -48,11 +48,16 @@ module.exports = (sequelize, DataTypes) => {
   },{
       hooks: {
         beforeCreate: (member) => {
-        const salt = bcrypt.genSaltSync();
-        member.password = bcrypt.hashSync(member.password, salt);
+          const salt = bcrypt.genSaltSync();
+          member.password = bcrypt.hashSync(member.password, salt);
+        },
+        beforeBulkUpdate: (member) => {
+          const salt = bcrypt.genSaltSync();
+          member.attributes.password = bcrypt.hashSync(member.attributes.password, salt);
+        }
       }
-    },
-  });
+    }
+  );
 
   member.prototype.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
