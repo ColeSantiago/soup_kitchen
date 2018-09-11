@@ -33,9 +33,13 @@ class Dashboard extends Component {
     		this.setState({
     			login_status: res.data.login_status,
     			user: res.data.user,
-    			admin: res.data.user.admin,
-    			announcement: res.data.announcement[0].text
+    			admin: res.data.user.admin
     		})
+    		if (res.data.announcement[0] === undefined) {
+    			this.setState({announcement: ""})
+    		} else {
+    			this.setState({announcement: res.data.announcement[0].text})	
+    		}
    		})
     	.catch(err => console.log(err));
     	this.loadDates();

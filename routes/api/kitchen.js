@@ -2,6 +2,7 @@ const axios = require("axios");
 const router = require("express").Router();
 const models = require("../../models/index.js");
 const nodemailer = require("nodemailer");
+const crypto = require('crypto');
 
 // route for member signup
 router.get('/signup', (req, res) => {
@@ -10,7 +11,7 @@ router.get('/signup', (req, res) => {
 	}
 });
 
-router.post(`/signup/${process.env.REACT_APP_SIGNUP_TOKEN}`, (req, res) => {
+router.post('/signup/', (req, res) => {
 	models.member.findOne({where: {email: req.body.email } }).then(function(email) {
 		if(email) {
 			res.json({
@@ -33,6 +34,7 @@ router.post(`/signup/${process.env.REACT_APP_SIGNUP_TOKEN}`, (req, res) => {
 		        } else {
 		        	res.json({allowSignIn: false});
 		        }
+		        sendWelcomeEmail(member);
 		    })
 		    .catch(error => {
 		    	console.log(error.errors[0].message);
@@ -516,6 +518,49 @@ router.post('/requestsignup', function(req, res) {
 	res.json({applied: true})
 });
 
+router.post('/forgotpassword', function(req, res) {
+	crypto.randomBytes(20, (err, buf) => {
+  		if (err) throw err;
+  		let token = `${buf.toString('hex')}`
+
+  		models.member.findOne({where: {email: req.body.email}})
+		.then(member => {
+			if(member) {
+				sendForgotEmail(member, token);
+			} else {
+				console.log('No member found');
+			}	
+		})
+	});
+});
+
+function sendWelcomeEmail(newUser){
+    let transporter = nodemailer.createTransport({
+      	host: 'smtp.gmail.com',
+      	auth: {
+      		type: 'OAuth2',
+	        user: "thebayonnesoupkitchen@gmail.com",
+	        clientId: process.env.REACT_API_CLIENT_ID,
+	        clientSecret: process.env.REACT_API_SECRET,
+	        refreshToken: process.env.REACT_API_REFRESH_TOKEN,
+	        accessToken: process.env.REACT_API_ACCESS_TOKEN
+      	}
+    });
+
+    let mailOptions = {
+      from: "thebayonnesoupkitchen@gmail.com",
+      to: `${newUser.email}`,
+      subject: `Welcome to the Bayonne Soup Kitchen!`,
+      text: `Hello ${newUser.first_name}! Thank you for signing up for the Bayonne Soup Kitchen Website. -Staff`
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } 
+    });
+};
+
 function sendRequestEmail(newUserRequest){
     let transporter = nodemailer.createTransport({
       	host: 'smtp.gmail.com',
@@ -535,6 +580,35 @@ function sendRequestEmail(newUserRequest){
       subject: `New Member Request from ${newUserRequest.first_name} ${newUserRequest.last_name}`,
       text: `${newUserRequest.first_name} ${newUserRequest.last_name} has requested to sign up for the Bayonne Soup Kitchen.
       		If approved please send sign up email to: ${newUserRequest.email}`
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } 
+    });
+};
+
+function sendForgotEmail(member, token){
+    let transporter = nodemailer.createTransport({
+      	host: 'smtp.gmail.com',
+      	auth: {
+      		type: 'OAuth2',
+	        user: "thebayonnesoupkitchen@gmail.com",
+	        clientId: process.env.REACT_API_CLIENT_ID,
+	        clientSecret: process.env.REACT_API_SECRET,
+	        refreshToken: process.env.REACT_API_REFRESH_TOKEN,
+	        accessToken: process.env.REACT_API_ACCESS_TOKEN
+      	}
+    });
+
+    let mailOptions = {
+      from: "thebayonnesoupkitchen@gmail.com",
+      to: member.email,
+      subject: "Password Reset Request",
+      text: `You are receiving this because you (or someone else) have requested the reset of your password for you Bayonne Soup Kitchen account. 
+      \n Please click on the following link, or paste this into your browser to complete the process: \n http://localhost:3000/resetpassword/${token} \n
+      If you did not request this, please ignore this email and your password will remain unchanged.`
     };
 
     transporter.sendMail(mailOptions, function(error, info){

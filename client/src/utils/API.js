@@ -83,4 +83,7 @@ export default {
   requestSignUp: function(requestInfo) {
     return axios.post("/api/kitchen/requestsignup", requestInfo)
   },
+  forgotPassword: function(emailInfo) {
+    return axios.post("/api/kitchen/forgotpassword", emailInfo)
+  },
 };

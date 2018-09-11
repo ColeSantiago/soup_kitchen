@@ -70,13 +70,17 @@ class MemberSignIn extends Component {
                                     type="password"
                                 />
                                 <SignInBtn className="sign-in" type="submit" />
+                                <Link className="to-forgot-password" to="/forgotpassword">
+                                  Forgot Password
+                               </Link>
                             </form>
                         </div> 
-                    	) : ( <Link className="to-dashboard" to="/dashboard">
-                    		Login Successful. Click here to go to your Dashboard
-                    	</Link>
-                	)}
-
+                    	) : ( 
+                                <Link className="to-dashboard" to="/dashboard">
+                    		      Login Successful. Click here to go to your Dashboard
+                    	       </Link>
+                	       )
+                    }
                 </MuiThemeProvider>
             </div>
         );
