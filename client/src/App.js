@@ -24,7 +24,7 @@ const App = () => (
             <Switch>
             	<Route exact path="/" component={Homepage} />
        		   	<Route exact path="/signin" component={MemberSignIn} />
-       		   	<Route exact path="/signup/" component={MemberSignUp} />
+       		   	<Route exact path="/signup/:token" component={MemberSignUp} />
        		   	<Route exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/jobsignup/date/:id" component={JobSignUp} />
                 <Route exact path="/memberpage" component={MemberPage} />
@@ -32,7 +32,7 @@ const App = () => (
                 <Route exact path="/updateinfo" component={UpdateInfo} />
                 <Route exact path="/requestsignup" component={RequestSignUp} />
                 <Route exact path="/forgotpassword" component={ForgotPassword} />
-                <Route exact path="/resetpassword" component={ResetPassword} />
+                <Route exact path="/resetpassword/:token" component={ResetPassword} />
             </Switch> 
         </div>
     </Router>

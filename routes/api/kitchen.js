@@ -5,13 +5,17 @@ const nodemailer = require("nodemailer");
 const crypto = require('crypto');
 
 // route for member signup
-router.get('/signup', (req, res) => {
-	if(req.session.user && req.cookies.user_cole) {
-        res.json({allowSignIn: true});
+router.get('/signup/:token', (req, res) => {
+	if(req.params.token === process.env.REACT_API_SIGNUP_TOKEN && req.session.user && req.cookies.user_cole) {
+		res.json({allowSignIn: true})	
+	} else if (req.params.token === process.env.REACT_API_SIGNUP_TOKEN) {
+		res.json({allowSignUp: true, allowSignIn: false})
+	} else {
+		res.json({allowSignUp: false})
 	}
 });
 
-router.post('/signup/', (req, res) => {
+router.post('/signup', (req, res) => {
 	models.member.findOne({where: {email: req.body.email } }).then(function(email) {
 		if(email) {
 			res.json({
@@ -44,7 +48,7 @@ router.post('/signup/', (req, res) => {
 		        });
 		    });
 		}
-	});
+	});	
 });
 
 // route for member Login
@@ -479,9 +483,7 @@ router.get('/updateinfo', function(req, res) {
 router.post('/updateinfo', function(req, res) {
 	models.member.findOne({where: {email: req.body.email } }).then(function(email) {
 		if(email && email.id !== req.body.id) {
-			res.json({
-				errorMsg: "Email is already in use"
-			})
+			res.json({errorMsg: "Email is already in use"})
 		} else {
 			models.member.update({
 				first_name: req.body.first_name,
@@ -524,14 +526,54 @@ router.post('/forgotpassword', function(req, res) {
   		let token = `${buf.toString('hex')}`
 
   		models.member.findOne({where: {email: req.body.email}})
-		.then(member => {
-			if(member) {
-				sendForgotEmail(member, token);
+		.then(memberFound => {
+			if(memberFound) {
+				models.member.update({
+					resetPasswordToken: token,
+					resetPasswordExpires: Date.now() + 3600000
+				}, {
+					where: {id: memberFound.id}
+				})
+				.then(results => {
+					res.json({requested: true, noEmail: false})
+					sendForgotEmail(memberFound, token);
+				})
+				.catch(error => {console.log(error)})
 			} else {
+				res.json({requested: true, noEmail: true})
 				console.log('No member found');
 			}	
 		})
 	});
+});
+
+router.get('/resetpassword/:token', function(req, res) {
+	models.member.findOne({ where: {resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now()} }})
+	.then(memberFound => {
+		if (memberFound) {
+			res.json({
+				member: memberFound,
+				allowReset: true
+			});
+		} else {
+			res.json({
+				errorMsg: 'Page Expired'
+			})
+		}
+	})
+});
+
+router.post('/resetpassword', function(req, res) {
+	models.member.update({
+		password: req.body.password
+	}, {
+		where: {id: req.body.member.id}
+	})
+	.then(result => {
+		res.json({changed: true})
+		sendConfirmChangeEmail(req.body.member);
+	})
+	.catch(error => {console.log(error)})	
 });
 
 function sendWelcomeEmail(newUser){
@@ -609,6 +651,34 @@ function sendForgotEmail(member, token){
       text: `You are receiving this because you (or someone else) have requested the reset of your password for you Bayonne Soup Kitchen account. 
       \n Please click on the following link, or paste this into your browser to complete the process: \n http://localhost:3000/resetpassword/${token} \n
       If you did not request this, please ignore this email and your password will remain unchanged.`
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } 
+    });
+};
+
+function sendConfirmChangeEmail(member){
+    let transporter = nodemailer.createTransport({
+      	host: 'smtp.gmail.com',
+      	auth: {
+      		type: 'OAuth2',
+	        user: "thebayonnesoupkitchen@gmail.com",
+	        clientId: process.env.REACT_API_CLIENT_ID,
+	        clientSecret: process.env.REACT_API_SECRET,
+	        refreshToken: process.env.REACT_API_REFRESH_TOKEN,
+	        accessToken: process.env.REACT_API_ACCESS_TOKEN
+      	}
+    });
+
+    let mailOptions = {
+      from: "thebayonnesoupkitchen@gmail.com",
+      to: member.email,
+      subject: "Your Password Has Been Changed",
+      text: `Hello \n This is a confirmation that the password for your account ${member.email} with the Bayonne Soup Kitchen has been changed \n 
+      If you did not make this change please contact an Admin of the Soup Kitchen as soon as possible.`
     };
 
     transporter.sendMail(mailOptions, function(error, info){

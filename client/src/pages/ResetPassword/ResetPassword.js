@@ -9,76 +9,97 @@ class ResetPassword extends Component {
     state = {
         password: "",
         confirmPassword: "",
-        changed: false
+        member: [],
+        allowReset: false,
+        changed: false,
+        errorMsg: ""
     };
 
     componentDidMount() {
-    
+        this.loadResetPassword();
     };
 
-  // handles form input
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
-
-  // handles form submit to create a user
-  handleFormSubmit = event => {
-    if(this.state.password === this.state.confirmPassword) {
-        let passwordInfo = {
-            password: this.state.password,
-        }
-        API.requestSignUp(passwordInfo)
+    loadResetPassword = () => {
+        API.loadResetPassword(this.props.match.params.token)
         .then(res => {
             this.setState({
-                password: "",
-                confirmPassword: "",
+                member: res.data.member,
+                allowReset: res.data.allowReset
             })
+            if(res.data.errorMsg) {
+                this.setState({errorMsg: res.data.errorMsg})
+            }
         })
-        .catch(err => console.log(err));
-    } else {
-        alert("Passwords do not match")
-    }
-  };
+    };
+    // handles form input
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        });
+    };
 
-  render() {
-    return (
-      <div>
-        <MuiThemeProvider>
+    // handles form submit to create a user
+    handleFormSubmit = event => {
+        if(this.state.password === this.state.confirmPassword) {
+            let passwordInfo = {
+                member: this.state.member,
+                password: this.state.password,
+            }
+            API.changePassword(passwordInfo)
+            .then(res => {
+                this.setState({
+                    password: "",
+                    confirmPassword: "",
+                    changed: res.data.changed,
+                })
+            })
+            .catch(err => console.log(err));
+        } else {
+            alert("Passwords do not match")
+        }
+    };
+
+    render() {
+        return (
             <div>
-                {this.state.changed === false ? (
+                <MuiThemeProvider>
                     <div>
-                        <p>Reset your password below</p>
-                        <form className="request-form">
-                            <Input
-                                value={this.state.password}
-                                onChange={this.handleInputChange}
-                                name="password"
-                                type="password"
-                                floatingLabelText="New Password"
-                          />
-                          <Input
-                                value={this.state.confirmPassword}
-                                onChange={this.handleInputChange}
-                                name="confirmPassword"
-                                type="password"
-                                floatingLabelText="Confirm Password"
-                          />
-                            <RequestBtn onClick={this.handleFormSubmit} />
-                        </form>
+                        {this.state.allowReset === true ? (
+                            <div>
+                                {this.state.changed === false ? (
+                                    <div>
+                                        <p>Reset your password below</p>
+                                        <form className="request-form">
+                                            <Input
+                                                value={this.state.password}
+                                                onChange={this.handleInputChange}
+                                                name="password"
+                                                type="password"
+                                                floatingLabelText="New Password"
+                                          />
+                                          <Input
+                                                value={this.state.confirmPassword}
+                                                onChange={this.handleInputChange}
+                                                name="confirmPassword"
+                                                type="password"
+                                                floatingLabelText="Confirm Password"
+                                          />
+                                            <RequestBtn onClick={this.handleFormSubmit} />
+                                        </form>
+                                    </div>
+                                ) : (
+                                        <p>Your password has been updated.<Link to="/signin"> Click here </Link>
+                                        to sign in.</p>
+                                    )
+                                }
+                            </div>
+                        ) : (<p>{this.state.errorMsg}</p>)}
                     </div>
-                ) : (
-                        <p>Your password has been updated.<Link to="/signin">Click here </Link>
-                        to sign in.</p>
-                    )
-                }
-            </div>
-        </MuiThemeProvider>
-      </div> 
-    );
-  }
+                </MuiThemeProvider>
+            </div> 
+        );
+    }
 }
 
 export default ResetPassword;

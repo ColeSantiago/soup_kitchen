@@ -2,8 +2,8 @@ import axios from "axios";
 
 // directs the client side info and functions to the server
 export default {
-	loadSignUp: function() {
-		return axios.get("/api/kitchen/signup");
+	loadSignUp: function(token) {
+		return axios.get("/api/kitchen/signup/" + token);
 	},
 	loadSignIn: function() {
 		return axios.get("/api/kitchen/signin");
@@ -85,5 +85,11 @@ export default {
   },
   forgotPassword: function(emailInfo) {
     return axios.post("/api/kitchen/forgotpassword", emailInfo)
+  },
+  loadResetPassword: function(token) {
+    return axios.get("/api/kitchen/resetpassword/" + token)
+  },
+  changePassword: function(newPasswordInfo) {
+    return axios.post("/api/kitchen/resetpassword", newPasswordInfo)
   },
 };

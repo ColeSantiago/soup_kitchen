@@ -29,7 +29,8 @@ const style = {
 class ForgotPassword extends Component {
     state = {
         email: "",
-        requested: false
+        requested: false,
+        noEmail: false
     };
 
     // handles form input
@@ -49,7 +50,8 @@ class ForgotPassword extends Component {
             API.forgotPassword(resetInfo)
             .then(res => {
                 this.setState({
-                    requested: res.data.applied
+                    requested: res.data.requested,
+                    noEmail: res.data.noEmail
                 })
             })
             .catch(err => console.log(err));
@@ -84,9 +86,16 @@ class ForgotPassword extends Component {
                                 </form>
                             </div>
                         ) : (
-                                <p>You have submitted a request to change your password. If your email exists in our 
-                                records you will receive further directions.<Link to="/">Click here </Link>
-                                to go back to our HomePage.</p>
+                                <div>
+                                    {this.state.noEmail === false ? (
+                                        <p>You have submitted a request to change your password. If your email exists in our 
+                                        records you will receive further directions.<Link to="/">Click here </Link>
+                                        to go back to our HomePage.</p>
+                                    ) : (
+                                            <p>No email found. <Link to="/signin">Go Back</Link> </p>
+                                        )
+                                    }
+                                </div>
                             )
                         }
                     </div>
