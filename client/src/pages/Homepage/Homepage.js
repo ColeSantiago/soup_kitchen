@@ -23,8 +23,8 @@ class Homepage extends Component {
     				<Link className="login-link" to="/signin">
                         Member Log In
                     </Link>
-                    <Link className="request-link" to="/signup">
-                        Request a Log In(need to fix)
+                    <Link className="request-link" to="/requestsignup">
+                        Request a Log In
                     </Link>
     			</nav>
     				<header>

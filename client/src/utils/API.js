@@ -80,4 +80,7 @@ export default {
   updateAnnouncement: function(announcementInfo) {
     return axios.post("/api/kitchen/updateannouncement", announcementInfo)
   },
+  requestSignUp: function(requestInfo) {
+    return axios.post("/api/kitchen/requestsignup", requestInfo)
+  },
 };

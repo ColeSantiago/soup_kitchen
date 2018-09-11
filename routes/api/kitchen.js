@@ -10,7 +10,7 @@ router.get('/signup', (req, res) => {
 	}
 });
 
-router.post('/signup', (req, res) => {
+router.post(`/signup/${process.env.REACT_APP_SIGNUP_TOKEN}`, (req, res) => {
 	models.member.findOne({where: {email: req.body.email } }).then(function(email) {
 		if(email) {
 			res.json({
@@ -510,6 +510,39 @@ router.post('/updateannouncement', function(req, res) {
 		.catch(error => {console.log(error)})
 	})
 });
+
+router.post('/requestsignup', function(req, res) {
+	sendRequestEmail(req.body)
+	res.json({applied: true})
+});
+
+function sendRequestEmail(newUserRequest){
+    let transporter = nodemailer.createTransport({
+      	host: 'smtp.gmail.com',
+      	auth: {
+      		type: 'OAuth2',
+	        user: "thebayonnesoupkitchen@gmail.com",
+	        clientId: process.env.REACT_API_CLIENT_ID,
+	        clientSecret: process.env.REACT_API_SECRET,
+	        refreshToken: process.env.REACT_API_REFRESH_TOKEN,
+	        accessToken: process.env.REACT_API_ACCESS_TOKEN
+      	}
+    });
+
+    let mailOptions = {
+      from: "thebayonnesoupkitchen@gmail.com",
+      to: "thebayonnesoupkitchen@gmail.com",
+      subject: `New Member Request from ${newUserRequest.first_name} ${newUserRequest.last_name}`,
+      text: `${newUserRequest.first_name} ${newUserRequest.last_name} has requested to sign up for the Bayonne Soup Kitchen.
+      		If approved please send sign up email to: ${newUserRequest.email}`
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } 
+    });
+};
 
 
 module.exports = router;

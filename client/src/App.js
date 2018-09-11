@@ -13,6 +13,7 @@ import JobSignUp from "./pages/JobSignUp";
 import MemberPage from "./pages/MemberPage";
 import Gallery from "./pages/Gallery";
 import UpdateInfo from "./pages/UpdateInfo";
+import RequestSignUp from "./pages/RequestSignUp";
 // import API from "./utils/API";
 
 const App = () => (
@@ -21,12 +22,13 @@ const App = () => (
         <Switch>
         	<Route exact path="/" component={Homepage} />
    		   	<Route exact path="/signin" component={MemberSignIn} />
-   		   	<Route exact path="/signup" component={MemberSignUp} />
+   		   	<Route exact path="/signup/:token" component={MemberSignUp} />
    		   	<Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/jobsignup/date/:id" component={JobSignUp} />
           <Route exact path="/memberpage" component={MemberPage} />
           <Route exact path="/gallery" component={Gallery} />
           <Route exact path="/updateinfo" component={UpdateInfo} />
+          <Route exact path="/requestsignup" component={RequestSignUp} />
         </Switch> 
     </div>
   </Router>
