@@ -1,12 +1,15 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import API from "../../utils/API";
-import { Input, RequestBtn } from "../../components/RequestForm";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import API from '../../utils/API';
+// components
+import { Input, RequestBtn } from '../../components/RequestForm';
+// material ui
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
-// import "./RequestSignUp.css";
+// import './RequestSignUp.css';
 
+// styles for icons
 const style = {
   container: {
     position: 'relative',
@@ -28,7 +31,7 @@ const style = {
 
 class ForgotPassword extends Component {
     state = {
-        email: "",
+        email: '',
         requested: false,
         noEmail: false
     };
@@ -43,7 +46,7 @@ class ForgotPassword extends Component {
 
     // handles form submit to create a user
     handleFormSubmit = event => {
-        if(this.state.email !== "") {
+        if(this.state.email !== '') {
             let resetInfo = {
                 email: this.state.email,
             }
@@ -65,7 +68,7 @@ class ForgotPassword extends Component {
                     <div>
                         {this.state.requested === false ? (
                             <div>
-                                <Link to="/">
+                                <Link to='/'>
                                     <IconButton
                                       iconStyle={style.mediumIcon}
                                       style={style.medium}
@@ -74,12 +77,12 @@ class ForgotPassword extends Component {
                                     </IconButton>
                                 </Link>
                                 <h1>Forgot Password</h1>
-                                <form className="forgot-form">
+                                <form className='forgot-form'>
                                     <Input
                                         value={this.state.email}
                                         onChange={this.handleInputChange}
-                                        name="email"
-                                        floatingLabelText="Email"
+                                        name='email'
+                                        floatingLabelText='Email'
                                         floatingLabelFixed={true}
                                     />
                                     <RequestBtn onClick={this.handleFormSubmit} />
@@ -89,10 +92,10 @@ class ForgotPassword extends Component {
                                 <div>
                                     {this.state.noEmail === false ? (
                                         <p>You have submitted a request to change your password. If your email exists in our 
-                                        records you will receive further directions.<Link to="/">Click here </Link>
+                                        records you will receive further directions.<Link to='/'>Click here </Link>
                                         to go back to our HomePage.</p>
                                     ) : (
-                                            <p>No email found. <Link to="/signin">Go Back</Link> </p>
+                                            <p>No email found. <Link to='/signin'>Go Back</Link> </p>
                                         )
                                     }
                                 </div>

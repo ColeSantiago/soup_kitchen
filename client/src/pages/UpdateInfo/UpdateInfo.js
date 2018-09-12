@@ -1,12 +1,15 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import API from "../../utils/API";
-import { Input, UpdateBtn } from "../../components/UpdateForm";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import PhoneInput from "react-phone-number-input/basic-input";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import API from '../../utils/API';
+// import './SignUp.css';
+// component
+import { Input, UpdateBtn } from '../../components/UpdateForm';
+// material ui
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
-// import "./SignUp.css";
+// phone input
+import PhoneInput from 'react-phone-number-input/basic-input';
 
 const style = {
   container: {
@@ -29,14 +32,14 @@ const style = {
 
 class MemberSignUp extends Component {
     state = {
-        first_name: "",
-        last_name: "",
-        email: "",
-        affiliation: "",
-        password: "",
-        confirmPassword: "",
-        value: "",
-        errorMsg: "",
+        first_name: '',
+        last_name: '',
+        email: '',
+        affiliation: '',
+        password: '',
+        confirmPassword: '',
+        value: '',
+        errorMsg: '',
         user: []
     };
 
@@ -44,6 +47,7 @@ class MemberSignUp extends Component {
         this.loadUpdate();
     };
 
+    // loads page with users info
     loadUpdate = () => {
         API.loadUpdate()
             .then(res => {this.setState({
@@ -53,130 +57,131 @@ class MemberSignUp extends Component {
                 value: `${res.data.user.phone_number}`,
                 email: res.data.user.email,
                 affiliation: res.data.user.affiliation,
-                password: "",
-                confirmPassword: "",
+                password: '',
+                confirmPassword: '',
             })
         })
         .catch(err => console.log(err));
     };
 
-  // handles form input
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
+    // handles form input
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        });
+    };
 
-  // handles form submit to create a user
-  handleFormSubmit = event => {
-    if(this.state.first_name && this.state.last_name && this.state.value && this.state.email && this.state.affiliation && this.state.password !== "") {
-        if (this.state.password === this.state.confirmPassword) {
-            let newUserInfo = {
-                id: this.state.user.id,
-                first_name: this.state.first_name,
-                last_name: this.state.last_name,
-                phone_number:this.state.value,
-                email: this.state.email,
-                affiliation: this.state.affiliation,
-                password: this.state.password,
-            }
-            API.updateInfo(newUserInfo)
-            .then(res => {
-                this.setState({
-                    errorMsg: res.data.errorMsg
+    // handles form submit to updates a users info
+    handleFormSubmit = event => {
+        if(this.state.first_name && this.state.last_name && this.state.value && this.state.email && this.state.affiliation && this.state.password !== '') {
+            if (this.state.password === this.state.confirmPassword) {
+                let newUserInfo = {
+                    id: this.state.user.id,
+                    first_name: this.state.first_name,
+                    last_name: this.state.last_name,
+                    phone_number:this.state.value,
+                    email: this.state.email,
+                    affiliation: this.state.affiliation,
+                    password: this.state.password,
+                }
+                API.updateInfo(newUserInfo)
+                .then(res => {
+                    this.setState({
+                        errorMsg: res.data.errorMsg
+                    })
+                    if (this.state.errorMsg) {
+                       alert(this.state.errorMsg) 
+                    } else {
+                        alert('Your info has been updated')
+                        this.loadUpdate();
+                    }  
                 })
-                if (this.state.errorMsg) {
-                   alert(this.state.errorMsg) 
-                } else {
-                    alert("Your info has been updated")
-                    this.loadUpdate();
-                }  
-            })
-            .catch(err => console.log(err));
+                .catch(err => console.log(err));
+            } else {
+                alert ('Your passwords do not match');
+            }
         } else {
-            alert ("Your passwords do not match");
+            alert('Please make sure all areas are filled out correctly')
         }
-    } else {
-        alert("Please make sure all areas are filled out correctly")
-    }
-  };
+    };
 
-  render() {
-    return (
-      <div>
-        <MuiThemeProvider>
-            {this.state.user !== null ? (
-                <div>
-                    <Link to="/dashboard">
-                        <IconButton
-                          iconStyle={style.mediumIcon}
-                          style={style.medium}
-                        >
-                            <ActionHome />
-                        </IconButton>
-                    </Link>
-                    <form className="sign-up-form">
-                        <Input
-                            value={this.state.first_name}
-                            onChange={this.handleInputChange}
-                            name="first_name"
-                            floatingLabelText="First Name"
-                            floatingLabelFixed={true}
-                        />
-                        <Input
-                            value={this.state.last_name}
-                            onChange={this.handleInputChange}
-                            name="last_name"
-                            floatingLabelText="Last Name"
-                            floatingLabelFixed={true}
-                          />
-                        <PhoneInput
-                            country="US"
-                            placeholder="Phone Number"
-                            value={this.state.value}
-                            onChange={ value => this.setState({ value }) }
-                        />
-                        <Input
-                            value={this.state.email}
-                            onChange={this.handleInputChange}
-                            name="email"
-                            floatingLabelText="Email"
-                            floatingLabelFixed={true}
-                        />
-                        <Input
-                            value={this.state.affiliation}
-                            onChange={this.handleInputChange}
-                            name="affiliation"
-                            floatingLabelText="Affiliation"
-                            floatingLabelFixed={true}
-                        />
-                        <Input
-                            value={this.state.password}
-                            onChange={this.handleInputChange}
-                            name="password"
-                            type="password"
-                            floatingLabelText="Password"
-                            floatingLabelFixed={true}
-                        />
-                        <Input
-                            value={this.state.confirmPassword}
-                            onChange={this.handleInputChange}
-                            name="confirmPassword"
-                            type="password"
-                            floatingLabelText="Confirm Password"
-                            floatingLabelFixed={true}
-                        />
-                        <UpdateBtn onClick={this.handleFormSubmit} />
-                    </form>
-                </div>
-            ) : (
-                    <div>Please <Link to="/signin">sign in</Link> to see this page</div>
-                )}
-        </MuiThemeProvider>
-      </div> 
-    );
-  }
+    render() {
+        return (
+            <div>
+                <MuiThemeProvider>
+                    {this.state.user !== null ? (
+                        <div>
+                            <Link to='/dashboard'>
+                                <IconButton
+                                  iconStyle={style.mediumIcon}
+                                  style={style.medium}
+                                >
+                                    <ActionHome />
+                                </IconButton>
+                            </Link>
+                            <form className='sign-up-form'>
+                                <Input
+                                    value={this.state.first_name}
+                                    onChange={this.handleInputChange}
+                                    name='first_name'
+                                    floatingLabelText='First Name'
+                                    floatingLabelFixed={true}
+                                />
+                                <Input
+                                    value={this.state.last_name}
+                                    onChange={this.handleInputChange}
+                                    name='last_name'
+                                    floatingLabelText='Last Name'
+                                    floatingLabelFixed={true}
+                                  />
+                                <PhoneInput
+                                    country='US'
+                                    placeholder='Phone Number'
+                                    value={this.state.value}
+                                    onChange={ value => this.setState({ value }) }
+                                />
+                                <Input
+                                    value={this.state.email}
+                                    onChange={this.handleInputChange}
+                                    name='email'
+                                    floatingLabelText='Email'
+                                    floatingLabelFixed={true}
+                                />
+                                <Input
+                                    value={this.state.affiliation}
+                                    onChange={this.handleInputChange}
+                                    name='affiliation'
+                                    floatingLabelText='Affiliation'
+                                    floatingLabelFixed={true}
+                                />
+                                <Input
+                                    value={this.state.password}
+                                    onChange={this.handleInputChange}
+                                    name='password'
+                                    type='password'
+                                    floatingLabelText='Password'
+                                    floatingLabelFixed={true}
+                                />
+                                <Input
+                                    value={this.state.confirmPassword}
+                                    onChange={this.handleInputChange}
+                                    name='confirmPassword'
+                                    type='password'
+                                    floatingLabelText='Confirm Password'
+                                    floatingLabelFixed={true}
+                                />
+                                <UpdateBtn onClick={this.handleFormSubmit} />
+                            </form>
+                        </div>
+                    ) : (
+                            <div>Please <Link to='/signin'>sign in</Link> to see this page</div>
+                        )
+                    }
+                </MuiThemeProvider>
+            </div> 
+        );
+    } 
 }
 
 export default MemberSignUp;

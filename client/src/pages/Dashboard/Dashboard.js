@@ -1,13 +1,16 @@
-import React, { Component } from "react";
-import API from "../../utils/API";
-import DashboardPhoto from "./images/600x400.png"
-import { List, ListItem } from "../../components/DatesList";
-import SignOutBtn from "../../components/SignOutBtn";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import React, { Component } from 'react';
+import API from '../../utils/API';
+import DashboardPhoto from './images/600x400.png'
+// components
+import { List, ListItem } from '../../components/DatesList';
+import SignOutBtn from '../../components/SignOutBtn';
+// material ui
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Divider from 'material-ui/Divider';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import DatePicker from 'material-ui/DatePicker';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+// icons
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
@@ -19,14 +22,15 @@ class Dashboard extends Component {
 		member: [],
 		newDate: null,
 		user: [],
-		announcementText: "",
-		announcement: ""
+		announcementText: '',
+		announcement: ''
 	};
 	
 	componentDidMount() {
 		this.loadDashboard();
 	};
 
+	// loads the user, checks for admin, and if theres an announcement
 	loadDashboard = () => {
 		API.loadDashboard()
     	.then(res => {
@@ -36,7 +40,7 @@ class Dashboard extends Component {
     			admin: res.data.user.admin
     		})
     		if (res.data.announcement[0] === undefined) {
-    			this.setState({announcement: ""})
+    			this.setState({announcement: ''})
     		} else {
     			this.setState({announcement: res.data.announcement[0].text})	
     		}
@@ -45,6 +49,7 @@ class Dashboard extends Component {
     	this.loadDates();
 	};
 
+	// loads dates if any
 	loadDates = () => {
 		API.loadDates()
 		.then(res => {
@@ -52,7 +57,7 @@ class Dashboard extends Component {
 		})
 	};
 
-	// handles form input
+	// handles form input for calender
   	handleCalInputChange = (event, date) => {
   		this.setState({newDate: date})
 	};
@@ -69,6 +74,7 @@ class Dashboard extends Component {
         this.setState({newDate: null})
 	};
 
+	// disables all days but saturdays for material ui calender
 	disableDays = (date) => {
   		return date.getDay() === 0 || 
   		date.getDay() === 1 || 
@@ -78,6 +84,7 @@ class Dashboard extends Component {
   		date.getDay() === 5;
 	};
 
+	// deletes date
 	deleteDate = (id) => {
 		let dateID = {
 			id: id
@@ -96,6 +103,7 @@ class Dashboard extends Component {
         });
     };
 
+    // submit for announcements
     handleFormSubmit = () => {
     	if(this.state.announcementText) {
     		let announcementText = {
@@ -104,7 +112,7 @@ class Dashboard extends Component {
     		API.updateAnnouncement(announcementText)
     		.then(res => { 
     			this.setState({
-	    			announcementText: "",
+	    			announcementText: '',
 	    			announcement: res.data.text
 	    		})
     			this.loadDashboard()
@@ -118,10 +126,10 @@ class Dashboard extends Component {
 	    	<MuiThemeProvider>
 		    	<div>
 			    	{this.state.login_status === true ? (
-			      		<div className="dashboard-wrapper">
-			      			<div className="dashboard-message">
-				      			<img className="dashboard-photo" alt="dashboard" src={DashboardPhoto} />
-				      			<p className="dashboard-paragraph">
+			      		<div className='dashboard-wrapper'>
+			      			<div className='dashboard-message'>
+				      			<img className='dashboard-photo' alt='dashboard' src={DashboardPhoto} />
+				      			<p className='dashboard-paragraph'>
 				      				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut magna eros. 
 				      				Vivamus semper ex non nisl iaculis euismod. Quisque pulvinar enim eu ligula mattis 
 				      				pharetra. Etiam nec rhoncus nibh, volutpat rhoncus elit. Ut id rhoncus ante. 
@@ -135,9 +143,9 @@ class Dashboard extends Component {
 				      			<p>{this.state.announcement}</p>
 			      			</div>
 			      			{this.state.admin ? (
-				      			<div className="admin-div">
+				      			<div className='admin-div'>
 				      				<h1>Admin Specific</h1>
-					      				<div className="Meal Outline">
+					      				<div className='Meal Outline'>
 					      					<ul>
 					      						<li>Meals for approximately 50 guests</li>
 					      						<br></br>
@@ -162,7 +170,7 @@ class Dashboard extends Component {
 					      						<li>2 bags of ice</li>
 					      					</ul>
 					      				</div>
-						      			<div className="schedule-div">
+						      			<div className='schedule-div'>
 						      				<h1>Weekly Schedule</h1>
 						      					<h2>Friday</h2>
 						      						<p>
@@ -176,10 +184,6 @@ class Dashboard extends Component {
 						      							<li>8:15 - Paulantos</li>
 						      						</ul>
 						      					<h2>Saturday</h2>
-						      						<ul>
-						      							<li>Pick up bread:</li>
-						      							<li>2:30pm - Vincent & Antonio's</li>
-						      						</ul>
 						      						<p>Arrive at Bayonne Soup Kitchen (All Saints Catholic Academy Cafeteria) at 3:00pm</p>
 						      						<ul>
 						      							<li>Set up 3:00pm - 4:00pm</li>
@@ -191,9 +195,9 @@ class Dashboard extends Component {
 						      			</div>
 				      			</div>
 			      			) : (null)}
-			      			<div className="dates-div">
-				      		 	<h1 className="date-heading">Upcoming Soup Kitchen Dates</h1>
-			                    <h2 className="date-sub-heading">Click a date to sign up for a job or a meal.</h2>
+			      			<div className='dates-div'>
+				      		 	<h1 className='date-heading'>Upcoming Soup Kitchen Dates</h1>
+			                    <h2 className='date-sub-heading'>Click a date to sign up for a job or a meal.</h2>
 				      			{this.state.dates.length ? (
 			                        <List>
 			                            {this.state.dates.map(date => (
@@ -202,52 +206,48 @@ class Dashboard extends Component {
 				                                id={date.id} 
 				                                title={date.date} 
 				                            >
-				                          	{this.state.admin ? (
-			                            		<DeleteForeverIcon className="delete-date" onClick={() => this.deleteDate(date.id)}/>
-			                            	) : (
-			                            			null
-												)}
+					                          	{this.state.admin ? (
+				                            		<DeleteForeverIcon className='delete-date' onClick={() => this.deleteDate(date.id)}/>
+				                            	) : (null)}
 				                              	<Divider />
 				                            </ListItem>
 			                            ))}
 			                        </List>
-			                    ) : (
-			                        	null
-			                        )}
+			                    ) : (null)}
 				      		</div>
-				      		<div className="sidebar">
+				      		<div className='sidebar'>
 				      			<h2>Welcome {this.state.user.first_name}!</h2>
 				      			<ul>
-				      				<li><Link to="/"><SignOutBtn onClick={() => API.logoutMember()} /></Link></li>
-				      				<li><Link to="/updateinfo">Update Your Personal Info</Link></li>
+				      				<li><Link to='/'><SignOutBtn onClick={() => API.logoutMember()} /></Link></li>
+				      				<li><Link to='/updateinfo'>Update Your Personal Info</Link></li>
 				      				{
 				      					/*Forum Link
-				      					<li><Link to="/forum">Forum</Link></li>*/
+				      					<li><Link to='/forum'>Forum</Link></li>*/
 				      				}
-				      				<li><Link to="/gallery">Photo Gallery</Link></li>
+				      				<li><Link to='/gallery'>Photo Gallery</Link></li>
 				      				{this.state.admin ? (
-				      					<li><Link to="/memberpage">Member List</Link></li>
+				      					<li><Link to='/memberpage'>Member List</Link></li>
 				      				) : (null)}
 				      			</ul>
 				      			{this.state.admin ? (
-					      			<div className="date-pick-div">
+					      			<div className='date-pick-div'>
 					      				<form>
 						      				<DatePicker 
 						      					value={this.state.newDate}
 						      					onChange={this.handleCalInputChange} 
-						      					hintText="Add Another Saturday" 
-						      					mode="landscape"
+						      					hintText='Add Another Saturday' 
+						      					mode='landscape'
 						      					shouldDisableDate={this.disableDays}
 						      				/>
 						      				<FloatingActionButton mini={true}>
                                                 <ContentAdd onClick={this.handleCalFormSubmit} />
                                             </FloatingActionButton>
 					      				</form>
-					      				<form className="add-meal-form">
+					      				<form className='add-meal-form'>
                                             <textarea
                                                 value={this.state.announcementText}
                                                 onChange={this.handleInputChange}
-                                                name="announcementText"
+                                                name='announcementText'
                                             />
                                             <FloatingActionButton mini={true}>
                                               <ContentAdd onClick={this.handleFormSubmit} />
@@ -258,8 +258,9 @@ class Dashboard extends Component {
 				      		</div>
 			      		</div>
 			      	) : (
-			      		<div>Please <Link to="/signin">sign in</Link> to see this page</div>
-			    	)}
+			      		<div>Please <Link to='/signin'>sign in</Link> to see this page</div>
+			    		)
+			      	}
 			    </div>
 		    </MuiThemeProvider>
 	    );

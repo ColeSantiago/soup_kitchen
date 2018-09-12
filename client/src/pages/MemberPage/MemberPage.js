@@ -1,7 +1,13 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import API from "../../utils/API";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import API from '../../utils/API';
+// material ui
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {List, ListItem} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import IconButton from 'material-ui/IconButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
+// icons
 import PersonIcon from '@material-ui/icons/Person';
 import MailIcon from '@material-ui/icons/Mail';
 import CallIcon from '@material-ui/icons/Call';
@@ -9,10 +15,6 @@ import LocationCityIcon from '@material-ui/icons/LocationCity';
 import SchoolIcon from '@material-ui/icons/School';
 import MenuIcon from '@material-ui/icons/Menu';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import Subheader from 'material-ui/Subheader';
-import {List, ListItem} from 'material-ui/List';
-import IconButton from 'material-ui/IconButton';
-import ActionHome from 'material-ui/svg-icons/action/home';
 
 const styles = {
   mediumIcon: {
@@ -38,6 +40,7 @@ class MemberPage extends Component {
     	this.loadMemberPage();
     };
 
+    // loads all memebers with their info
     loadMemberPage = () => {
         API.loadMemberPage()
         .then(res => {this.setState({
@@ -49,6 +52,7 @@ class MemberPage extends Component {
         .catch(err => console.log(err));
     };
 
+    // delete memeber
     deleteMember = (id) => {
         let memberID = {
             id: id
@@ -60,6 +64,7 @@ class MemberPage extends Component {
         .catch(err => console.log(err));
     };
 
+    // change admin status
     toggleAdmin = (id, admin) => {
         let memberInfo = {
             id: id,
@@ -76,8 +81,8 @@ class MemberPage extends Component {
         return(
             <MuiThemeProvider>
             	{this.state.login_status === true ? (
-                    <div className="member-div">
-                        <Link to="/dashboard">
+                    <div className='member-div'>
+                        <Link to='/dashboard'>
                             <IconButton
                               iconStyle={styles.mediumIcon}
                               style={styles.medium}
@@ -122,20 +127,20 @@ class MemberPage extends Component {
                                         />,
                                         <ListItem
                                             key={5}
-                                            primaryText="Member Options"
+                                            primaryText='Member Options'
                                             leftIcon={<MenuIcon />}
                                             primaryTogglesNestedList={true}
                                             nestedItems={[
                                                 <ListItem
                                                     key={1}
-                                                    primaryText="Change Admin Status"
+                                                    primaryText='Change Admin Status'
                                                     primaryTogglesNestedList={true}
                                                     onClick={() => this.toggleAdmin(member.id, member.admin)}
                                                     leftIcon={<SchoolIcon />} 
                                                 />,
                                                 <ListItem
                                                     key={2}
-                                                    primaryText="Delete Member"
+                                                    primaryText='Delete Member'
                                                     primaryTogglesNestedList={true}
                                                     onClick={() => this.deleteMember(member.id)}
                                                     leftIcon={
@@ -151,9 +156,9 @@ class MemberPage extends Component {
                         ) : (null)}  
                     </div>
                 	) : (
-                            <div>Please <Link to="/signin">sign in</Link> to see this page, and confirm that you are an Admin.</div>
-                        )}
-
+                            <div>Please <Link to='/signin'>sign in</Link> to see this page, and confirm that you are an Admin.</div>
+                        )
+                    }
             </MuiThemeProvider>
         );
     }

@@ -1,20 +1,16 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import Dropzone from "react-dropzone";
-import request from "superagent";
-
-import API from "../../utils/API";
-// import "./Gallery.css";
-
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import API from '../../utils/API';
+// import './Gallery.css';
+// photo upload
+import Dropzone from 'react-dropzone';
+import request from 'superagent';
 // components
-import { PhotoList, PhotoListItem } from "../../components/PhotoListCollection";
-
+import { PhotoList, PhotoListItem } from '../../components/PhotoListCollection';
 // material ui
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Snackbar from 'material-ui/Snackbar';
-// import CircularProgress from 'material-ui/CircularProgress';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
-
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 
@@ -42,7 +38,7 @@ class Gallery extends Component {
 		super(props);
 
 		this.state = {
-			uploadedFileCloudinaryUrl: "",
+			uploadedFileCloudinaryUrl: '',
 			gallery: [],
 			user: [],
 			admin: false,
@@ -57,7 +53,7 @@ class Gallery extends Component {
 
 	};
 
-	// getting the current collection
+	// loading all photos
 	loadGallery = () => {
 		API.loadGallery()
 		.then(res =>  {
@@ -147,7 +143,7 @@ class Gallery extends Component {
 		return (
 			<MuiThemeProvider>
 				<div>
-					<Link to="/dashboard">
+					<Link to='/dashboard'>
                         <IconButton
                           iconStyle={style.mediumIcon}
                           style={style.medium}
@@ -156,10 +152,10 @@ class Gallery extends Component {
                         </IconButton>
                     </Link>
 					{this.state.admin ? (
-						<div className="dropzone-div">
+						<div className='dropzone-div'>
 							<Dropzone
 								multiple={false}
-								accept="image/*"
+								accept='image/*'
 								onDrop={this.onImageDrop.bind(this)}
 							>	
 								<div style={style.container}>
@@ -169,19 +165,18 @@ class Gallery extends Component {
 									      size={40}
 									      left={10}
 									      top={0}
-									      status="loading"
+									      status='loading'
 									      style={style.refresh}
 									    />
 										) : (
-												<p className="drop-text">Drop an image or click select a file to upload. </p>
-											)}
+												<p className='drop-text'>Drop an image or click select a file to upload. </p>
+											)
+										}
 								</div>
 							</Dropzone>    
 						</div>
-					) : (
-			                null
-						)}
-						<div className="gallery">
+					) : (null)}
+						<div className='gallery'>
 			                {this.state.gallery.length ? (
 			                    <PhotoList>
 			                        {this.state.gallery.slice(0, this.state.photoLimit).map(photo => (
@@ -192,24 +187,23 @@ class Gallery extends Component {
 			                            >
 			                            {this.state.admin ? (
 			                            	<div>
-			                            		<button className="delete" onClick={() => this.deletePhoto(photo.id)}>delete</button>
+			                            		<button className='delete' onClick={() => this.deletePhoto(photo.id)}>delete</button>
 			                            	</div>
-			                            	) : (
-			                            			null
-												)}
+			                            	) : (null)}
 			                            </PhotoListItem>
 			                        ))}
-			                        <button className="load-more-btn" onClick={this.loadMore.bind(this)}>
+			                        <button className='load-more-btn' onClick={this.loadMore.bind(this)}>
 	                                    Load More
 	                                </button>
 			                    </PhotoList>
 			                ) : (
 			                		<p>There are no photos yet!</p>
-			                	)}
+			                	)
+			            	}
 			            </div>
 		                <Snackbar
 		                  open={this.state.open}
-		                  message="Photo Uploaded"
+		                  message='Photo Uploaded'
 		                  autoHideDuration={4000}
 		                  onRequestClose={this.handleRequestClose}
 		                />

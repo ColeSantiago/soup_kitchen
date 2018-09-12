@@ -1,18 +1,20 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import API from "../../utils/API";
-import { Input, RequestBtn } from "../../components/RequestForm";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-// import "./RequestSignUp.css";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import API from '../../utils/API';
+// import './RequestSignUp.css';
+// component
+import { Input, RequestBtn } from '../../components/RequestForm';
+// material ui
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class ResetPassword extends Component {
     state = {
-        password: "",
-        confirmPassword: "",
+        password: '',
+        confirmPassword: '',
         member: [],
         allowReset: false,
         changed: false,
-        errorMsg: ""
+        errorMsg: ''
     };
 
     componentDidMount() {
@@ -39,7 +41,7 @@ class ResetPassword extends Component {
         });
     };
 
-    // handles form submit to create a user
+    // handles form submit to reset password
     handleFormSubmit = event => {
         if(this.state.password === this.state.confirmPassword) {
             let passwordInfo = {
@@ -49,14 +51,14 @@ class ResetPassword extends Component {
             API.changePassword(passwordInfo)
             .then(res => {
                 this.setState({
-                    password: "",
-                    confirmPassword: "",
+                    password: '',
+                    confirmPassword: '',
                     changed: res.data.changed,
                 })
             })
             .catch(err => console.log(err));
         } else {
-            alert("Passwords do not match")
+            alert('Passwords do not match')
         }
     };
 
@@ -70,26 +72,26 @@ class ResetPassword extends Component {
                                 {this.state.changed === false ? (
                                     <div>
                                         <p>Reset your password below</p>
-                                        <form className="request-form">
+                                        <form className='request-form'>
                                             <Input
                                                 value={this.state.password}
                                                 onChange={this.handleInputChange}
-                                                name="password"
-                                                type="password"
-                                                floatingLabelText="New Password"
+                                                name='password'
+                                                type='password'
+                                                floatingLabelText='New Password'
                                           />
                                           <Input
                                                 value={this.state.confirmPassword}
                                                 onChange={this.handleInputChange}
-                                                name="confirmPassword"
-                                                type="password"
-                                                floatingLabelText="Confirm Password"
+                                                name='confirmPassword'
+                                                type='password'
+                                                floatingLabelText='Confirm Password'
                                           />
                                             <RequestBtn onClick={this.handleFormSubmit} />
                                         </form>
                                     </div>
                                 ) : (
-                                        <p>Your password has been updated.<Link to="/signin"> Click here </Link>
+                                        <p>Your password has been updated.<Link to='/signin'> Click here </Link>
                                         to sign in.</p>
                                     )
                                 }
