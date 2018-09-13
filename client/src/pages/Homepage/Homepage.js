@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import SquadPhoto from './images/600x400.png';
+import './Homepage.css';
+// import SquadPhoto from './images/600x400.png';
 import LocationPhoto from './images/300x250.png';
+import FacebookPhoto from './images/facebook.png';
 import MapMarker from './images/marker.svg.png';
 import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+
+import MenuIcon from '@material-ui/icons/Menu';
+
+import ScrollAnimation from 'react-animate-on-scroll';
 
 const Map = ReactMapboxGl({
   accessToken: process.env.REACT_APP_MAP_API_KEY
@@ -11,26 +22,39 @@ const Map = ReactMapboxGl({
 
 const markerStyle = {
 	height: '50px'
-}
+};
 
 class Homepage extends Component {
 
   	render() {
     	return (
-    		<div>
-    			<nav>
-    				<Link className='login-link' to='/signin'>
-                        Member Log In
-                    </Link>
-                    <Link className='request-link' to='/requestsignup'>
-                        Request a Log In
-                    </Link>
-    			</nav>
-    				<header>
-		      			<h1 className='main-title'>Bayonne Soup Kitchen</h1>
-		      				<h2 className='sub-title'>Helping our neighbors in need</h2>
-		      			<img className='squad-photo' src={SquadPhoto} alt='squad' />
-		      		</header>
+    		<MuiThemeProvider>
+	    		<div className='homepage-div'>
+	    			<nav>
+	    				<p className='nav-p'>Are you a member or would like to become one? </p>
+	    				<IconMenu
+					      	iconButtonElement={<IconButton><MenuIcon /></IconButton>}
+					      	anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+					      	targetOrigin={{horizontal: 'left', vertical: 'top'}}
+					    >
+					    	<Link className='nav-link' to='/signin'>
+						      	<MenuItem primaryText='Member Log In'/>
+				          	</Link>
+				          	<Link className='nav-link' to='/requestsignup'>
+				          		<MenuItem primaryText='Request a Log In'/>
+				          	</Link>
+					    </IconMenu>
+				    </nav>
+				    <ScrollAnimation animateIn='fadeIn' animateOut='fadeOut'>
+	    				<header>
+	    					<ScrollAnimation animateIn='fadeIn' animateOut='fadeOut' delay={1000}> 
+		    					<div className='header-text'>
+				      				<h1 className='main-title'>Bayonne Soup Kitchen</h1>
+				      					<h2 className='sub-title'>Helping our neighbors in need</h2>
+				      			</div>
+			      			</ScrollAnimation>
+			      		</header>
+		      		</ScrollAnimation>
 			      		<div className='info'>
 			      			<p className='history'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eleifend. 
 			      			Aliquam erat volutpat. Nunc quis risus scelerisque, dictum justo id, cursus sapien. Aliquam 
@@ -42,33 +66,42 @@ class Homepage extends Component {
 			      			<p className='time'> We serve a meal every Saturday from 4pm to 5pm. </p>
 			      		</div>
 			      		<div className='location'>
-			      			<img className='location-photo' src={LocationPhoto} alt='location' />
 			      			<p className='address'>
-			      				All Saints Catholic Academy Cafeteria <br></br>
-			      				19 West 13th Street
-			      			</p> 
-			      			<Map
-			      				// eslint-disable-next-line
-							  	style='mapbox://styles/mapbox/streets-v9'
-							  	containerStyle={{
-							    	height: '400px',
-							    	width: '400px'
-							  	}}
-							  	center={[-74.125867, 40.65778]}
-							  	zoom={[14]}
-							>
-								<Marker
-									coordinates={[-74.125867, 40.65778]}
-									anchor='bottom'>
-									<img style={markerStyle} src={MapMarker} alt='marker'/>
-								</Marker>
-							</Map>
+				      			All Saints Catholic Academy Cafeteria <br></br>
+				      			19 West 13th Street
+				      		</p>
+			      			<div className='location-info'>
+				      			<img className='location-photo' src={LocationPhoto} alt='location' />
+				      			<Map
+				      				// eslint-disable-next-line
+								  	style='mapbox://styles/mapbox/streets-v9'
+								  	containerStyle={{
+								    	height: '400px',
+								    	width: '400px'
+								  	}}
+								  	center={[-74.125867, 40.65778]}
+								  	zoom={[14]}
+								>
+									<Marker
+										coordinates={[-74.125867, 40.65778]}
+										anchor='bottom'>
+										<img style={markerStyle} src={MapMarker} alt='marker'/>
+									</Marker>
+								</Map>
+							</div>
 			      		</div>
-			    <footer>
-			    	<p className='administration'>Administration: Blessed Miriam Teresa Parish</p>
-			    	<p className='made-by'>Made by <a rel='noopener noreferrer' target='_blank' href='https://colesantiago.github.io/portfolio/'>Cole</a></p>
-			    </footer>
-	    	</div>
+				    <footer>
+				    	<p className='administration'>Administration: Blessed Miriam Teresa Parish 
+				    		<a rel='noopener noreferrer' target='_blank' href='https://www.facebook.com/groups/126477214107724/about/'>
+				    			<img className='facebook-icon' src={FacebookPhoto} alt='facebook' />
+				    		</a>
+				    	</p>
+				    	<p className='made-by'>Made by 
+				    		<a className='made-by' rel='noopener noreferrer' target='_blank' href='https://colesantiago.github.io/portfolio/'> Cole</a>
+				    	</p>
+				    </footer>
+		    	</div>
+	    	</MuiThemeProvider>
     	);
   	}
 }
