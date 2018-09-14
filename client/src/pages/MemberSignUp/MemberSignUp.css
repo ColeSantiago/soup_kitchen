@@ -1,0 +1,19 @@
+.signup-h1 {
+	font-size: 20px;
+}
+
+.phone {
+	padding: 11px;
+    width: 76%;
+    margin-top: 35px;
+}
+
+.to-sign-in {
+	text-decoration: none;
+	color: black;
+	font-size: 30px;
+}
+
+.to-sign-in:hover {
+	color: gray;
+}

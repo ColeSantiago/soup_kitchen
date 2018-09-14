@@ -1,10 +1,36 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../../utils/API';
+import './MemberSignIn.css';
 // component
 import { Input, SignInBtn } from '../../components/SignInForm';
+import Footer from '../../components/Footer'
 // material ui
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import IconButton from 'material-ui/IconButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
+
+const style = {
+    container: {
+        position: 'relative',
+    },
+    refresh: {
+        display: 'inline-block',
+        position: 'relative',
+    },
+    mediumIcon: {
+        width: 48,
+        height: 48,
+    },
+    medium: {
+        width: 96,
+        height: 96,
+        padding: 24,
+    },
+    button: {
+        margin: 40
+    }
+};
 
 class MemberSignIn extends Component {
     state = {
@@ -49,11 +75,21 @@ class MemberSignIn extends Component {
 
     render() {
         return(
-            <div className='wrapper'>
-                <MuiThemeProvider>
+            <MuiThemeProvider>
+                <div>
                 	{this.state.login_status === false ? (
-                        <div className='sign-in-div'>
-                            <form className='sign-in-form' onSubmit={this.handleFormSubmit.bind(this)}>
+                        <div className='form-section'>
+                        <Link to='/'>
+                            <IconButton
+                                className='home-icon'
+                                iconStyle={style.mediumIcon}
+                                style={style.medium}
+                            >
+                                <ActionHome />
+                            </IconButton>
+                        </Link>
+                        <div className='form-wrapper'>
+                            <form className='form' onSubmit={this.handleFormSubmit.bind(this)}>
                                 <Input
                                     value={this.state.email}
                                     onChange={this.handleInputChange}
@@ -71,20 +107,24 @@ class MemberSignIn extends Component {
                                     name='password'
                                     type='password'
                                 />
-                                <SignInBtn className='sign-in' type='submit' />
+                                <SignInBtn style={style.button} type='submit' />
                                 <Link className='to-forgot-password' to='/forgotpassword'>
                                   Forgot Password
                                </Link>
                             </form>
+                            </div>
                         </div> 
                     	) : ( 
-                                <Link className='to-dashboard' to='/dashboard'>
-                    		      Login Successful. Click here to go to your Dashboard
-                    	       </Link>
+                                <div className='to-dashboard'>
+                                    <Link className='to-dashboard' to='/dashboard'>
+                        		      Login Successful. Click here to go to your Dashboard
+                        	       </Link>
+                               </div>
                 	       )
                     }
-                </MuiThemeProvider>
-            </div>
+                    <Footer/>
+                </div>  
+            </MuiThemeProvider>
         );
     }
 }

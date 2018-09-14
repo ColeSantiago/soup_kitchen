@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Homepage.css';
-// import SquadPhoto from './images/600x400.png';
 import LocationPhoto from './images/300x250.png';
-import FacebookPhoto from './images/facebook.png';
 import MapMarker from './images/marker.svg.png';
+import Footer from '../../components/Footer'
 import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -45,9 +44,9 @@ class Homepage extends Component {
 				          	</Link>
 					    </IconMenu>
 				    </nav>
-				    <ScrollAnimation animateIn='fadeIn' animateOut='fadeOut'>
+				    <ScrollAnimation animateIn='fadeIn' animateOut='fadeOut' duration={4} animateOnce={true}>
 	    				<header>
-	    					<ScrollAnimation animateIn='fadeIn' animateOut='fadeOut' delay={1000}> 
+	    					<ScrollAnimation animateIn='fadeIn' animateOut='fadeOut' delay={2000} animateOnce={true}> 
 		    					<div className='header-text'>
 				      				<h1 className='main-title'>Bayonne Soup Kitchen</h1>
 				      					<h2 className='sub-title'>Helping our neighbors in need</h2>
@@ -63,7 +62,9 @@ class Homepage extends Component {
 			      			feugiat neque, nec mollis elit. Integer at lorem in purus condimentum interdum in nec neque. 
 			      			Praesent et porta risus, efficitur feugiat nibh. Aliquam non ligula dignissim, euismod odio sed, 
 			      			vulputate magna.</p> <br></br>
-			      			<p className='time'> We serve a meal every Saturday from 4pm to 5pm. </p>
+			      			<ScrollAnimation animateIn='bounceInRight' animateOnce={true}>
+			      				<p className='time'> We serve a meal every Saturday from 4pm to 5pm. </p>
+			      			</ScrollAnimation>
 			      		</div>
 			      		<div className='location'>
 			      			<p className='address'>
@@ -90,16 +91,7 @@ class Homepage extends Component {
 								</Map>
 							</div>
 			      		</div>
-				    <footer>
-				    	<p className='administration'>Administration: Blessed Miriam Teresa Parish 
-				    		<a rel='noopener noreferrer' target='_blank' href='https://www.facebook.com/groups/126477214107724/about/'>
-				    			<img className='facebook-icon' src={FacebookPhoto} alt='facebook' />
-				    		</a>
-				    	</p>
-				    	<p className='made-by'>Made by 
-				    		<a className='made-by' rel='noopener noreferrer' target='_blank' href='https://colesantiago.github.io/portfolio/'> Cole</a>
-				    	</p>
-				    </footer>
+				    <Footer/>
 		    	</div>
 	    	</MuiThemeProvider>
     	);

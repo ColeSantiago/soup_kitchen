@@ -1,0 +1,21 @@
+.to-forgot-password {
+	text-decoration: none;
+	color: black;
+}
+
+.to-forgot-password:hover {
+	text-decoration: none;
+	color: gray;
+}
+
+.to-dashboard {
+	text-decoration: none;
+	color: black;
+	font-size: 30px;
+	margin-left: 16%;
+	padding-top: 200px;
+}
+
+.to-dashboard:hover {
+	color: gray;
+}

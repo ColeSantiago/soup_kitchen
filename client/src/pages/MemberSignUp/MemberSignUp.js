@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../../utils/API';
-// import './SignUp.css';
+import './MemberSignUp.css';
 // components
 import { Input, SignUpBtn } from '../../components/SignUpForm';
 // material ui
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // phone input
 import PhoneInput from 'react-phone-number-input/basic-input';
+
+let style = {
+    button: {
+        margin: 40
+    }
+}
 
 class MemberSignUp extends Component {
     state = {
@@ -44,38 +50,43 @@ class MemberSignUp extends Component {
 
     // handles form submit to create a user
     handleFormSubmit = event => {
-        if (this.state.password === this.state.confirmPassword) {
-            API.createMember({
-                first_name: this.state.first_name,
-                last_name: this.state.last_name,
-                phone_number:this.state.value,
-                email: this.state.email,
-                parish: this.state.parish,
-                password: this.state.password,
-              })
-            .then(res => {
-                this.setState({
-                    allowSignIn: res.data.allowSignIn,
-                    errorMsg: res.data.errorMsg
+        if (this.state.first_name && this.state.last_name && this.state.value && this.state.email && this.state.parish && this.state.password !== '') {
+            if (this.state.password === this.state.confirmPassword) {
+                API.createMember({
+                    first_name: this.state.first_name,
+                    last_name: this.state.last_name,
+                    phone_number:this.state.value,
+                    email: this.state.email,
+                    parish: this.state.parish,
+                    password: this.state.password,
+                  })
+                .then(res => {
+                    this.setState({
+                        allowSignIn: res.data.allowSignIn,
+                        errorMsg: res.data.errorMsg
+                    })
+                    if (this.state.errorMsg) {
+                       alert(this.state.errorMsg) 
+                    }   
                 })
-                if (this.state.errorMsg) {
-                   alert(this.state.errorMsg) 
-                }   
-            })
-            .catch(err => console.log(err));
+                .catch(err => console.log(err));
+            } else {
+                alert ('Your passwords do not match');
+            }
         } else {
-            alert ('Your passwords do not match');
+            alert('Please make sure all areas are filled out')
         }
     };
 
     render() {
         return (
-            <div>
+            <div className='form-section'>
                 <MuiThemeProvider>
                     {this.state.allowSignUp === true ? (
-                        <div>
+                        <div className='form-wrapper'>
                             {this.state.allowSignIn === false ? (
-                                <form className='sign-up-form'>
+                                <form className='form'>
+                                    <h1 className='signup-h1'>Bayonne Soup Kitchen Approved Sign Up</h1>
                                     <Input
                                         value={this.state.first_name}
                                         onChange={this.handleInputChange}
@@ -89,6 +100,7 @@ class MemberSignUp extends Component {
                                         floatingLabelText='Last Name'
                                       />
                                     <PhoneInput
+                                        className='phone'
                                         country='US'
                                         placeholder='Phone Number'
                                         value={ this.state.value }
@@ -104,7 +116,7 @@ class MemberSignUp extends Component {
                                         value={this.state.parish}
                                         onChange={this.handleInputChange}
                                         name='parish'
-                                        floatingLabelText='Parish'
+                                        floatingLabelText='Affiliation'
                                     />
                                     <Input
                                         value={this.state.password}
@@ -120,13 +132,10 @@ class MemberSignUp extends Component {
                                         type='password'
                                         floatingLabelText='Confirm Password'
                                     />
-                                    <SignUpBtn onClick={this.handleFormSubmit} />
-                                    <Link className='nevermind-link' to='/'>
-                                        Nevermind..
-                                    </Link>
+                                    <SignUpBtn style={style.button} onClick={this.handleFormSubmit} />
                                 </form>
                                 ) : (  
-                                        <Link to='/signin'>
+                                        <Link className='to-sign-in' to='/signin'>
                                             <p>Registration Successful</p>
                                             <p>Click here to sign in</p>
                                         </Link>

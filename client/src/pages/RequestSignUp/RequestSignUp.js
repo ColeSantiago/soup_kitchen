@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../../utils/API';
-// import './RequestSignUp.css';
+import './RequestSignUp.css';
 // components
 import { Input, RequestBtn } from '../../components/RequestForm';
+import Footer from '../../components/Footer'
 // material ui
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import IconButton from 'material-ui/IconButton';
@@ -26,6 +27,9 @@ const style = {
         height: 96,
         padding: 24,
     },
+    button: {
+        margin: 40
+    }
 };
 
 class RequestSignUp extends Component {
@@ -69,22 +73,25 @@ class RequestSignUp extends Component {
 
     render() {
         return (
-            <div>
-                <MuiThemeProvider>
-                    <div>
-                        {this.state.applied === false ? (
-                            <div>
-                                <Link to='/'>
-                                    <IconButton
-                                      iconStyle={style.mediumIcon}
-                                      style={style.medium}
-                                    >
-                                        <ActionHome />
-                                    </IconButton>
-                                </Link>
-                                <p>Are you affiliated with the Bayonne Soup Kitchen?</p>
-                                <p>Enter your information and request to sign up:</p>
-                                <form className='request-form'>
+            <MuiThemeProvider>
+                <div>
+                    {this.state.applied === false ? (
+                        <div className='form-section'>
+                            <Link to='/'>
+                                <IconButton
+                                    className='home-icon'
+                                    iconStyle={style.mediumIcon}
+                                    style={style.medium}
+                                >
+                                    <ActionHome />
+                                </IconButton>
+                            </Link>
+                            <div className='form-wrapper'>
+                                <div className='request-p'>
+                                    <p>Are you affiliated with the Bayonne Soup Kitchen?</p>
+                                    <p>Enter your information and request to sign up:</p>
+                                </div>
+                                <form className='form'>
                                     <Input
                                         value={this.state.first_name}
                                         onChange={this.handleInputChange}
@@ -106,19 +113,20 @@ class RequestSignUp extends Component {
                                         floatingLabelText='Email'
                                         floatingLabelFixed={true}
                                     />
-                                    <RequestBtn onClick={this.handleFormSubmit} />
+                                    <RequestBtn style={style.button} onClick={this.handleFormSubmit} />
                                 </form>
                             </div>
-                        ) : (
-                                <p>Thank you for requesting to sign up! If your request is approved you will 
-                                receive an email from us on the email you provided with instructions on how to 
-                                complete your sign up. Please allow 1-2 days for us to respond. <Link to='/'>Click here </Link>
-                                to go back to our HomePage.</p>
-                            )
-                        }
-                    </div>
-                </MuiThemeProvider>
-            </div> 
+                        </div>
+                    ) : (
+                            <p className='confirm-p'>Thank you for requesting to sign up! If your request is approved you will 
+                            receive an email from us on the email you provided with instructions on how to 
+                            complete your sign up. Please allow 1-2 days for us to respond. <Link to='/'>Click here </Link>
+                            to go back to our HomePage.</p>
+                        )
+                    }
+                    <Footer/>
+                </div>
+            </MuiThemeProvider>
         );
     }
 }
