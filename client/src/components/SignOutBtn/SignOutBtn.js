@@ -1,8 +1,8 @@
 import React from "react";
-// import RaisedButton from 'material-ui/RaisedButton';
+import './SignOutBtn.css';
 
 const SignOutBtn = props => (
-	<button onClick={props.onClick} {...props}> Log Out</button>
+	<button className='sign-out-btn' onClick={props.onClick} {...props}> Log Out</button>
 );
 
 export default SignOutBtn;

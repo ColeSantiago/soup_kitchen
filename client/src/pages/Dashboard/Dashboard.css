@@ -1,0 +1,147 @@
+.dashboard-header {
+	background: url('./images/footer_lodyas.png');
+	display: flex;
+	justify-content: space-around;
+	padding: 90px;	
+}
+
+.dashboard-photo {
+	max-width: 700px;
+	max-height: 395px;
+	border-radius: 10px;
+}
+
+.dashboard-heading {
+	text-align: center;
+	font-size: 50px;
+	margin-bottom: 30px;
+}
+
+.dashboard-message {
+	color: white;
+	margin-left: 40px;
+	max-width: 620px;
+}
+
+.dashboard-paragraph {
+	line-height: 24px;
+	font-size: 20px;
+	text-align: center;
+}
+
+.announcement-div {
+	text-align: center;
+	padding: 80px;
+	font-size: 30px;
+}
+
+.sidebar-toggle {
+	background-color: white;
+	text-align: center;
+	font-size: 25px;
+	display: flex;
+	justify-content: center;
+	padding: 30px;
+	box-shadow: 0 5px 41px -9px #00bdd4; 
+}
+
+.menu-icon {
+	margin-left: 10px;
+}
+
+.menu-icon:hover {
+	cursor: pointer;
+	background: #eaeaea;
+}
+
+.menu-icon:active {
+	cursor: pointer;
+	background: white;
+}
+
+.admin-div {
+	background-color: white;
+	text-align: center;
+	padding: 30px;
+	line-height: 24px;
+	font-size: 20px;
+	margin: auto;
+	border-top: 5px solid black;
+	border-bottom: 5px solid black;
+}
+
+.admin-heading {
+	font-size: 35px;
+	margin-bottom: 30px;
+}
+
+.admin-info {
+	display: flex;
+    justify-content: center;
+}
+
+.meal-outline-heading, .schedule-heading {
+	font-size: 29px;
+	margin-bottom: 30px;
+	margin-top: 20px;
+}
+
+.meal-outline, .schedule-div {
+	width: 600px;
+}
+
+.admin-forms {
+	display: flex;
+	justify-content: center;
+	margin-top: 40px;
+
+}
+
+.date-form, .meal-form {
+	width: 400px;
+	border: 1px solid #00bdd4;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 5px 41px -9px #00bdd4;
+	margin: 40px;
+}
+
+.announcement-textarea {
+	padding: 15px;
+	width: 80%;
+	margin: 5px;
+}
+
+.dates-div {
+	text-align: center;
+	padding: 50px;
+	background: url('./images/double_lined.png');
+	border-bottom: 40px solid #00bdd4;
+}
+
+.date-heading, .date-sub-heading {
+	margin: 20px;
+}
+
+.date-heading {
+	font-size: 40px;
+}
+
+.date-sub-heading {
+	font-size: 30px;
+}
+
+.delete-date:hover {
+	background-color: red;
+	cursor: pointer;
+}
+
+.menu-item {
+	text-decoration: none;
+	color: black;
+}
+
+.menu-item {
+	color: gray;
+}
+

@@ -1,0 +1,13 @@
+.date-item-li, .date-item-a{
+	font-size: 25px;
+	margin: auto;
+	width: 200px;
+	padding: 20px;
+	text-decoration: none;
+	color: black;
+}
+
+.date-item-a:hover {
+	cursor: pointer;
+	color: gray;
+}

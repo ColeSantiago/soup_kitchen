@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
-import DashboardPhoto from './images/600x400.png'
+import DashboardPhoto from './images/soup_kitchen_2.jpg'
+import './Dashboard.css';
 // components
 import { List, ListItem } from '../../components/DatesList';
 import SignOutBtn from '../../components/SignOutBtn';
@@ -10,9 +11,12 @@ import Divider from 'material-ui/Divider';
 import { Link } from 'react-router-dom';
 import DatePicker from 'material-ui/DatePicker';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
 // icons
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import MenuIcon from '@material-ui/icons/Menu';
 
 class Dashboard extends Component {
 	state = {
@@ -23,8 +27,11 @@ class Dashboard extends Component {
 		newDate: null,
 		user: [],
 		announcementText: '',
-		announcement: ''
+		announcement: '',
+		open: false,
 	};
+
+	handleToggle = () => this.setState({open: !this.state.open});
 	
 	componentDidMount() {
 		this.loadDashboard();
@@ -127,25 +134,49 @@ class Dashboard extends Component {
 		    	<div>
 			    	{this.state.login_status === true ? (
 			      		<div className='dashboard-wrapper'>
-			      			<div className='dashboard-message'>
+			      			<div className='dashboard-header'>
 				      			<img className='dashboard-photo' alt='dashboard' src={DashboardPhoto} />
-				      			<p className='dashboard-paragraph'>
-				      				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut magna eros. 
-				      				Vivamus semper ex non nisl iaculis euismod. Quisque pulvinar enim eu ligula mattis 
-				      				pharetra. Etiam nec rhoncus nibh, volutpat rhoncus elit. Ut id rhoncus ante. 
-				      				Nulla lacinia purus magna, et sollicitudin odio porta bibendum. Proin ac tellus sed 
-				      				libero blandit ullamcorper. Vivamus quis felis nisl. Suspendisse finibus tristique 
-				      				maximus. Proin tempor ex justo, eget tempus diam commodo et. Fusce quam enim, vulputate 
-				      				sit amet elementum vitae, porttitor a diam. Nunc mollis justo magna, id lacinia purus 
-				      				consequat a. Maecenas elementum ex tristique arcu accumsan, eu ultricies nulla porttitor. 
-				      				Morbi a rhoncus elit. Pellentesque ullamcorper nec mi at commodo
-				      			</p>
-				      			<p>{this.state.announcement}</p>
+				      			<div className='dashboard-message'>
+				      				<h1 className='dashboard-heading'>Welcome to the Bayonne Soup Kitchen</h1>
+					      			<p className='dashboard-paragraph'>
+					      				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut magna eros. 
+					      				Vivamus semper ex non nisl iaculis euismod. Quisque pulvinar enim eu ligula mattis 
+					      				pharetra. Etiam nec rhoncus nibh, volutpat rhoncus elit. Ut id rhoncus ante. 
+					      				Nulla lacinia purus magna, et sollicitudin odio porta bibendum. Proin ac tellus sed 
+					      				libero blandit ullamcorper. Vivamus quis felis nisl. Suspendisse finibus tristique 
+					      				maximus. Proin tempor ex justo, eget tempus diam commodo et. Fusce quam enim, vulputate 
+					      				sit amet elementum vitae, porttitor a diam. Nunc mollis justo magna, id lacinia purus 
+					      				consequat a. Maecenas elementum ex tristique arcu accumsan, eu ultricies nulla porttitor. 
+					      				Morbi a rhoncus elit. Pellentesque ullamcorper nec mi at commodo
+					      			</p>
+					      		</div>
+			      			</div>
+			      			<div className='sidebar-toggle'>
+			      				<h2>Welcome {this.state.user.first_name}!</h2>
+			      				<MenuIcon
+			      					className='menu-icon'
+			      					label="Toggle Drawer"
+          							onClick={this.handleToggle}
+          						/>
+			      			</div>
+			      			<Drawer open={this.state.open}>
+					          	<MenuItem><Link className='menu-item' to='/'><SignOutBtn onClick={() => API.logoutMember()} /></Link></MenuItem>
+					          	<MenuItem><Link className='menu-item' to='/updateinfo'>Update Your Personal Info</Link></MenuItem>
+					          	<MenuItem><Link className='menu-item' to='/gallery'>Photo Gallery</Link></MenuItem>
+					          	{this.state.admin ? (
+				      					<MenuItem><Link className='menu-item' to='/memberpage'>Member List</Link></MenuItem>
+				      				) : (null)}
+					        </Drawer>
+			      			<div className='announcement-div'>
+			      				<p>{this.state.announcement}</p>
 			      			</div>
 			      			{this.state.admin ? (
 				      			<div className='admin-div'>
-				      				<h1>Admin Specific</h1>
-					      				<div className='Meal Outline'>
+				      				<h1 className='admin-heading'>Admin Specific</h1>
+				      				<Divider />
+					      			<div className='admin-info'>
+					      				<div className='meal-outline'>
+					      					<h1 className='meal-outline-heading'>Weekly Meal Outline</h1>
 					      					<ul>
 					      						<li>Meals for approximately 50 guests</li>
 					      						<br></br>
@@ -170,38 +201,71 @@ class Dashboard extends Component {
 					      						<li>2 bags of ice</li>
 					      					</ul>
 					      				</div>
+						      			<Divider />
 						      			<div className='schedule-div'>
-						      				<h1>Weekly Schedule</h1>
-						      					<h2>Friday</h2>
-						      						<p>
-						      							Pick up key from Blessed Miriam Teresa Rectory 326 Avenue C - Open from 9:30-5:30.
-						      							Phone Number: 201-437-4090. If during a holiday weekend - please call Monday to make sure
-						      							they are open on Friday or if the hours are changed.
-						      						</p>
-						      						<ul>
-						      							<li>Pick up breads:</li>
-						      							<li>7:30pm - 7:45pm - Judickes</li>
-						      							<li>8:15 - Paulantos</li>
-						      						</ul>
-						      					<h2>Saturday</h2>
-						      						<p>Arrive at Bayonne Soup Kitchen (All Saints Catholic Academy Cafeteria) at 3:00pm</p>
-						      						<ul>
-						      							<li>Set up 3:00pm - 4:00pm</li>
-						      							<li>Serve 4:00pm - 5:00pm</li>
-						      						</ul>
-						      						<h1>Clean up promptly at 5:00pm (not before).</h1>
-						      						<h2>Return key in slot of rectory door</h2>
-						      						<h1>Thank you!!!</h1>
+						      				<h1 className='schedule-heading'>Weekly Schedule</h1>
+					      					<h2>Friday</h2>
+					      						<p>
+					      							Pick up key from Blessed Miriam Teresa Rectory 326 Avenue C - Open from 9:30-5:30.
+					      							Phone Number: 201-437-4090. If during a holiday weekend - please call Monday to make sure
+					      							they are open on Friday or if the hours are changed.
+					      						</p>
+					      						<ul>
+					      							<li>Pick up breads:</li>
+					      							<li>7:30pm - 7:45pm - Judickes</li>
+					      							<li>8:15 - Paulantos</li>
+					      						</ul>
+					      					<h2>Saturday</h2>
+					      						<p>Arrive at Bayonne Soup Kitchen (All Saints Catholic Academy Cafeteria) at 3:00pm</p>
+					      						<ul>
+					      							<li>Set up 3:00pm - 4:00pm</li>
+					      							<li>Serve 4:00pm - 5:00pm</li>
+					      						</ul>
+					      						<h1>Clean up promptly at 5:00pm (not before).</h1>
+					      						<h2>Return key in slot of rectory door</h2>
+					      						<h1>Thank you!!!</h1>
 						      			</div>
+							      	</div>
+						      		<Divider />
+						      			<div className='admin-forms'>
+						      				<form className='date-form'>
+						      					<label>Add a new Date here:</label>
+							      				<DatePicker 
+							      					value={this.state.newDate}
+							      					onChange={this.handleCalInputChange} 
+							      					hintText='Add Another Saturday' 
+							      					mode='landscape'
+							      					shouldDisableDate={this.disableDays}
+							      				/>
+							      				<FloatingActionButton mini={true}>
+	                                                <ContentAdd onClick={this.handleCalFormSubmit} />
+	                                            </FloatingActionButton>
+						      				</form>
+						      				<form className='meal-form'>
+						      					<label>Update the Announcement here:</label>
+	                                            <textarea
+	                                            	maxLength="255"
+	                                            	className='announcement-textarea'
+	                                                value={this.state.announcementText}
+	                                                onChange={this.handleInputChange}
+	                                                name='announcementText'
+	                                            />
+	                                            <br></br>
+	                                            <FloatingActionButton mini={true}>
+	                                              <ContentAdd onClick={this.handleFormSubmit} />
+	                                            </FloatingActionButton>
+	                                        </form>
+					      				</div>
 				      			</div>
 			      			) : (null)}
 			      			<div className='dates-div'>
 				      		 	<h1 className='date-heading'>Upcoming Soup Kitchen Dates</h1>
 			                    <h2 className='date-sub-heading'>Click a date to sign up for a job or a meal.</h2>
 				      			{this.state.dates.length ? (
-			                        <List>
+			                        <List className='date-item'>
 			                            {this.state.dates.map(date => (
 				                            <ListItem 
+				                            	className='date-item'
 				                                key={date.id}
 				                                id={date.id} 
 				                                title={date.date} 
@@ -214,47 +278,6 @@ class Dashboard extends Component {
 			                            ))}
 			                        </List>
 			                    ) : (null)}
-				      		</div>
-				      		<div className='sidebar'>
-				      			<h2>Welcome {this.state.user.first_name}!</h2>
-				      			<ul>
-				      				<li><Link to='/'><SignOutBtn onClick={() => API.logoutMember()} /></Link></li>
-				      				<li><Link to='/updateinfo'>Update Your Personal Info</Link></li>
-				      				{
-				      					/*Forum Link
-				      					<li><Link to='/forum'>Forum</Link></li>*/
-				      				}
-				      				<li><Link to='/gallery'>Photo Gallery</Link></li>
-				      				{this.state.admin ? (
-				      					<li><Link to='/memberpage'>Member List</Link></li>
-				      				) : (null)}
-				      			</ul>
-				      			{this.state.admin ? (
-					      			<div className='date-pick-div'>
-					      				<form>
-						      				<DatePicker 
-						      					value={this.state.newDate}
-						      					onChange={this.handleCalInputChange} 
-						      					hintText='Add Another Saturday' 
-						      					mode='landscape'
-						      					shouldDisableDate={this.disableDays}
-						      				/>
-						      				<FloatingActionButton mini={true}>
-                                                <ContentAdd onClick={this.handleCalFormSubmit} />
-                                            </FloatingActionButton>
-					      				</form>
-					      				<form className='add-meal-form'>
-                                            <textarea
-                                                value={this.state.announcementText}
-                                                onChange={this.handleInputChange}
-                                                name='announcementText'
-                                            />
-                                            <FloatingActionButton mini={true}>
-                                              <ContentAdd onClick={this.handleFormSubmit} />
-                                            </FloatingActionButton>
-                                        </form>
-					      			</div>
-				      			) : (null)}
 				      		</div>
 			      		</div>
 			      	) : (

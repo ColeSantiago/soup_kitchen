@@ -66,7 +66,7 @@ header {
 	background-position: center;
 	height: 40em;
     filter: contrast(78.9%);
-   box-shadow: 0 17px 54px -11px black; 
+   	box-shadow: 0 17px 54px -11px black; 
 }
 
 .header-text {
