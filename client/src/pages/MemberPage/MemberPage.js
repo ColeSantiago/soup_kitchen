@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../../utils/API';
+import './MemberPage.css';
 // material ui
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 // icons
@@ -54,14 +54,16 @@ class MemberPage extends Component {
 
     // delete memeber
     deleteMember = (id) => {
-        let memberID = {
-            id: id
+        if(window.confirm('Are you sure you want to delete this member? This cannot be undone.')) {
+            let memberID = {
+                id: id
+            }
+            API.deleteMember(memberID)
+            .then(res => {
+                this.loadMemberPage();
+            })
+            .catch(err => console.log(err));
         }
-        API.deleteMember(memberID)
-        .then(res => {
-            this.loadMemberPage();
-        })
-        .catch(err => console.log(err));
     };
 
     // change admin status
@@ -82,17 +84,19 @@ class MemberPage extends Component {
             <MuiThemeProvider>
             	{this.state.login_status === true ? (
                     <div className='member-div'>
-                        <Link to='/dashboard'>
-                            <IconButton
-                              iconStyle={styles.mediumIcon}
-                              style={styles.medium}
-                            >
-                                <ActionHome />
-                            </IconButton>
-                        </Link>
+                        <div className='member-home-btn-div'>
+                            <Link to='/dashboard'>
+                                <IconButton
+                                    iconStyle={styles.mediumIcon}
+                                    style={styles.medium}
+                                >
+                                    <ActionHome className='member-home-btn' />
+                                </IconButton>
+                            </Link>
+                            <h1 className='member-header'>Members</h1>
+                        </div>
                         {this.state.members.length ? (
-                            <List>
-                                <Subheader>Members</Subheader>
+                            <List className='member-list'>
                                 {this.state.members.map(member => (
                                 <ListItem
                                     key={member.id}
@@ -153,7 +157,7 @@ class MemberPage extends Component {
                                 />
                                 ))}
                             </List>
-                        ) : (null)}  
+                        ) : (null)} 
                     </div>
                 	) : (
                             <div>Please <Link to='/signin'>sign in</Link> to see this page, and confirm that you are an Admin.</div>

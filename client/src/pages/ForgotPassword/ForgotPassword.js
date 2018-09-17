@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import API from '../../utils/API';
 // components
 import { Input, RequestBtn } from '../../components/RequestForm';
+import Footer from '../../components/Footer';
 // material ui
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import IconButton from 'material-ui/IconButton';
@@ -67,26 +68,29 @@ class ForgotPassword extends Component {
                 <MuiThemeProvider>
                     <div>
                         {this.state.requested === false ? (
-                            <div>
+                            <div className='form-section'>
                                 <Link to='/'>
                                     <IconButton
-                                      iconStyle={style.mediumIcon}
-                                      style={style.medium}
+                                        className='home-icon'
+                                        iconStyle={style.mediumIcon}
+                                        style={style.medium}
                                     >
                                         <ActionHome />
                                     </IconButton>
                                 </Link>
-                                <h1>Forgot Password</h1>
-                                <form className='forgot-form'>
-                                    <Input
-                                        value={this.state.email}
-                                        onChange={this.handleInputChange}
-                                        name='email'
-                                        floatingLabelText='Email'
-                                        floatingLabelFixed={true}
-                                    />
-                                    <RequestBtn onClick={this.handleFormSubmit} />
-                                </form>
+                                <div className='form-wrapper'>
+                                    <h1>Forgot Password</h1>
+                                    <form className='form'>
+                                        <Input
+                                            value={this.state.email}
+                                            onChange={this.handleInputChange}
+                                            name='email'
+                                            floatingLabelText='Email'
+                                            floatingLabelFixed={true}
+                                        />
+                                        <RequestBtn onClick={this.handleFormSubmit} />
+                                    </form>
+                                </div>
                             </div>
                         ) : (
                                 <div>
@@ -101,6 +105,7 @@ class ForgotPassword extends Component {
                                 </div>
                             )
                         }
+                        <Footer/>
                     </div>
                 </MuiThemeProvider>
             </div> 

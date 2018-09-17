@@ -130,6 +130,7 @@ class JobSignUp extends Component {
         .catch(error => {
             console.log(error)
         })
+
     };
 
     // admin delete job

@@ -93,13 +93,15 @@ class Dashboard extends Component {
 
 	// deletes date
 	deleteDate = (id) => {
-		let dateID = {
-			id: id
-		}
-		API.deleteDate(dateID)
-		.then(res => this.loadDates())
-	    .catch(err => console.log(err));
-	    this.loadDates();
+		if(window.confirm('Are you sure you want to delete this date? All data will be deleted.')) {
+			let dateID = {
+				id: id
+			}
+			API.deleteDate(dateID)
+			.then(res => this.loadDates())
+		    .catch(err => console.log(err));
+		    this.loadDates();
+	    }
 	};
 
 	// handles form input

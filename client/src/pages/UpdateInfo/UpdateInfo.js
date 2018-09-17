@@ -111,68 +111,72 @@ class MemberSignUp extends Component {
             <div>
                 <MuiThemeProvider>
                     {this.state.user !== null ? (
-                        <div>
+                        <div className='form-section'>
                             <Link to='/dashboard'>
                                 <IconButton
-                                  iconStyle={style.mediumIcon}
-                                  style={style.medium}
+                                    className='home-icon'
+                                    iconStyle={style.mediumIcon}
+                                    style={style.medium}
                                 >
                                     <ActionHome />
                                 </IconButton>
                             </Link>
-                            <form className='sign-up-form'>
-                                <Input
-                                    value={this.state.first_name}
-                                    onChange={this.handleInputChange}
-                                    name='first_name'
-                                    floatingLabelText='First Name'
-                                    floatingLabelFixed={true}
-                                />
-                                <Input
-                                    value={this.state.last_name}
-                                    onChange={this.handleInputChange}
-                                    name='last_name'
-                                    floatingLabelText='Last Name'
-                                    floatingLabelFixed={true}
-                                  />
-                                <PhoneInput
-                                    country='US'
-                                    placeholder='Phone Number'
-                                    value={this.state.value}
-                                    onChange={ value => this.setState({ value }) }
-                                />
-                                <Input
-                                    value={this.state.email}
-                                    onChange={this.handleInputChange}
-                                    name='email'
-                                    floatingLabelText='Email'
-                                    floatingLabelFixed={true}
-                                />
-                                <Input
-                                    value={this.state.affiliation}
-                                    onChange={this.handleInputChange}
-                                    name='affiliation'
-                                    floatingLabelText='Affiliation'
-                                    floatingLabelFixed={true}
-                                />
-                                <Input
-                                    value={this.state.password}
-                                    onChange={this.handleInputChange}
-                                    name='password'
-                                    type='password'
-                                    floatingLabelText='Password'
-                                    floatingLabelFixed={true}
-                                />
-                                <Input
-                                    value={this.state.confirmPassword}
-                                    onChange={this.handleInputChange}
-                                    name='confirmPassword'
-                                    type='password'
-                                    floatingLabelText='Confirm Password'
-                                    floatingLabelFixed={true}
-                                />
-                                <UpdateBtn onClick={this.handleFormSubmit} />
-                            </form>
+                            <div className='form-wrapper'>
+                                <h1>Update Your Personal Info Here:</h1>
+                                <form className='form'>
+                                    <Input
+                                        value={this.state.first_name}
+                                        onChange={this.handleInputChange}
+                                        name='first_name'
+                                        floatingLabelText='First Name'
+                                        floatingLabelFixed={true}
+                                    />
+                                    <Input
+                                        value={this.state.last_name}
+                                        onChange={this.handleInputChange}
+                                        name='last_name'
+                                        floatingLabelText='Last Name'
+                                        floatingLabelFixed={true}
+                                      />
+                                    <PhoneInput
+                                        country='US'
+                                        placeholder='Phone Number'
+                                        value={this.state.value}
+                                        onChange={ value => this.setState({ value }) }
+                                    />
+                                    <Input
+                                        value={this.state.email}
+                                        onChange={this.handleInputChange}
+                                        name='email'
+                                        floatingLabelText='Email'
+                                        floatingLabelFixed={true}
+                                    />
+                                    <Input
+                                        value={this.state.affiliation}
+                                        onChange={this.handleInputChange}
+                                        name='affiliation'
+                                        floatingLabelText='Affiliation'
+                                        floatingLabelFixed={true}
+                                    />
+                                    <Input
+                                        value={this.state.password}
+                                        onChange={this.handleInputChange}
+                                        name='password'
+                                        type='password'
+                                        floatingLabelText='Password'
+                                        floatingLabelFixed={true}
+                                    />
+                                    <Input
+                                        value={this.state.confirmPassword}
+                                        onChange={this.handleInputChange}
+                                        name='confirmPassword'
+                                        type='password'
+                                        floatingLabelText='Confirm Password'
+                                        floatingLabelFixed={true}
+                                    />
+                                    <UpdateBtn onClick={this.handleFormSubmit} />
+                                </form>
+                            </div>
                         </div>
                     ) : (
                             <div>Please <Link to='/signin'>sign in</Link> to see this page</div>

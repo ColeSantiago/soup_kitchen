@@ -106,7 +106,11 @@ router.get('/jobsignup/date/:id', function(req, res) {
 // all members page
 router.get('/memberpage', function(req, res) {
 	if (req.session.user && req.cookies.user_cole && req.session.user.admin) {
-		models.member.findAll()
+		models.member.findAll({
+			order: [
+            	['last_name', 'ASC'],
+        	],
+        })
 		.then(result => {
 			res.json({
 				login_status: true,

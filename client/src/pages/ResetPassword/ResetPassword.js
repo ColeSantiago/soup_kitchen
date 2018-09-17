@@ -66,13 +66,13 @@ class ResetPassword extends Component {
         return (
             <div>
                 <MuiThemeProvider>
-                    <div>
+                    <div className='form-section'>
                         {this.state.allowReset === true ? (
                             <div>
                                 {this.state.changed === false ? (
-                                    <div>
+                                    <div className='form-wrapper'>
                                         <p>Reset your password below</p>
-                                        <form className='request-form'>
+                                        <form className='form'>
                                             <Input
                                                 value={this.state.password}
                                                 onChange={this.handleInputChange}

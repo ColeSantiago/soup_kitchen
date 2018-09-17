@@ -49,7 +49,7 @@ class Homepage extends Component {
 	    					<ScrollAnimation animateIn='fadeIn' animateOut='fadeOut' delay={2000} animateOnce={true}> 
 		    					<div className='header-text'>
 				      				<h1 className='main-title'>Bayonne Soup Kitchen</h1>
-				      					<h2 className='sub-title'>Helping our neighbors in need</h2>
+				      					<h2 className='sub-title'>Helping Our Neighbors In Need</h2>
 				      			</div>
 			      			</ScrollAnimation>
 			      		</header>

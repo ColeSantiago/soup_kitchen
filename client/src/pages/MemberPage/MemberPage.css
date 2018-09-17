@@ -1,0 +1,32 @@
+.member-div {
+	height: stretch;
+	border-bottom: 30px solid #f1f1f1;
+}
+
+.member-home-btn-div {
+	background: #f1f1f1;
+	border-bottom: 2px solid black;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: end;
+}
+
+.member-header {
+	font-size: 40px;
+	margin-top: 31px;
+}
+
+.member-home-btn:hover {
+	background-color: white;
+	border-radius: 10px;
+}
+
+.member-list {
+	background-color: white;
+	width: 70%;
+    border-radius: 10px;
+    margin-left: 25px;
+    overflow: scroll;
+    max-height: 700px;
+    border: 3px solid #f1f1f1;
+}
