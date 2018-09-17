@@ -1,0 +1,104 @@
+.gallery-header {
+	text-align: center;
+	background: url('./images/gallery.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	height: 35em;
+   	box-shadow: 0 17px 54px -11px black; 
+}
+
+.gallery-home-btn:hover {
+	background: gray;
+	border-radius: 10px;
+}
+
+.dropzone-div {
+	text-align: center;
+	background: #eaeaea;
+	padding: 30px;
+}
+
+.gallery-heading {
+	margin-top: 34px;
+	font-size: 50px;
+	color: white;
+}
+
+.dropzone {
+	border: 2px dashed rgb(0, 189, 212);
+	margin: auto;
+	width: 100px;
+	height: 50px;
+	padding: 20px;
+	margin-bottom: 10px;
+}
+
+.dropzone:hover {
+	cursor: pointer;
+	border: 2px solid rgb(0, 189, 212);
+}
+
+.navbar-toggler {
+	background-color: rgb(0, 189, 212);
+	margin: 10px;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.navbar-toggler:hover {
+	background-color: #eaeaea;
+	cursor: pointer;
+	box-shadow: 0 5px 41px -9px #00bdd4;
+}
+
+.gallery-list {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+    overflow-y: auto;
+    background-color: white;
+    padding: 20px;
+    border-top: 2px solid rgb(0, 189, 212);
+	border-bottom: 2px solid rgb(0, 189, 212);
+}
+
+.gallery-photo {
+	max-width: 380px;
+	max-height: 286px;
+	border-radius: 3px;
+	margin-bottom: 15px;
+}
+
+.gallery-photo:hover {
+	max-width: 450px;
+	max-height: 350px;
+	box-shadow: 0 5px 41px -9px #00bdd4; 
+}
+
+.delete-photo-btn {
+	margin-bottom: 10px;
+}
+
+.delete-photo-btn:hover {
+	background-color: red;
+	cursor: pointer;
+}
+
+.load-more-div {
+	text-align: center;
+}
+
+.load-more-btn {
+	margin: 20px;
+}
+
+.load-more-btn:hover {
+	background-color: gray;
+	cursor: pointer;
+}
+
+
+
+
+

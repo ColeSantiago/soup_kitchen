@@ -1,22 +1,26 @@
 .form-section {
 	text-align: center;
-    padding: 40px
 }
 
 .form-wrapper {
-	margin: auto;
-	width: 366px;
+	border-top: 2px solid rgb(0, 189, 212);
+	border-bottom: 2px solid rgb(0, 189, 212);
     line-height: 30px;
-    text-align: center;
-    border: 1px solid rgb(0, 189, 212);
-    border-radius: 10px;
     padding: 20px;
     background: white;
     margin-top: 30px;
 }
 
 .form {
-	margin: 30px;
+	border-radius: 10px;
+	padding: 10px;
+	margin: auto;
+	width: 366px;
+	border: 1px solid rgb(0, 189, 212);
+}
+
+.form-header {
+	font-size: 20px;
 }
 
 .request-p {
@@ -25,9 +29,7 @@
 
 .home-icon {
 	border-radius: 50%;
-	/*border: 1px solid black;*/
 	margin: 20px;
-	/*box-shadow: 0 9px 41px -13px black;*/
 }
 
 .home-icon:hover {

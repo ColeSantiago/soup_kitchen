@@ -110,7 +110,7 @@ class MemberSignUp extends Component {
         return (
             <div>
                 <MuiThemeProvider>
-                    {this.state.user !== null ? (
+                    {this.state.user !== '' ? (
                         <div className='form-section'>
                             <Link to='/dashboard'>
                                 <IconButton
@@ -122,7 +122,7 @@ class MemberSignUp extends Component {
                                 </IconButton>
                             </Link>
                             <div className='form-wrapper'>
-                                <h1>Update Your Personal Info Here:</h1>
+                                <h1 className='form-header'>Update Your Personal Info Here:</h1>
                                 <form className='form'>
                                     <Input
                                         value={this.state.first_name}
@@ -139,6 +139,7 @@ class MemberSignUp extends Component {
                                         floatingLabelFixed={true}
                                       />
                                     <PhoneInput
+                                        className='phone'
                                         country='US'
                                         placeholder='Phone Number'
                                         value={this.state.value}

@@ -89,6 +89,7 @@ class MemberSignIn extends Component {
                             </IconButton>
                         </Link>
                         <div className='form-wrapper'>
+                            <h1 className='form-header'>Member Sign In</h1>
                             <form className='form' onSubmit={this.handleFormSubmit.bind(this)}>
                                 <Input
                                     value={this.state.email}

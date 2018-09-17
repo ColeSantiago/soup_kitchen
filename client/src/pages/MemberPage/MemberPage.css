@@ -1,19 +1,24 @@
 .member-div {
-	height: stretch;
 	border-bottom: 30px solid #f1f1f1;
 }
 
 .member-home-btn-div {
-	background: #f1f1f1;
 	border-bottom: 2px solid black;
 	margin-bottom: 20px;
 	display: flex;
 	justify-content: end;
+	background: url('./images/members.jpeg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	height: 31em;
+   	box-shadow: 0 17px 54px -11px black;
 }
 
 .member-header {
 	font-size: 40px;
 	margin-top: 31px;
+	color: white;
 }
 
 .member-home-btn:hover {
@@ -23,9 +28,9 @@
 
 .member-list {
 	background-color: white;
-	width: 70%;
     border-radius: 10px;
-    margin-left: 25px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     overflow: scroll;
     max-height: 700px;
     border: 3px solid #f1f1f1;

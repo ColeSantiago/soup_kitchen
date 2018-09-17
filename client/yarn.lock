@@ -6298,6 +6298,13 @@ react-favicon@^0.0.14:
   version "0.0.14"
   resolved "https://registry.yarnpkg.com/react-favicon/-/react-favicon-0.0.14.tgz#3c9c7b999d106e6e112f729ab929b8dbec05b280"
 
+react-image-lightbox@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-image-lightbox/-/react-image-lightbox-5.0.0.tgz#0c19aa8a43abf41262cbe082c779cc01f6334b5f"
+  dependencies:
+    prop-types "^15.6.1"
+    react-modal "^3.4.4"
+
 react-jss@^8.1.0:
   version "8.6.1"
   resolved "https://registry.yarnpkg.com/react-jss/-/react-jss-8.6.1.tgz#a06e2e1d2c4d91b4d11befda865e6c07fbd75252"

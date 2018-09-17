@@ -127,7 +127,11 @@ router.get('/memberpage', function(req, res) {
 
 // gallery route
 router.get('/gallery', function(req, res) {
-	models.gallery.findAll()
+	models.gallery.findAll({
+		order: [
+        	['id', 'DESC'],
+    	],
+    })
 	.then(galleryResult => {
 		res.json({
 			gallery: galleryResult,
@@ -156,10 +160,14 @@ router.get('/resetpassword/:token', function(req, res) {
 
 // the update info page
 router.get('/updateinfo', function(req, res) {
-	models.member.findOne({where: {id: req.session.user.id}}).then(function(member) {
-		res.json({user: member})
-	})
-	.catch(error => {console.log(error)})
+	if(req.session.user) {
+		models.member.findOne({where: {id: req.session.user.id}}).then(function(member) {
+			res.json({user: member})
+		})
+		.catch(error => {console.log(error)})
+	} else {
+		res.json({user: ''})
+	}
 });
 
 // ----------POST ROUTES----------------------

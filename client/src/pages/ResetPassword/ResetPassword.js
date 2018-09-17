@@ -71,7 +71,7 @@ class ResetPassword extends Component {
                             <div>
                                 {this.state.changed === false ? (
                                     <div className='form-wrapper'>
-                                        <p>Reset your password below</p>
+                                        <h1>Reset your password below</h1>
                                         <form className='form'>
                                             <Input
                                                 value={this.state.password}

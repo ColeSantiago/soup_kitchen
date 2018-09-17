@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../../utils/API';
-// import './Gallery.css';
+import './Gallery.css';
 // photo upload
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
@@ -14,10 +14,11 @@ import RefreshIndicator from 'material-ui/RefreshIndicator';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import BurstModeIcon from '@material-ui/icons/BurstMode';
+
 const style = {
-  container: {
-    position: 'relative',
-  },
   refresh: {
     display: 'inline-block',
     position: 'relative',
@@ -30,8 +31,14 @@ const style = {
     width: 96,
     height: 96,
     padding: 24,
-  },
+  }
 };
+
+// button that when clicked will either show all of the delete buttons or hide them
+const NavButton = ({onClick}) => 
+  	<button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar" onClick={onClick}>
+   		Delete Photos
+  	</button>
 
 class Gallery extends Component {
 	constructor(props) {
@@ -44,13 +51,13 @@ class Gallery extends Component {
 			admin: false,
 			open: false,
 			photoLimit: 10,
-			loading: false
+			loading: false,
+			dropdownVisible: false,
 		};
 	};
 
 	componentWillMount() {
 		this.loadGallery();
-
 	};
 
 	// loading all photos
@@ -104,6 +111,11 @@ class Gallery extends Component {
         });
     };
 
+	// toggle to show and hide delete photo buttons
+    toggleDropdown = () => this.setState(state => ({
+	    dropdownVisible: !state.dropdownVisible,
+	}));
+
     // uploads photos
 	onImageDrop(files) {
 		this.setState({
@@ -142,25 +154,28 @@ class Gallery extends Component {
 	render() {
 		return (
 			<MuiThemeProvider>
-				<div>
-					<Link to='/dashboard'>
-                        <IconButton
-                          iconStyle={style.mediumIcon}
-                          style={style.medium}
-                        >
-                            <ActionHome />
-                        </IconButton>
-                    </Link>
+				<div className='gallery-wrapper'>
+					<div className='gallery-header'>
+						<Link to='/dashboard'>
+	                        <IconButton
+	                          	iconStyle={style.mediumIcon}
+	                          	style={style.medium}
+	                        >
+	                            <ActionHome className='gallery-home-btn'/>
+	                        </IconButton>
+	                    </Link>
+	                    <h1 className='gallery-heading'>Bayonne Soup Kitchen Photo Gallery</h1>
+                    </div>
 					{this.state.admin ? (
 						<div className='dropzone-div'>
 							<Dropzone
+								className='dropzone'
 								multiple={false}
 								accept='image/*'
 								onDrop={this.onImageDrop.bind(this)}
 							>	
-								<div style={style.container}>
+								<div>
 									{this.state.loading ? (
-
 										<RefreshIndicator
 									      size={40}
 									      left={10}
@@ -169,35 +184,45 @@ class Gallery extends Component {
 									      style={style.refresh}
 									    />
 										) : (
-												<p className='drop-text'>Drop an image or click select a file to upload. </p>
+												<IconButton tooltip='Click Here or Drag a Photo to Upload' touch={true} tooltipPosition='top-right'>
+													<AddAPhotoIcon/>
+												</IconButton>
 											)
 										}
 								</div>
-							</Dropzone>    
+							</Dropzone>
+        					<NavButton onClick={this.toggleDropdown} /> 
 						</div>
 					) : (null)}
-						<div className='gallery'>
+						<div className='gallery-div'>
 			                {this.state.gallery.length ? (
-			                    <PhotoList>
-			                        {this.state.gallery.slice(0, this.state.photoLimit).map(photo => (
-			                            <PhotoListItem 
-			                                key={photo.id}
-			                                id={photo.id} 
-			                                url={photo.photo_link}     
-			                            >
-			                            {this.state.admin ? (
-			                            	<div>
-			                            		<button className='delete' onClick={() => this.deletePhoto(photo.id)}>delete</button>
-			                            	</div>
-			                            	) : (null)}
-			                            </PhotoListItem>
-			                        ))}
-			                        <button className='load-more-btn' onClick={this.loadMore.bind(this)}>
-	                                    Load More
-	                                </button>
-			                    </PhotoList>
+			                	<div>
+				                    <PhotoList>
+				                        {this.state.gallery.slice(0, this.state.photoLimit).map(photo => (
+				                            <PhotoListItem
+				                                key={photo.id}
+				                                id={photo.id} 
+				                                url={photo.photo_link}
+
+				                            >
+				                            {this.state.admin ? (
+				                            	<div style={{visibility: this.state.dropdownVisible ? "visible" : "hidden"}}>
+				                            		<IconButton tooltip='Delete Forever' touch={true} tooltipPosition='top-right'>
+														<DeleteForeverIcon className='delete-photo-btn' onClick={() => this.deletePhoto(photo.id)}/>
+													</IconButton>
+												</div>
+				                            ) : (null)}
+				                            </PhotoListItem>
+				                        ))}
+				                    </PhotoList>
+				                    <div className='load-more-div'>
+				                    	<IconButton tooltip='Load More' touch={true} tooltipPosition='top-right'>
+				                    		<BurstModeIcon className='load-more-btn' onClick={this.loadMore.bind(this)}/>
+				                    	</IconButton>
+				                    </div>
+	                            </div>
 			                ) : (
-			                		<p>There are no photos yet!</p>
+			                		<p>There's nothing here</p>
 			                	)
 			            	}
 			            </div>
