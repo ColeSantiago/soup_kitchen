@@ -15,6 +15,7 @@ import LocationCityIcon from '@material-ui/icons/LocationCity';
 import SchoolIcon from '@material-ui/icons/School';
 import MenuIcon from '@material-ui/icons/Menu';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAlt';
 
 const styles = {
   mediumIcon: {
@@ -121,6 +122,12 @@ class MemberPage extends Component {
                                             key={3}
                                             primaryText={member.affiliation}
                                             leftIcon={<LocationCityIcon />}
+                                            disabled={true}
+                                        />,
+                                        <ListItem
+                                            key={3}
+                                            primaryText={`Community Service: ${member.community_service}`}
+                                            leftIcon={<SentimentSatisfiedAltIcon />}
                                             disabled={true}
                                         />,
                                         <ListItem

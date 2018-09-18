@@ -6,16 +6,7 @@ const crypto = require('crypto');
 
 // ---------GET ROUTES----------------------
 
-// member sign up
-router.get('/signup/:token', (req, res) => {
-	if(req.params.token === process.env.REACT_API_SIGNUP_TOKEN && req.session.user && req.cookies.user_cole) {
-		res.json({allowSignIn: true})	
-	} else if (req.params.token === process.env.REACT_API_SIGNUP_TOKEN) {
-		res.json({allowSignUp: true, allowSignIn: false})
-	} else {
-		res.json({allowSignUp: false})
-	}
-});
+
 
 // member sign in
 router.get('/signin', (req, res) => {
@@ -141,6 +132,26 @@ router.get('/gallery', function(req, res) {
 	.catch(error => {console.log(error)})
 });
 
+// member sign up
+router.get('/signup/:token', (req, res) => {
+	models.signup_requests.findOne({where: {signUpToken: req.params.token, signUpTokenExpires: { $gt: Date.now()} }})
+	.then(requestFound => {
+		if(requestFound && req.session.user && req.cookies.user_cole) {
+			res.json({allowSignIn: true})
+		} else if (requestFound) {
+			res.json({
+				allowSignUp: true, 
+				allowSignIn: false,
+				email: requestFound.email,
+				first_name: requestFound.first_name,
+				last_name: requestFound.last_name
+			})
+		} else {
+			res.json({allowSignUp: false})
+		}
+	})
+});
+
 // reset password page
 router.get('/resetpassword/:token', function(req, res) {
 	models.member.findOne({ where: {resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now()} }})
@@ -187,6 +198,7 @@ router.post('/signup', (req, res) => {
 		        phone_number: req.body.phone_number,
 		        email: req.body.email,
 		        affiliation:req.body.parish,
+		        community_service: req.body.community_service,
 		        password: req.body.password,
 		        admin: false
 		    })
@@ -550,7 +562,6 @@ router.post('/updateinfo', function(req, res) {
 
 // updates the announcement area on the dashboard
 router.post('/updateannouncement', function(req, res) {
-	console.log(req.body)
 	models.announcements.destroy({where: {}})
 	.then(result => {
 		models.announcements.create({
@@ -565,8 +576,23 @@ router.post('/updateannouncement', function(req, res) {
 
 // post to send the info to request to sign up
 router.post('/requestsignup', function(req, res) {
-	sendRequestEmail(req.body)
-	res.json({applied: true})
+	crypto.randomBytes(20, (err, buf) => {
+  		if (err) throw err;
+  		let token = `${buf.toString('hex')}`
+
+  		models.signup_requests.create({
+  			first_name: req.body.first_name,
+  			last_name: req.body.last_name,
+  			email: req.body.email,
+  			signUpToken: token,
+  			signUpTokenExpires: Date.now() + 3600000
+  		})
+		.then(memberRequest => {
+			// console.log(memberRequest);
+			sendRequestEmail(memberRequest)
+			res.json({applied: true})
+		})
+	});	
 });
 
 // checks if there is an existing email and sends an email to change the password if there is one
@@ -660,7 +686,8 @@ function sendRequestEmail(newUserRequest){
       to: 'thebayonnesoupkitchen@gmail.com',
       subject: `New Member Request from ${newUserRequest.first_name} ${newUserRequest.last_name}`,
       text: `${newUserRequest.first_name} ${newUserRequest.last_name} has requested to sign up for the Bayonne Soup Kitchen.
-      		If approved please send sign up email to: ${newUserRequest.email}`
+      		If approved please send this link: http://localhost:3000/signup/${newUserRequest.signUpToken} to: ${newUserRequest.email}.
+      		This link will expire at ${newUserRequest.signUpTokenExpires}.`
     };
 
     transporter.sendMail(mailOptions, function(error, info){

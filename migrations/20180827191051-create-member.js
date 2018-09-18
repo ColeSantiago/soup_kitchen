@@ -67,6 +67,9 @@ module.exports = {
       resetPasswordExpires: {
         type: Sequelize.DATE
       },
+      community_service: {
+        type: Sequelize.BOOLEAN
+      },
     });
   },
   down: (queryInterface, Sequelize) => {

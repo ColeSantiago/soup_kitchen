@@ -47,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
     admin: DataTypes.BOOLEAN,
     resetPasswordToken: DataTypes.STRING,
     resetPasswordExpires: DataTypes.DATE,
+    community_service: DataTypes.BOOLEAN,
   },{
       hooks: {
         beforeCreate: (member) => {

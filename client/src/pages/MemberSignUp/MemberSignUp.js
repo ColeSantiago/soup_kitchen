@@ -6,6 +6,7 @@ import './MemberSignUp.css';
 import { Input, SignUpBtn } from '../../components/SignUpForm';
 // material ui
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Checkbox from 'material-ui/Checkbox';
 // phone input
 import PhoneInput from 'react-phone-number-input/basic-input';
 
@@ -21,6 +22,7 @@ class MemberSignUp extends Component {
         last_name: '',
         email: '',
         parish: '',
+        checked: false,
         password: '',
         confirmPassword: '',
         allowSignIn: false,
@@ -36,7 +38,13 @@ class MemberSignUp extends Component {
     // loads page and checks if there is alreadty and user and if the token is correct
     loadSignUp = () => {
         API.loadSignUp(this.props.match.params.token)
-        .then(res => {this.setState({allowSignIn: res.data.allowSignIn, allowSignUp: res.data.allowSignUp})})
+        .then(res => {this.setState({
+            allowSignIn: res.data.allowSignIn, 
+            allowSignUp: res.data.allowSignUp,
+            email: res.data.email,
+            first_name: res.data.first_name,
+            last_name: res.data.last_name
+        })})
         .catch(err => console.log(err));
     };
 
@@ -45,6 +53,14 @@ class MemberSignUp extends Component {
         const { name, value } = event.target;
         this.setState({
             [name]: value
+        });
+    };
+
+    updateCheck() {
+        this.setState((oldState) => {
+          return {
+            checked: !oldState.checked,
+          };
         });
     };
 
@@ -58,6 +74,7 @@ class MemberSignUp extends Component {
                     phone_number:this.state.value,
                     email: this.state.email,
                     parish: this.state.parish,
+                    community_service: this.state.checked,
                     password: this.state.password,
                   })
                 .then(res => {
@@ -131,6 +148,11 @@ class MemberSignUp extends Component {
                                         name='confirmPassword'
                                         type='password'
                                         floatingLabelText='Confirm Password'
+                                    />
+                                    <Checkbox
+                                      label="Will you need community service papers signed?"
+                                      checked={this.state.checked}
+                                      onCheck={this.updateCheck.bind(this)}
                                     />
                                     <SignUpBtn style={style.button} onClick={this.handleFormSubmit} />
                                 </form>
