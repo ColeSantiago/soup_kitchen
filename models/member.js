@@ -72,8 +72,6 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     member.hasMany(models.weekly_meals);
     member.hasOne(models.weekly_jobs);
-    member.hasMany(models.forum_topics);
-    member.hasMany(models.forum_comments);
   };
   return member;
 };

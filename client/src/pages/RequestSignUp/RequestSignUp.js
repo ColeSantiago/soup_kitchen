@@ -51,6 +51,7 @@ class RequestSignUp extends Component {
         });
     };
 
+    // on change for captcha
     onChange = value => {
         if(value) {
             this.setState({captcha: true})

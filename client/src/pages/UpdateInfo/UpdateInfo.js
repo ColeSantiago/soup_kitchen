@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../../utils/API';
-// import './SignUp.css';
 // component
 import { Input, UpdateBtn } from '../../components/UpdateForm';
 // material ui
@@ -179,10 +178,7 @@ class MemberSignUp extends Component {
                                 </form>
                             </div>
                         </div>
-                    ) : (
-                            <div>Please <Link to='/signin'>sign in</Link> to see this page</div>
-                        )
-                    }
+                    ) : (<div>Please <Link to='/signin'>sign in</Link> to see this page</div>)}
                 </MuiThemeProvider>
             </div> 
         );

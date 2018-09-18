@@ -7,7 +7,6 @@ const crypto = require('crypto');
 // ---------GET ROUTES----------------------
 
 
-
 // member sign in
 router.get('/signin', (req, res) => {
 	if(req.session.user && req.cookies.user_cole) {

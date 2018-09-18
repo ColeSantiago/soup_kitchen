@@ -110,7 +110,7 @@ class MemberSignIn extends Component {
                                 />
                                 <SignInBtn style={style.button} type='submit' />
                                 <Link className='to-forgot-password' to='/forgotpassword'>
-                                  Forgot Password
+                                    Forgot Password
                                </Link>
                             </form>
                             </div>

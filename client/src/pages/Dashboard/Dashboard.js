@@ -31,8 +31,6 @@ class Dashboard extends Component {
 		announcement: '',
 		open: false,
 	};
-
-	handleToggle = () => this.setState({open: !this.state.open});
 	
 	componentDidMount() {
 		this.loadDashboard();
@@ -105,6 +103,9 @@ class Dashboard extends Component {
 	    }
 	};
 
+	// handles menu toggle
+	handleToggle = () => this.setState({open: !this.state.open});
+
 	// handles form input
     handleInputChange = event => {
         const { name, value } = event.target;
@@ -157,11 +158,7 @@ class Dashboard extends Component {
 			      			<div className='sidebar-toggle'>
 			      				<h2 className='welcome'>Welcome {this.state.user.first_name}!</h2>
 			      				<IconButton tooltip='Menu' touch={true} tooltipPosition='bottom-right'>
-				      				<MenuIcon
-				      					className='menu-icon'
-				      					label="Toggle Drawer"
-	          							onClick={this.handleToggle}
-	          						/>
+				      				<MenuIcon className='menu-icon' label="Toggle Drawer" onClick={this.handleToggle}/>
 	          					</IconButton>
 			      			</div>
 			      			<Drawer open={this.state.open}>
@@ -170,7 +167,7 @@ class Dashboard extends Component {
 					          	<MenuItem><Link className='menu-item' to='/gallery'>Photo Gallery</Link></MenuItem>
 					          	{this.state.admin ? (
 				      					<MenuItem><Link className='menu-item' to='/memberpage'>Member List</Link></MenuItem>
-				      				) : (null)}
+				      			) : (null)}
 					        </Drawer>
 			      			<div className='announcement-div'>
 			      				<p>{this.state.announcement}</p>
@@ -206,7 +203,7 @@ class Dashboard extends Component {
 					      						<li>2 bags of ice</li>
 					      					</ul>
 					      				</div>
-						      			<Divider />
+						      		<Divider />
 						      			<div className='schedule-div'>
 						      				<h1 className='schedule-heading'>Weekly Schedule</h1>
 					      					<h2>Friday</h2>
@@ -232,36 +229,36 @@ class Dashboard extends Component {
 						      			</div>
 							      	</div>
 						      		<Divider />
-						      			<div className='admin-forms'>
-						      				<form className='date-form'>
-						      					<label>Add a new Date here:</label>
-							      				<DatePicker 
-							      					value={this.state.newDate}
-							      					onChange={this.handleCalInputChange} 
-							      					hintText='Add Another Saturday' 
-							      					mode='landscape'
-							      					shouldDisableDate={this.disableDays}
-							      				/>
-							      				<FloatingActionButton mini={true}>
-	                                                <ContentAdd onClick={this.handleCalFormSubmit} />
-	                                            </FloatingActionButton>
-						      				</form>
-						      				<form className='meal-form'>
-						      					<label>Update the Announcement here:</label>
-	                                            <textarea
-	                                            	maxLength='1000'
-	                                            	placeholder='Max 1000 Characters'
-	                                            	className='announcement-textarea'
-	                                                value={this.state.announcementText}
-	                                                onChange={this.handleInputChange}
-	                                                name='announcementText'
-	                                            />
-	                                            <br></br>
-	                                            <FloatingActionButton mini={true}>
-	                                              <ContentAdd onClick={this.handleFormSubmit} />
-	                                            </FloatingActionButton>
-	                                        </form>
-					      				</div>
+					      			<div className='admin-forms'>
+					      				<form className='date-form'>
+					      					<label>Add a new Date here:</label>
+						      				<DatePicker 
+						      					value={this.state.newDate}
+						      					onChange={this.handleCalInputChange} 
+						      					hintText='Add Another Saturday' 
+						      					mode='landscape'
+						      					shouldDisableDate={this.disableDays}
+						      				/>
+						      				<FloatingActionButton mini={true}>
+                                                <ContentAdd onClick={this.handleCalFormSubmit} />
+                                            </FloatingActionButton>
+					      				</form>
+					      				<form className='meal-form'>
+					      					<label>Update the Announcement here:</label>
+                                            <textarea
+                                            	maxLength='1000'
+                                            	placeholder='Max 1000 Characters'
+                                            	className='announcement-textarea'
+                                                value={this.state.announcementText}
+                                                onChange={this.handleInputChange}
+                                                name='announcementText'
+                                            />
+                                            <br></br>
+                                            <FloatingActionButton mini={true}>
+                                              <ContentAdd onClick={this.handleFormSubmit} />
+                                            </FloatingActionButton>
+                                        </form>
+				      				</div>
 				      			</div>
 			      			) : (null)}
 			      			<div className='dates-div'>
@@ -286,10 +283,7 @@ class Dashboard extends Component {
 			                    ) : (null)}
 				      		</div>
 			      		</div>
-			      	) : (
-			      		<div>Please <Link to='/signin'>sign in</Link> to see this page</div>
-			    		)
-			      	}
+			      	) : (<div>Please <Link to='/signin'>sign in</Link> to see this page</div>)}
 			    </div>
 		    </MuiThemeProvider>
 	    );

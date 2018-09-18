@@ -221,10 +221,7 @@ class Gallery extends Component {
 				                    	</IconButton>
 				                    </div>
 	                            </div>
-			                ) : (
-			                		<p>There's nothing here</p>
-			                	)
-			            	}
+			                ) : (<p>There's nothing here</p>)}
 			            </div>
 		                <Snackbar
 		                  open={this.state.open}

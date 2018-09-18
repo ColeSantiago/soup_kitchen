@@ -8,7 +8,6 @@ import Footer from '../../components/Footer';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
-// import './RequestSignUp.css';
 
 // styles for icons
 const style = {

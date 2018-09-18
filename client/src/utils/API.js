@@ -62,34 +62,34 @@ export default {
 	toggleAdmin: function(memberInfo) {
 		return axios.post('/api/kitchen/toggleadmin', memberInfo)
 	},
-  loadGallery: function() {
-    return axios.get('/api/kitchen/gallery')
-  },
-  savePhoto: function(photoInfo) {
-    return axios.post('/api/kitchen/savephoto', photoInfo)
-  },
-  deletePhoto: function(photoId) {
-    return axios.post('/api/kitchen/deletephoto', photoId)
-  },
-  loadUpdate: function() {
-    return axios.get('/api/kitchen/updateinfo')
-  },
-  updateInfo: function(memberId) {
-    return axios.post('api/kitchen/updateinfo', memberId)
-  },
-  updateAnnouncement: function(announcementInfo) {
-    return axios.post('/api/kitchen/updateannouncement', announcementInfo)
-  },
-  requestSignUp: function(requestInfo) {
-    return axios.post('/api/kitchen/requestsignup', requestInfo)
-  },
-  forgotPassword: function(emailInfo) {
-    return axios.post('/api/kitchen/forgotpassword', emailInfo)
-  },
-  loadResetPassword: function(token) {
-    return axios.get('/api/kitchen/resetpassword/' + token)
-  },
-  changePassword: function(newPasswordInfo) {
-    return axios.post('/api/kitchen/resetpassword', newPasswordInfo)
-  },
+	loadGallery: function() {
+	return axios.get('/api/kitchen/gallery')
+	},
+	savePhoto: function(photoInfo) {
+	return axios.post('/api/kitchen/savephoto', photoInfo)
+	},
+	deletePhoto: function(photoId) {
+	return axios.post('/api/kitchen/deletephoto', photoId)
+	},
+	loadUpdate: function() {
+	return axios.get('/api/kitchen/updateinfo')
+	},
+	updateInfo: function(memberId) {
+	return axios.post('api/kitchen/updateinfo', memberId)
+	},
+	updateAnnouncement: function(announcementInfo) {
+	return axios.post('/api/kitchen/updateannouncement', announcementInfo)
+	},
+	requestSignUp: function(requestInfo) {
+	return axios.post('/api/kitchen/requestsignup', requestInfo)
+	},
+	forgotPassword: function(emailInfo) {
+	return axios.post('/api/kitchen/forgotpassword', emailInfo)
+	},
+	loadResetPassword: function(token) {
+	return axios.get('/api/kitchen/resetpassword/' + token)
+	},
+	changePassword: function(newPasswordInfo) {
+	return axios.post('/api/kitchen/resetpassword', newPasswordInfo)
+	},
 };

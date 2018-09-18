@@ -125,19 +125,19 @@ class MemberPage extends Component {
                                             disabled={true}
                                         />,
                                         <ListItem
-                                            key={3}
+                                            key={4}
                                             primaryText={`Community Service: ${member.community_service}`}
                                             leftIcon={<SentimentSatisfiedAltIcon />}
                                             disabled={true}
                                         />,
                                         <ListItem
-                                            key={4}
+                                            key={5}
                                             primaryText={`Admin: ${member.admin}`}
                                             leftIcon={<SchoolIcon />}
                                             disabled={true}
                                         />,
                                         <ListItem
-                                            key={5}
+                                            key={6}
                                             primaryText='Member Options'
                                             leftIcon={<MenuIcon />}
                                             primaryTogglesNestedList={true}
@@ -166,10 +166,7 @@ class MemberPage extends Component {
                             </List>
                         ) : (null)} 
                     </div>
-                	) : (
-                            <div>Please <Link to='/signin'>sign in</Link> to see this page, and confirm that you are an Admin.</div>
-                        )
-                    }
+                ) : (<div>Please <Link to='/signin'>sign in</Link> to see this page, and confirm that you are an Admin.</div>)}
             </MuiThemeProvider>
         );
     }

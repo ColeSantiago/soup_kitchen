@@ -206,164 +206,146 @@ class JobSignUp extends Component {
                                 </Link>
                                 <h1 className='signup-title'>Bayonne Soup Kitchen Sign Up</h1>
                             </div>
-                                <Tabs value={this.state.value} onChange={this.handleChange}>
-                                    <Tab label='Job Sign Up' value='a'>
-                                        <div className='signup-headings'>
-                                            <h2>Please sign up for one job.</h2>
-                                            <h2>All Staff helps to set up and clean up. Arrival time 3:00pm***</h2>
+                            <Tabs value={this.state.value} onChange={this.handleChange}>
+                                <Tab label='Job Sign Up' value='a'>
+                                    <div className='signup-headings'>
+                                        <h2>Please sign up for one job.</h2>
+                                        <h2>All Staff helps to set up and clean up. Arrival time 3:00pm***</h2>
+                                    </div>
+                                    <div className='all-jobs'>
+                                        <div className='jobsNeeded-div'>
+                                            <h1 className='signup-sub-heading'>Jobs Needed</h1>
+                                            {this.state.jobsNeeded.length ? (
+                                                <List>
+                                                    {this.state.jobsNeeded.map(jobNeeded => (
+                                                        <ListItem 
+                                                            key={jobNeeded.id}
+                                                            id={jobNeeded.id} 
+                                                            title={jobNeeded.job} 
+                                                        >
+                                                        <IconButton tooltip='Sign Me Up' touch={true} tooltipPosition='top-right'>
+                                                            <HowToRegIcon className='sign-up-btn' onClick={() => this.jobSignUp(jobNeeded.id)}/>
+                                                        </IconButton>
+                                                        {this.state.admin ? (
+                                                            <IconButton tooltip='Delete Job' touch={true} tooltipPosition='top-right'>
+                                                                <DeleteForeverIcon className='delete-job' onClick={() => this.deleteJob(jobNeeded.id)} />
+                                                            </IconButton>
+                                                        ) : (
+                                                                null
+                                                            )}
+                                                            <Divider />
+                                                        </ListItem>
+                                                    ))}
+                                                </List>
+                                            ) : (<p>All Jobs are signed up for. Thank You!</p>)}
                                         </div>
-                                            <div className='all-jobs'>
-                                                <div className='jobsNeeded-div'>
-                                                    <h1 className='signup-sub-heading'>Jobs Needed</h1>
-                                                    {this.state.jobsNeeded.length ? (
-                                                        <List>
-                                                            {this.state.jobsNeeded.map(jobNeeded => (
-                                                                <ListItem 
-                                                                    key={jobNeeded.id}
-                                                                    id={jobNeeded.id} 
-                                                                    title={jobNeeded.job} 
-                                                                >
-                                                                <IconButton tooltip='Sign Me Up' touch={true} tooltipPosition='top-right'>
-                                                                    <HowToRegIcon className='sign-up-btn' onClick={() => this.jobSignUp(jobNeeded.id)}/>
-                                                                </IconButton>
-                                                                {this.state.admin ? (
-                                                                    <IconButton tooltip='Delete Job' touch={true} tooltipPosition='top-right'>
-                                                                        <DeleteForeverIcon className='delete-job' onClick={() => this.deleteJob(jobNeeded.id)} />
-                                                                    </IconButton>
-                                                                ) : (
-                                                                        null
-                                                                    )}
-                                                                    <Divider />
-                                                                </ListItem>
-                                                            ))}
-                                                        </List>
-                                                    ) : (
-                                                            <p>All Jobs are signed up for. Thank You!</p>
-                                                        )
-                                                    }
-                                                </div>
-                                                <div className="inner"></div>
-                                                <div className='jobsTaken-div'>
-                                                    <h1 className='signup-sub-heading'>Jobs Claimed</h1>
-                                                    {this.state.jobsTaken.length ? (
-                                                        <List>
-                                                            {this.state.jobsTaken.map(jobTaken => (
-                                                                <ListItem 
-                                                                    key={jobTaken.id}
-                                                                    id={jobTaken.id} 
-                                                                    title={jobTaken.job}
-                                                                    takenBy={jobTaken.member_name} 
-                                                                >
-                                                                {this.state.user.id === jobTaken.memberId ? (
-                                                                    <IconButton tooltip='Nevermind' touch={true} tooltipPosition='top-right'>
-                                                                        <BlockIcon className='nevermind-btn' onClick={() => this.jobUnSignUp(jobTaken.id)}/>
-                                                                    </IconButton>
-                                                                ) : (null)}
-                                                                {this.state.admin ? (
-                                                                    <IconButton tooltip='Unassign Job' touch={true} tooltipPosition='top-right'>
-                                                                        <RemoveCircleIcon className='delete-job' onClick={() => this.jobUnSignUp(jobTaken.id)}/>
-                                                                    </IconButton>
-                                                                ) : (
-                                                                        null
-                                                                    )}
-                                                                    <Divider />
-                                                                </ListItem>
-                                                            ))}
-                                                        </List>
-                                                    ) : (
-                                                            <p>No one has signed up for anything yet!</p>
-                                                        )
-                                                    }
-                                                </div>
+                                        <div className="inner"></div>
+                                        <div className='jobsTaken-div'>
+                                            <h1 className='signup-sub-heading'>Jobs Claimed</h1>
+                                            {this.state.jobsTaken.length ? (
+                                                <List>
+                                                    {this.state.jobsTaken.map(jobTaken => (
+                                                        <ListItem 
+                                                            key={jobTaken.id}
+                                                            id={jobTaken.id} 
+                                                            title={jobTaken.job}
+                                                            takenBy={jobTaken.member_name} 
+                                                        >
+                                                        {this.state.user.id === jobTaken.memberId ? (
+                                                            <IconButton tooltip='Nevermind' touch={true} tooltipPosition='top-right'>
+                                                                <BlockIcon className='nevermind-btn' onClick={() => this.jobUnSignUp(jobTaken.id)}/>
+                                                            </IconButton>
+                                                        ) : (null)}
+                                                        {this.state.admin ? (
+                                                            <IconButton tooltip='Unassign Job' touch={true} tooltipPosition='top-right'>
+                                                                <RemoveCircleIcon className='delete-job' onClick={() => this.jobUnSignUp(jobTaken.id)}/>
+                                                            </IconButton>
+                                                        ) : ( null)}
+                                                            <Divider />
+                                                        </ListItem>
+                                                    ))}
+                                                </List>
+                                            ) : (<p>No one has signed up for anything yet!</p>)}
                                         </div>
-                                    </Tab>
-                                    <Tab label='Meal Sign Up' value='b'>
-                                        <div className='signup-headings'>
-                                            <h2>All food/bread to be dropped off at All Saints Catholic Academy cafeteria at 3:00pm</h2>
-                                            <div className='signup-admin-div'>
-                                                {this.state.admin ? (
-                                                    <form className='add-meal-form'>
-                                                        <label>Add A Meal Here:</label>
-                                                        <Input
-                                                            value={this.state.newMeal}
-                                                            onChange={this.handleInputChange}
-                                                            name='newMeal'
-                                                            floatingLabelText='Add a Meal'
-                                                        />
-                                                        <FloatingActionButton mini={true}>
-                                                          <ContentAdd onClick={this.handleFormSubmit} />
-                                                        </FloatingActionButton>
-                                                    </form>
-                                                ) : (null)}
-                                            </div>
+                                    </div>
+                                </Tab>
+                                <Tab label='Meal Sign Up' value='b'>
+                                    <div className='signup-headings'>
+                                        <h2>All food/bread to be dropped off at All Saints Catholic Academy cafeteria at 3:00pm</h2>
+                                        <div className='signup-admin-div'>
+                                            {this.state.admin ? (
+                                                <form className='add-meal-form'>
+                                                    <label>Add A Meal Here:</label>
+                                                    <Input
+                                                        value={this.state.newMeal}
+                                                        onChange={this.handleInputChange}
+                                                        name='newMeal'
+                                                        floatingLabelText='Add a Meal'
+                                                    />
+                                                    <FloatingActionButton mini={true}>
+                                                      <ContentAdd onClick={this.handleFormSubmit} />
+                                                    </FloatingActionButton>
+                                                </form>
+                                            ) : (null)}
                                         </div>
-                                        <div className='all-meals'>
-                                            <div className='mealsNeeded-div'>
-                                                <h1 className='signup-sub-heading'>Meals Needed</h1>
-                                                    {this.state.mealsNeeded.length ? (
-                                                        <List>
-                                                            {this.state.mealsNeeded.map(mealNeeded => (
-                                                                <ListItem 
-                                                                    key={mealNeeded.id}
-                                                                    id={mealNeeded.id} 
-                                                                    title={mealNeeded.meal}
-                                                                    takenBy={mealNeeded.member_name} 
-                                                                >
-                                                                <IconButton tooltip='Sign Me Up' touch={true} tooltipPosition='top-right'>
-                                                                    <HowToRegIcon className='sign-up-btn' onClick={() => this.mealSignUp(mealNeeded.id)}/>
-                                                                </IconButton>
-                                                                {this.state.admin ? (
-                                                                    <IconButton tooltip='Delete Meal' touch={true} tooltipPosition='top-right'>
-                                                                        <DeleteForeverIcon className='delete-job' onClick={() => this.deleteMeal(mealNeeded.id)}/>
-                                                                    </IconButton>
-                                                                ) : (
-                                                                        null
-                                                                    )}
-                                                                    <Divider />
-                                                                </ListItem>
-                                                            ))}
-                                                        </List>
-                                                    ) : (
-                                                            <p>All Meals are signed up for. Thank You!</p>
-                                                        )
-                                                    }
-                                            </div>
-                                            <div className="inner"></div>
-                                            <div className='mealsTaken-div'>
-                                                <h1 className='signup-sub-heading'>Meals Claimed</h1>
-                                                    {this.state.mealsTaken.length ? (
-                                                        <List>
-                                                            {this.state.mealsTaken.map(mealTaken => (
-                                                                <ListItem 
-                                                                    key={mealTaken.id}
-                                                                    id={mealTaken.id} 
-                                                                    title={mealTaken.meal}
-                                                                    takenBy={mealTaken.member_name} 
-                                                                >
-                                                                {this.state.user.id === mealTaken.memberId ? (
-                                                                    <IconButton tooltip='Nevermind' touch={true} tooltipPosition='top-right'>
-                                                                        <BlockIcon className='nevermind-btn' onClick={() => this.mealUnSignUp(mealTaken.id)}/>
-                                                                    </IconButton>
-                                                                ) : (null)}
-                                                                {this.state.admin ? (
-                                                                    <IconButton tooltip='Unassign Meal' touch={true} tooltipPosition='top-right'>
-                                                                        <RemoveCircleIcon className='delete-job' onClick={() => this.mealUnSignUp(mealTaken.id)}/>
-                                                                    </IconButton>
-                                                                ) : (
-                                                                        null
-                                                                    )}
-                                                                    <Divider />
-                                                                </ListItem>
-                                                            ))}
-                                                        </List>
-                                                    ) : (
-                                                            <p>No one has signed up for anything yet!</p>
-                                                        )
-                                                    }
-                                            </div>
+                                    </div>
+                                    <div className='all-meals'>
+                                        <div className='mealsNeeded-div'>
+                                            <h1 className='signup-sub-heading'>Meals Needed</h1>
+                                            {this.state.mealsNeeded.length ? (
+                                                <List>
+                                                    {this.state.mealsNeeded.map(mealNeeded => (
+                                                        <ListItem 
+                                                            key={mealNeeded.id}
+                                                            id={mealNeeded.id} 
+                                                            title={mealNeeded.meal}
+                                                            takenBy={mealNeeded.member_name} 
+                                                        >
+                                                        <IconButton tooltip='Sign Me Up' touch={true} tooltipPosition='top-right'>
+                                                            <HowToRegIcon className='sign-up-btn' onClick={() => this.mealSignUp(mealNeeded.id)}/>
+                                                        </IconButton>
+                                                        {this.state.admin ? (
+                                                            <IconButton tooltip='Delete Meal' touch={true} tooltipPosition='top-right'>
+                                                                <DeleteForeverIcon className='delete-job' onClick={() => this.deleteMeal(mealNeeded.id)}/>
+                                                            </IconButton>
+                                                        ) : (null)}
+                                                            <Divider />
+                                                        </ListItem>
+                                                    ))}
+                                                </List>
+                                            ) : (<p>All Meals are signed up for. Thank You!</p>)}
                                         </div>
-                                    </Tab>
-                                </Tabs>
+                                        <div className="inner"></div>
+                                        <div className='mealsTaken-div'>
+                                            <h1 className='signup-sub-heading'>Meals Claimed</h1>
+                                            {this.state.mealsTaken.length ? (
+                                                <List>
+                                                    {this.state.mealsTaken.map(mealTaken => (
+                                                        <ListItem 
+                                                            key={mealTaken.id}
+                                                            id={mealTaken.id} 
+                                                            title={mealTaken.meal}
+                                                            takenBy={mealTaken.member_name} 
+                                                        >
+                                                        {this.state.user.id === mealTaken.memberId ? (
+                                                            <IconButton tooltip='Nevermind' touch={true} tooltipPosition='top-right'>
+                                                                <BlockIcon className='nevermind-btn' onClick={() => this.mealUnSignUp(mealTaken.id)}/>
+                                                            </IconButton>
+                                                        ) : (null)}
+                                                        {this.state.admin ? (
+                                                            <IconButton tooltip='Unassign Meal' touch={true} tooltipPosition='top-right'>
+                                                                <RemoveCircleIcon className='delete-job' onClick={() => this.mealUnSignUp(mealTaken.id)}/>
+                                                            </IconButton>
+                                                        ) : (null)}
+                                                            <Divider />
+                                                        </ListItem>
+                                                    ))}
+                                                </List>
+                                            ) : (<p>No one has signed up for anything yet!</p>)}
+                                        </div>
+                                    </div>
+                                </Tab>
+                            </Tabs>
                         </div>
                     ) : (<div>Please <Link to='/signin'>sign in</Link> to see this page</div>)}
                 </MuiThemeProvider>
