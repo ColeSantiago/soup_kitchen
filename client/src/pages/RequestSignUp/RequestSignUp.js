@@ -10,6 +10,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 
+import ReCAPTCHA from "react-google-recaptcha";
+
 const style = {
     container: {
         position: 'relative',
@@ -37,6 +39,7 @@ class RequestSignUp extends Component {
         first_name: '',
         last_name: '',
         email: '',
+        captcha: false,
         applied: false
     };
 
@@ -48,9 +51,15 @@ class RequestSignUp extends Component {
         });
     };
 
+    onChange = value => {
+        if(value) {
+            this.setState({captcha: true})
+        }
+    };
+
     // handles form submit to request to sign up 
     handleFormSubmit = event => {
-        if(this.state.first_name && this.state.last_name && this.state.email !== '') {
+        if(this.state.first_name && this.state.last_name && this.state.email !== '' && this.state.captcha === true) {
             let requestInfo = {
                 first_name: this.state.first_name,
                 last_name: this.state.last_name,
@@ -112,6 +121,11 @@ class RequestSignUp extends Component {
                                         name='email'
                                         floatingLabelText='Email'
                                         floatingLabelFixed={true}
+                                    />
+                                    <ReCAPTCHA
+                                        className='captcha'
+                                        sitekey={`${process.env.REACT_APP_CAPTCHA_KEY}`}
+                                        onChange={this.onChange}
                                     />
                                     <RequestBtn style={style.button} onClick={this.handleFormSubmit} />
                                 </form>

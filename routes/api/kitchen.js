@@ -405,8 +405,14 @@ router.post('/jobsignup', function(req, res) {
     }, {
         where: {id: req.body.id}
     })
-    .then(result => {res.json(result)})
-    .catch(error => {console.log(error)})
+    .then(result => {
+    	models.weekly_jobs.findOne({where: {id: req.body.id}})
+    	.then(jobResult => {
+    		res.json(result);
+    		sendSignUpJobEmail(req.body.email, jobResult);
+    	})
+    	.catch(error => {console.log(error)})	
+    })
 });
 
 // allows members to un-signup for jobs
@@ -438,8 +444,14 @@ router.post('/mealsignup', function(req, res) {
     }, {
         where: {id: req.body.id}
     })
-    .then(result => {res.json(result)})
-    .catch(error => {console.log(error)})
+    .then(result => {
+    	models.weekly_meals.findOne({where: {id: req.body.id}})
+    	.then(mealResult => {
+    		res.json(result);
+    		sendSignUpMealEmail(req.body.email, mealResult);
+    	})
+    	.catch(error => {console.log(error)})	
+    })
 });
 
 // allows members to un-signup for meals
@@ -747,6 +759,64 @@ function sendConfirmChangeEmail(member){
       subject: 'Your Password Has Been Changed',
       text: `Hello \n This is a confirmation that the password for your account ${member.email} with the Bayonne Soup Kitchen has been changed \n 
       If you did not make this change please contact an Admin of the Soup Kitchen as soon as possible.`
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } 
+    });
+};
+
+// sends the email when a member signs up for a job or meal
+function sendSignUpJobEmail(email, info) {
+	let transporter = nodemailer.createTransport({
+      	host: 'smtp.gmail.com',
+      	auth: {
+      		type: 'OAuth2',
+	        user: 'thebayonnesoupkitchen@gmail.com',
+	        clientId: process.env.REACT_API_CLIENT_ID,
+	        clientSecret: process.env.REACT_API_SECRET,
+	        refreshToken: process.env.REACT_API_REFRESH_TOKEN,
+	        accessToken: process.env.REACT_API_ACCESS_TOKEN
+      	}
+    });
+
+    let mailOptions = {
+      from: 'thebayonnesoupkitchen@gmail.com',
+      to: email,
+      subject: "You're Signed Up!",
+      text: `Thanks ${info.member_name}! \n You're signed up for ${info.job} on ${info.date}. We're looking forward to seeing you there! \n
+      -The Bayonne Soup Kitchen Staff`
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } 
+    });
+};
+
+// sends the email when a member signs up for a job or meal
+function sendSignUpMealEmail(email, info) {
+	let transporter = nodemailer.createTransport({
+      	host: 'smtp.gmail.com',
+      	auth: {
+      		type: 'OAuth2',
+	        user: 'thebayonnesoupkitchen@gmail.com',
+	        clientId: process.env.REACT_API_CLIENT_ID,
+	        clientSecret: process.env.REACT_API_SECRET,
+	        refreshToken: process.env.REACT_API_REFRESH_TOKEN,
+	        accessToken: process.env.REACT_API_ACCESS_TOKEN
+      	}
+    });
+
+    let mailOptions = {
+      from: 'thebayonnesoupkitchen@gmail.com',
+      to: email,
+      subject: "You're Signed Up!",
+      text: `Thanks ${info.member_name}! \n You're signed up for ${info.meal} on ${info.date}. We're looking forward to seeing you there! \n
+      -The Bayonne Soup Kitchen Staff`
     };
 
     transporter.sendMail(mailOptions, function(error, info){

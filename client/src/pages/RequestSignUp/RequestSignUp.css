@@ -25,6 +25,7 @@
 
 .request-p {
 	font-size: 23px;
+	margin: 16px;
 }
 
 .home-icon {
@@ -42,5 +43,9 @@
     line-height: 27px;
     margin: auto;
     padding-top: 50px;
+}
+
+.captcha {
+	margin: 29px;
 }
 

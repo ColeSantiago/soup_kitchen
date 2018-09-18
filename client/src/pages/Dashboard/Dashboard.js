@@ -7,6 +7,7 @@ import { List, ListItem } from '../../components/DatesList';
 import SignOutBtn from '../../components/SignOutBtn';
 // material ui
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
 import { Link } from 'react-router-dom';
 import DatePicker from 'material-ui/DatePicker';
@@ -154,12 +155,14 @@ class Dashboard extends Component {
 					      		</div>
 			      			</div>
 			      			<div className='sidebar-toggle'>
-			      				<h2>Welcome {this.state.user.first_name}!</h2>
-			      				<MenuIcon
-			      					className='menu-icon'
-			      					label="Toggle Drawer"
-          							onClick={this.handleToggle}
-          						/>
+			      				<h2 className='welcome'>Welcome {this.state.user.first_name}!</h2>
+			      				<IconButton tooltip='Menu' touch={true} tooltipPosition='bottom-right'>
+				      				<MenuIcon
+				      					className='menu-icon'
+				      					label="Toggle Drawer"
+	          							onClick={this.handleToggle}
+	          						/>
+	          					</IconButton>
 			      			</div>
 			      			<Drawer open={this.state.open}>
 					          	<MenuItem><Link className='menu-item' to='/'><SignOutBtn onClick={() => API.logoutMember()} /></Link></MenuItem>
@@ -246,7 +249,8 @@ class Dashboard extends Component {
 						      				<form className='meal-form'>
 						      					<label>Update the Announcement here:</label>
 	                                            <textarea
-	                                            	maxLength="255"
+	                                            	maxLength='1000'
+	                                            	placeholder='Max 1000 Characters'
 	                                            	className='announcement-textarea'
 	                                                value={this.state.announcementText}
 	                                                onChange={this.handleInputChange}
