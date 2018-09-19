@@ -32,5 +32,15 @@
 
 	.to-dashboard {
 	    margin-left: 63px;
+	    width: 300px;
+	    margin: auto;
+	    text-align: center;
+	    line-height: 28px;
+	}
+}
+
+@media only screen and (max-width: 375px) {
+	.to-dashboard {
+	    width: 100px;
 	}
 }

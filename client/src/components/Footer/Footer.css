@@ -23,3 +23,21 @@ footer {
 	text-decoration: none;
 	color: black;
 }
+
+.laptop {
+	vertical-align: middle;
+	margin-left: 10px;
+}
+
+@media only screen and (max-width: 450px) {
+
+	.made-by, .administration {
+	    margin: 12px;
+	    font-size: 12px;
+	}
+
+	.facebook-icon {
+		margin-top: 8px;
+		margin-left: 0px;
+	}
+}

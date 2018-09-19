@@ -232,11 +232,10 @@ class Dashboard extends Component {
 					      			<div className='admin-forms'>
 					      				<form className='date-form'>
 					      					<label>Add a new Date here:</label>
-						      				<DatePicker 
+						      				<DatePicker
 						      					value={this.state.newDate}
 						      					onChange={this.handleCalInputChange} 
-						      					hintText='Add Another Saturday' 
-						      					mode='landscape'
+						      					hintText='Add Another Saturday'
 						      					shouldDisableDate={this.disableDays}
 						      				/>
 						      				<FloatingActionButton mini={true}>

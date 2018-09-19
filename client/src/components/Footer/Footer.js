@@ -1,5 +1,6 @@
 import React from "react";
 import FacebookPhoto from '../../pages/Homepage/images/facebook.png';
+import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import './Footer.css'
 
 const Footer = props => 
@@ -10,7 +11,9 @@ const Footer = props =>
 			</a>
 		</p>
 		<p className='made-by'>Made by 
-			<a className='made-by-link' rel='noopener noreferrer' target='_blank' href='https://colesantiago.github.io/portfolio/'> Cole</a>
+			<a className='made-by-link' rel='noopener noreferrer' target='_blank' href='https://colesantiago.github.io/portfolio/'> 
+				<LaptopMacIcon className='laptop'/> 
+			</a>
 		</p>
 	</footer>;
 

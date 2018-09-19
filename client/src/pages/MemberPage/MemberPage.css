@@ -38,3 +38,11 @@
 		height: 22em;
 	}
 }
+
+@media only screen and (max-width: 450px) {
+
+	.member-home-btn-div {
+	    height: 14em;
+	}
+
+}

@@ -57,3 +57,24 @@
 	}
 }
 
+@media only screen and (max-width: 450px) {
+
+	.form-wrapper {
+		padding: 0px;
+	}
+
+	.form {
+	    padding: 4px;
+	    width: 342px;
+	    margin-bottom: 71px;
+	}
+
+	.request-p {
+	    font-size: 18px;
+	}
+
+	.captcha {
+	    margin: 20px;
+	}
+}
+

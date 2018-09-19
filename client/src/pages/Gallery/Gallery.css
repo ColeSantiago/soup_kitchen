@@ -120,3 +120,35 @@
 	    max-height: 825px; 
 	}
 }
+
+@media only screen and (max-width: 450px) {
+
+	.gallery-header {
+	    height: 15em;
+	}
+
+	.gallery-heading {
+	    margin-top: -20px;
+	    font-size: 28px;
+	}
+
+	.dropzone-div {
+		display: flex;
+	}
+
+	.navbar-toggler {
+	    margin: 30px;
+	    padding: 7px;
+	}
+
+	.gallery-photo {
+	    max-width: 355px;
+	    max-height: 266px;
+	    margin-bottom: 0px;
+	}
+
+	.gallery-photo:hover {
+		max-width: 355px;
+	    max-height: 266px; 
+	}
+}

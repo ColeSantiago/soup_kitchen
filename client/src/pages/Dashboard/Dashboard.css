@@ -87,6 +87,8 @@
 	font-size: 29px;
 	margin-bottom: 30px;
 	margin-top: 20px;
+	color: #09adc1;
+	text-decoration: underline;
 }
 
 .meal-outline, .schedule-div {
@@ -186,5 +188,61 @@
 		font-size: 35px;
 	}
 
+}
+
+@media only screen and (max-width: 640px) {
+	.dashboard-photo {
+	    max-width: 470px;
+	}
+
+	.admin-forms {
+		display: block;
+	}
+
+	.date-form, .meal-form {
+	    width: 284px;
+	    margin: auto;
+	    margin-top: 20px;
+	}
+}
+
+@media only screen and (max-width: 450px) {
+
+	.dashboard-header {
+	    padding: 23px;
+	}
+
+	.dashboard-photo {
+	    max-width: 307px;
+	}
+
+	.dashboard-heading {
+	    font-size: 30px;
+	    margin: 15px;
+	}
+
+	.dashboard-paragraph {
+	    font-size: 18px;
+	}
+
+	.admin-info {
+	    display: block;
+	}
+
+	.meal-outline, .schedule-div {
+	    width: 320px;
+	}
+
+	.dates-div {
+	    padding: 1px;
+	}
+
+	.date-heading {
+	    font-size: 29px;
+	}
+
+	.date-sub-heading {
+	    font-size: 23px;
+	}
 }
 

@@ -3,5 +3,10 @@ html, body {
     box-sizing: border-box;
     position: relative;
     background: url('./pages/Homepage/images/crossword.png');
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+h1, h2 {
+	font-family: 'Lato', sans-serif;
 }
 
