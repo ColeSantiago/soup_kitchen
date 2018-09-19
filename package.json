@@ -1,6 +1,10 @@
 {
   "name": "soup_kitchen",
   "version": "1.0.0",
+  "engines": {
+    "yarn": "1.5.1",
+    "node": "8.9.0",
+  },
   "description": "",
   "main": "server.js",
   "scripts": {
