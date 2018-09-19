@@ -17,9 +17,9 @@
   "production": {
     "username": null,
     "password": null,
-    "port": null,
+    "port": 3306,
     "database": null,
-    "host": null,
+    "host": "m7nj9dclezfq7ax1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   }
 }
