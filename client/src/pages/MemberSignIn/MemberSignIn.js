@@ -4,7 +4,6 @@ import API from '../../utils/API';
 import './MemberSignIn.css';
 // component
 import { Input, SignInBtn } from '../../components/SignInForm';
-import Footer from '../../components/Footer'
 // material ui
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import IconButton from 'material-ui/IconButton';
@@ -123,7 +122,6 @@ class MemberSignIn extends Component {
                                </div>
                 	       )
                     }
-                    <Footer/>
                 </div>  
             </MuiThemeProvider>
         );

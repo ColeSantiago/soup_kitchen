@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './Homepage.css';
 import LocationPhoto from './images/300x250.png';
 import MapMarker from './images/marker.svg.png';
-import Footer from '../../components/Footer'
 import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -91,7 +90,6 @@ class Homepage extends Component {
 								</Map>
 							</div>
 			      		</div>
-				    <Footer/>
 		    	</div>
 	    	</MuiThemeProvider>
     	);

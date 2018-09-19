@@ -4,7 +4,6 @@ import API from '../../utils/API';
 import './RequestSignUp.css';
 // components
 import { Input, RequestBtn } from '../../components/RequestForm';
-import Footer from '../../components/Footer'
 // material ui
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import IconButton from 'material-ui/IconButton';
@@ -28,9 +27,6 @@ const style = {
         width: 96,
         height: 96,
         padding: 24,
-    },
-    button: {
-        margin: 40
     }
 };
 
@@ -128,7 +124,7 @@ class RequestSignUp extends Component {
                                         sitekey={`${process.env.REACT_APP_CAPTCHA_KEY}`}
                                         onChange={this.onChange}
                                     />
-                                    <RequestBtn style={style.button} onClick={this.handleFormSubmit} />
+                                    <RequestBtn onClick={this.handleFormSubmit} />
                                 </form>
                             </div>
                         </div>
@@ -139,7 +135,6 @@ class RequestSignUp extends Component {
                             to go back to our HomePage.</p>
                         )
                     }
-                    <Footer/>
                 </div>
             </MuiThemeProvider>
         );

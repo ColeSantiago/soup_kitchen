@@ -87,6 +87,7 @@
 
 .load-more-div {
 	text-align: center;
+	margin-bottom: 90px;
 }
 
 .load-more-btn {
@@ -96,4 +97,26 @@
 .load-more-btn:hover {
 	background-color: gray;
 	cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+
+	.gallery-header {
+	    height: 25em;
+	}
+
+	.gallery-heading {
+	    margin-top: 0px;
+	    font-size: 38px;
+	}
+
+	.gallery-photo {
+	    max-width: 611px;
+	    max-height: 825px;
+	}
+
+	.gallery-photo:hover {
+		max-width: 611px;
+	    max-height: 825px; 
+	}
 }

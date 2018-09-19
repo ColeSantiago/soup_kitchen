@@ -120,6 +120,7 @@
 	padding: 50px;
 	background: url('./images/double_lined.png');
 	border-bottom: 40px solid #00bdd4;
+	margin-bottom: 90px;
 }
 
 .date-heading, .date-sub-heading {
@@ -146,5 +147,44 @@
 
 .menu-item {
 	color: gray;
+}
+
+@media only screen and (max-width: 1400px) {
+
+	.dashboard-header {
+	    padding: 50px;
+	}
+
+}
+
+@media only screen and (max-width: 1289px) {
+
+		.dashboard-header {
+		    display: block;
+		    text-align: center;
+		    padding: 40px;
+		}
+
+		.dashboard-heading {
+			margin: 30px;
+			font-size: 46px;
+		}
+
+		.dashboard-message {
+		    margin: auto;
+		}
+
+}
+
+@media only screen and (max-width: 768px) {
+	
+	.dashboard-photo {
+		max-width: 600px;
+	}
+
+	.dashboard-heading {
+		font-size: 35px;
+	}
+
 }
 

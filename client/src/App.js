@@ -12,6 +12,7 @@ import UpdateInfo from './pages/UpdateInfo';
 import RequestSignUp from './pages/RequestSignUp';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import Footer from './components/Footer';
 
 const App = () => (
     <Router>
@@ -29,6 +30,7 @@ const App = () => (
                 <Route exact path='/forgotpassword' component={ForgotPassword} />
                 <Route exact path='/resetpassword/:token' component={ResetPassword} />
             </Switch> 
+            <Footer/>
         </div>
     </Router>
 );

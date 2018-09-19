@@ -43,8 +43,8 @@
 nav {
 	display: flex;
     justify-content: center;
-    position: -webkit-sticky;
-	position: sticky;
+    position: fixed;
+    width: 100%;
 	top: 0;
 	background: white;
 	z-index: 100;
@@ -122,3 +122,57 @@ header {
 	margin-right: 20px;
 	height: 300px;
 }
+
+@media only screen and (max-width: 768px) {
+
+	header {
+		height: 28em;
+	}
+
+	.header-text {
+	    font-size: 58px;
+	    line-height: 59px;
+	    padding-top: 8%;
+	}
+
+	.sub-title {
+	    font-size: 40px;
+	}
+
+	.history {
+	    margin: 0px;
+	}
+
+	.address {
+	    font-size: 41px;
+	}
+
+	.location {
+	    height: 57em;
+	}
+
+	.location-info {
+	    display: block;
+	    margin: 0px 190px;
+	    padding-top: 0px;
+	}
+
+	.location-photo {
+	    margin: 20px;
+	    height: 300px;
+	}
+}
+
+@media only screen and (max-width: 375px) {
+
+
+}
+
+
+
+
+
+
+
+
+
