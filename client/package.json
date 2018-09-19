@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3001/",
-  "homepage": null,
+  "homepage": "https://bayonnesoupkitchen.herokuapp.com/",
   "root": "build/",
   "routes": {
     "/**": "index.html"
