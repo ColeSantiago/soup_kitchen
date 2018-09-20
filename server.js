@@ -4,10 +4,12 @@ const env = require('dotenv').config();
 require('dotenv').config();
 
 let cookieParser = require('cookie-parser');
-let session = require('express-session');
+let session = require('cookie-session');
 let morgan = require('morgan');
 
 const PORT = process.env.PORT || 3001;
+
+let SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 // getting the sequelize models
 let models = require('./models');
@@ -30,6 +32,9 @@ app.use(express.static('client/build'));
 app.use(session({
     key: 'user_cole',
     secret: process.env.REACT_API_SESSION_SECRET,
+    store: new SequelizeStore({
+      db: models
+    }),
     resave: false,
     saveUninitialized: false,
     cookie: {
