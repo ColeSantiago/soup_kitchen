@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from "react-router";
 import API from '../../utils/API';
 import './Gallery.css';
 // photo upload
@@ -235,4 +236,4 @@ class Gallery extends Component {
 	}
 }
 
-export default Gallery;
+export default withRouter(Gallery);

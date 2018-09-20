@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from "react-router";
 import API from '../../utils/API';
 import './MemberSignIn.css';
 // component
@@ -128,4 +129,4 @@ class MemberSignIn extends Component {
     }
 }
 
-export default MemberSignIn;
+export default withRouter(MemberSignIn);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from "react-router";
 import API from '../../utils/API';
 // components
 import { Input, RequestBtn } from '../../components/RequestForm';
@@ -112,4 +113,4 @@ class ForgotPassword extends Component {
     }
 }
 
-export default ForgotPassword;
+export default withRouter(ForgotPassword);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from "react-router";
 import './Homepage.css';
 import LocationPhoto from './images/300x250.png';
 import MapMarker from './images/marker.svg.png';
@@ -96,4 +97,4 @@ class Homepage extends Component {
   	}
 }
 
-export default Homepage;
+export default withRouter(Homepage);

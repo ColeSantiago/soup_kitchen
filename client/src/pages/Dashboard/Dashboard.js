@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
+import { withRouter } from "react-router";
 import DashboardPhoto from './images/soup_kitchen_2.jpg'
 import './Dashboard.css';
 // components
@@ -289,4 +290,4 @@ class Dashboard extends Component {
 	}
 }
 
-export default Dashboard;
+export default withRouter(Dashboard);

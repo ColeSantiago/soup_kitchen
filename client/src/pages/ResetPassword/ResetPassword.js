@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../../utils/API';
+import { withRouter } from "react-router";
 // component
 import { Input, RequestBtn } from '../../components/RequestForm';
 // material ui
@@ -103,4 +104,4 @@ class ResetPassword extends Component {
     }
 }
 
-export default ResetPassword;
+export default withRouter(ResetPassword);

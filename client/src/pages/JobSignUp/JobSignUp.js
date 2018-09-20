@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from "react-router";
 import API from '../../utils/API';
 import './JobSignUp.css';
 // components
@@ -354,4 +355,4 @@ class JobSignUp extends Component {
     }
 }
 
-export default JobSignUp;
+export default withRouter(JobSignUp);
