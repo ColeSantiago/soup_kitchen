@@ -49,9 +49,9 @@ const routes = require('./routes');
 app.use(routes);
 
 // 404
-app.use(function (req, res, next) {
-  res.status(404).send('Sorry cant find that!')
-});
+// app.use(function (req, res, next) {
+//   res.status(404).send('Sorry cant find that!')
+// });
 
 // starting the server
 models.sequelize.sync().then(function () {
