@@ -2,6 +2,8 @@ const router = require('express').Router();
 const models = require('../../models/index.js');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op
 
 // ---------GET ROUTES----------------------
 
@@ -133,7 +135,7 @@ router.get('/gallery', function(req, res) {
 // member sign up
 router.get('/signup/:token', (req, res) => {
 	console.log('ON GET');
-	models.signup_requests.findOne({where: {signUpToken: req.params.token, signUpTokenExpires: { $gt: Date.now()} }})
+	models.signup_requests.findOne({where: {signUpToken: req.params.token, signUpTokenExpires: { [Op.gt]: Date.now()} }})
 	.then(requestFound => {
 		if (requestFound) {
 			console.log('FOUND');

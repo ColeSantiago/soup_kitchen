@@ -165,7 +165,7 @@ class MemberSignUp extends Component {
                                     )
                                 }
                         </div>
-                    ) : (null)}
+                    ) : (<p>Expired</p>)}
                 </MuiThemeProvider>
             </div> 
         );
