@@ -28,7 +28,7 @@ app.use(express.static('client/build'));
 
 // sets up the session for the user
 app.use(session({
-    key: 'user_cole',
+    name: 'user_cole',
     secret: process.env.REACT_API_SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
