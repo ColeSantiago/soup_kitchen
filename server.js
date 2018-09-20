@@ -32,9 +32,7 @@ app.use(session({
     secret: process.env.REACT_API_SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: {
-        expires: 600000
-    }
+    maxAge: 24 * 60 * 60 * 1000
 }));
 
 // clears the cookie

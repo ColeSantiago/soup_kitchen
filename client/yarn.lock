@@ -6323,10 +6323,6 @@ react-event-listener@^0.6.2:
     prop-types "^15.6.0"
     warning "^4.0.1"
 
-react-favicon@^0.0.14:
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/react-favicon/-/react-favicon-0.0.14.tgz#3c9c7b999d106e6e112f729ab929b8dbec05b280"
-
 react-google-recaptcha@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-google-recaptcha/-/react-google-recaptcha-1.0.2.tgz#d77d0c91558d07c2f9f22b8ec05c383cbdbcabac"
