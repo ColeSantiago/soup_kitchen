@@ -18,7 +18,7 @@ const App = () => (
     <Router>
         <div>
             <Switch>
-            	<Route exact path='/' component={Homepage} />
+            	<Route exact path='/favicon.ico' component={Homepage} />
        		   	<Route exact path='/signin' component={MemberSignIn} />
        		   	<Route exact path='/signup/:token' component={MemberSignUp} />
        		   	<Route exact path='/dashboard' component={Dashboard} />
