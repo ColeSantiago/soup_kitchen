@@ -13,7 +13,7 @@ import IconButton from 'material-ui/IconButton';
 
 import MenuIcon from '@material-ui/icons/Menu';
 
-import ScrollAnimation from 'react-animate-on-scroll';
+// import ScrollAnimation from 'react-animate-on-scroll';
 
 const Map = ReactMapboxGl({
   accessToken: process.env.REACT_APP_MAP_API_KEY
@@ -44,16 +44,16 @@ class Homepage extends Component {
 				          	</Link>
 					    </IconMenu>
 				    </nav>
-				    <ScrollAnimation animateIn='fadeIn' animateOut='fadeOut' duration={4} animateOnce={true}>
+				    
 	    				<header>
-	    					<ScrollAnimation animateIn='fadeIn' animateOut='fadeOut' delay={2000} animateOnce={true}> 
+	    					
 		    					<div className='header-text'>
 				      				<h1 className='main-title'>Bayonne Soup Kitchen</h1>
 				      				<h2 className='sub-title'>Helping Our Neighbors In Need</h2>
 				      			</div>
-			      			</ScrollAnimation>
+			      			
 			      		</header>
-		      		</ScrollAnimation>
+		      		
 		      		<div className='info'>
 		      			<p className='history'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eleifend. 
 		      			Aliquam erat volutpat. Nunc quis risus scelerisque, dictum justo id, cursus sapien. Aliquam 
@@ -62,9 +62,9 @@ class Homepage extends Component {
 		      			feugiat neque, nec mollis elit. Integer at lorem in purus condimentum interdum in nec neque. 
 		      			Praesent et porta risus, efficitur feugiat nibh. Aliquam non ligula dignissim, euismod odio sed, 
 		      			vulputate magna.</p> <br></br>
-		      			<ScrollAnimation animateIn='bounceInRight' animateOnce={true}>
+		      			
 		      				<p className='time'> We serve a meal every Saturday from 4pm to 5pm. </p>
-		      			</ScrollAnimation>
+		      			
 		      		</div>
 		      		<div className='location'>
 		      			<p className='address'>
