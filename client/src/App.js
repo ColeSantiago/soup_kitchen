@@ -14,9 +14,12 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Footer from './components/Footer';
 
+import Favicon from 'react-favicon';
+
 const App = () => (
     <Router>
         <div>
+            <Favicon url="https://www.favicon.cc/logo3d/77885.png" />
             <Switch>
             	<Route exact path='/' component={Homepage} />
        		   	<Route exact path='/signin' component={MemberSignIn} />
