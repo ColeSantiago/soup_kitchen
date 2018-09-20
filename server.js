@@ -25,7 +25,7 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(morgan('dev'));
 app.use(cookieParser());
 
-app.use(express.static('client/build'));
+app.use('/client', express.static(path.join(__dirname, 'build')));
 
 // sets up the session for the user
 app.use(session({
