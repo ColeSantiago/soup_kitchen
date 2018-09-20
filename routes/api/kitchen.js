@@ -132,11 +132,11 @@ router.get('/gallery', function(req, res) {
 
 // member sign up
 router.get('/signup/:token', (req, res) => {
+	console.log('ON GET');
 	models.signup_requests.findOne({where: {signUpToken: req.params.token, signUpTokenExpires: { $gt: Date.now()} }})
 	.then(requestFound => {
-		if(requestFound && req.session.user && req.cookies.user_cole) {
-			res.json({allowSignIn: true})
-		} else if (requestFound) {
+		if (requestFound) {
+			console.log('FOUND');
 			res.json({
 				allowSignUp: true, 
 				allowSignIn: false,
@@ -145,6 +145,7 @@ router.get('/signup/:token', (req, res) => {
 				last_name: requestFound.last_name
 			})
 		} else {
+			console.log('NOT FOUND');
 			res.json({allowSignUp: false})
 		}
 	})

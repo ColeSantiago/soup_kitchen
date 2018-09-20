@@ -36,7 +36,7 @@ class MemberSignUp extends Component {
         this.loadSignUp();
     };
 
-    // loads page and checks if there is alreadty and user and if the token is correct
+    // loads page and checks if there is already and user and if the token is correct
     loadSignUp = () => {
         API.loadSignUp(this.props.match.params.token)
         .then(res => {this.setState({

@@ -14,6 +14,8 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Footer from './components/Footer';
 
+// import Favicon from 'react-favicon';
+
 const App = () => (
     <Router>
         <div>
