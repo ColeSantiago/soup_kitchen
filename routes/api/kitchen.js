@@ -134,11 +134,9 @@ router.get('/gallery', function(req, res) {
 
 // member sign up
 router.get('/signup/:token', (req, res) => {
-	console.log('ON GET');
 	models.signup_requests.findOne({where: {signUpToken: req.params.token, signUpTokenExpires: { [Op.gt]: Date.now()} }})
 	.then(requestFound => {
 		if (requestFound) {
-			console.log('FOUND');
 			res.json({
 				allowSignUp: true, 
 				allowSignIn: false,
@@ -147,7 +145,6 @@ router.get('/signup/:token', (req, res) => {
 				last_name: requestFound.last_name
 			})
 		} else {
-			console.log('NOT FOUND');
 			res.json({allowSignUp: false})
 		}
 	})
@@ -589,6 +586,8 @@ router.post('/updateannouncement', function(req, res) {
 
 // post to send the info to request to sign up
 router.post('/requestsignup', function(req, res) {
+	let date = new Date();
+	date.setDate(date.getDate() + 7);
 	crypto.randomBytes(20, (err, buf) => {
   		if (err) throw err;
   		let token = `${buf.toString('hex')}`
@@ -598,7 +597,7 @@ router.post('/requestsignup', function(req, res) {
   			last_name: req.body.last_name,
   			email: req.body.email,
   			signUpToken: token,
-  			signUpTokenExpires: Date.now() + 3600000
+  			signUpTokenExpires: date
   		})
 		.then(memberRequest => {
 			// console.log(memberRequest);
@@ -670,7 +669,12 @@ function sendWelcomeEmail(newUser){
       from: 'thebayonnesoupkitchen@gmail.com',
       to: `${newUser.email}`,
       subject: `Welcome to the Bayonne Soup Kitchen!`,
-      text: `Hello ${newUser.first_name}! Thank you for signing up for the Bayonne Soup Kitchen Website. -Staff`
+      text: `Hi ${newUser.first_name}!
+
+      Thank you for signing up for the Bayonne Soup Kitchen Website! We look forward to seeing you each Saturday.
+      Make sure to keep checking back on the site for announcements, new dates for job sign up and meal sign up, and photos!
+
+      -The Bayonne Soup Kitchen Staff`
     };
 
     transporter.sendMail(mailOptions, function(error, info){
@@ -698,9 +702,16 @@ function sendRequestEmail(newUserRequest){
       from: 'thebayonnesoupkitchen@gmail.com',
       to: 'thebayonnesoupkitchen@gmail.com',
       subject: `New Member Request from ${newUserRequest.first_name} ${newUserRequest.last_name}`,
-      text: `${newUserRequest.first_name} ${newUserRequest.last_name} has requested to sign up for the Bayonne Soup Kitchen.
-      		If approved please send this link: https://bayonnesoupkitchen.herokuapp.com/signup/${newUserRequest.signUpToken} to: ${newUserRequest.email}.
-      		This link will expire at ${newUserRequest.signUpTokenExpires}.`
+      text: `${newUserRequest.first_name} ${newUserRequest.last_name} has requested to sign up for the Bayonne Soup Kitchen. 
+      If approved please send the following paragragh to: ${newUserRequest.email}: 
+
+      Hi ${newUserRequest.first_name}, 
+      Your request to sign up for the Bayonne Soup Kitchen website has been approved. Please follow the link below to complete your registration. 
+      This link is specific for you, please do not share it with anyone else. Note this link will expire on ${newUserRequest.signUpTokenExpires}. 
+      https://bayonnesoupkitchen.herokuapp.com/signup/${newUserRequest.signUpToken} 
+
+      Thank You! 
+      -The Bayonne Soup Kitchen Staff`
     };
 
     transporter.sendMail(mailOptions, function(error, info){
@@ -728,8 +739,10 @@ function sendForgotEmail(member, token){
       from: 'thebayonnesoupkitchen@gmail.com',
       to: member.email,
       subject: 'Password Reset Request',
-      text: `You are receiving this because you (or someone else) have requested the reset of your password for you Bayonne Soup Kitchen account. 
-      \n Please click on the following link, or paste this into your browser to complete the process: \n https://bayonnesoupkitchen.herokuapp.com/resetpassword/${token} \n
+      text: `You are receiving this because you (or someone else) have requested the reset of your password for your Bayonne Soup Kitchen account. 
+      Please click on the following link, or paste this into your browser to complete the process:
+      https://bayonnesoupkitchen.herokuapp.com/resetpassword/${token}
+
       If you did not request this, please ignore this email and your password will remain unchanged.`
     };
 
@@ -758,7 +771,8 @@ function sendConfirmChangeEmail(member){
       from: 'thebayonnesoupkitchen@gmail.com',
       to: member.email,
       subject: 'Your Password Has Been Changed',
-      text: `Hello \n This is a confirmation that the password for your account ${member.email} with the Bayonne Soup Kitchen has been changed \n 
+      text: `Hello
+      This is a confirmation that the password for your account ${member.email} with the Bayonne Soup Kitchen has been changed. 
       If you did not make this change please contact an Admin of the Soup Kitchen as soon as possible.`
     };
 
@@ -787,7 +801,10 @@ function sendSignUpJobEmail(email, info) {
       from: 'thebayonnesoupkitchen@gmail.com',
       to: email,
       subject: "You're Signed Up!",
-      text: `Thanks ${info.member_name}! \n You're signed up for ${info.job} on ${info.date}. We're looking forward to seeing you there! \n
+      text: `Thanks ${info.member_name}!
+
+      You're signed up for ${info.job} on ${info.date}. We're looking forward to seeing you there!
+
       -The Bayonne Soup Kitchen Staff`
     };
 
@@ -816,7 +833,10 @@ function sendSignUpMealEmail(email, info) {
       from: 'thebayonnesoupkitchen@gmail.com',
       to: email,
       subject: "You're Signed Up!",
-      text: `Thanks ${info.member_name}! \n You're signed up for ${info.meal} on ${info.date}. We're looking forward to seeing you there! \n
+      text: `Thanks ${info.member_name}! 
+      
+      You're signed up for ${info.meal} on ${info.date}. We're looking forward to seeing you there!
+
       -The Bayonne Soup Kitchen Staff`
     };
 
