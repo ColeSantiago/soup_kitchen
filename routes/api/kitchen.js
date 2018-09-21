@@ -10,15 +10,15 @@ const Op = Sequelize.Op
 
 // member sign in
 router.get('/signin', (req, res) => {
-	if(req.session.user && req.cookies.user_cole) {
+	if(req.session.user && req.cookies.user_soup) {
         res.json({login_status: true});
 	}
 });
 
 // member logout
 router.get('/logout', (req, res) => {
-    if (req.session.user && req.cookies.user_cole) {
-        res.clearCookie('user_cole');
+    if (req.session.user && req.cookies.user_soup) {
+        res.clearCookie('user_soup');
         res.json({login_status: false});
     } else {
         res.json({login_status: false});
@@ -27,7 +27,7 @@ router.get('/logout', (req, res) => {
 
 // dashboard
 router.get('/dashboard', function(req, res) {
-    if (req.session.user && req.cookies.user_cole) {
+    if (req.session.user && req.cookies.user_soup) {
         models.monthly_dates.findAll()
         .then(function(dateResults){
         	models.announcements.findAll()
@@ -48,42 +48,46 @@ router.get('/dashboard', function(req, res) {
 // job sign up for specific date
 // -loads jobs and meals that are taken and not taken
 router.get('/jobsignup/date/:id', function(req, res) {
-	if (req.session.user && req.cookies.user_cole) {
-		models.weekly_jobs.findAll({
-			where: {
-				monthlyDateId: req.params.id,
-				is_taken: false
-			} 
-		})
-		.then(jobsNeededResult => {
+	if (req.session.user && req.cookies.user_soup) {
+		models.monthly_dates.findOne({where: {id: req.params.id}})
+		.then(dateResult => {
 			models.weekly_jobs.findAll({
 				where: {
 					monthlyDateId: req.params.id,
-					is_taken: true
-				}
+					is_taken: false
+				} 
 			})
-			.then(jobsTakenResult => {
-				models.weekly_meals.findAll({
+			.then(jobsNeededResult => {
+				models.weekly_jobs.findAll({
 					where: {
 						monthlyDateId: req.params.id,
-						is_taken: false
+						is_taken: true
 					}
 				})
-				.then(mealsNeededResult => {
+				.then(jobsTakenResult => {
 					models.weekly_meals.findAll({
 						where: {
 							monthlyDateId: req.params.id,
-							is_taken: true
+							is_taken: false
 						}
 					})
-					.then(mealsTakenResult => {
-						res.json({
-							jobsNeeded: jobsNeededResult,
-							jobsTaken: jobsTakenResult,
-							mealsNeeded: mealsNeededResult,
-							mealsTaken: mealsTakenResult,
-							login_status: true,
-							user: req.session.user 
+					.then(mealsNeededResult => {
+						models.weekly_meals.findAll({
+							where: {
+								monthlyDateId: req.params.id,
+								is_taken: true
+							}
+						})
+						.then(mealsTakenResult => {
+							res.json({
+								date: dateResult,
+								jobsNeeded: jobsNeededResult,
+								jobsTaken: jobsTakenResult,
+								mealsNeeded: mealsNeededResult,
+								mealsTaken: mealsTakenResult,
+								login_status: true,
+								user: req.session.user 
+							})
 						})
 					})
 				})
@@ -96,7 +100,7 @@ router.get('/jobsignup/date/:id', function(req, res) {
 
 // all members page
 router.get('/memberpage', function(req, res) {
-	if (req.session.user && req.cookies.user_cole && req.session.user.admin) {
+	if (req.session.user && req.cookies.user_soup && req.session.user.admin) {
 		models.member.findAll({
 			order: [
             	['last_name', 'ASC'],
@@ -834,7 +838,7 @@ function sendSignUpMealEmail(email, info) {
       to: email,
       subject: "You're Signed Up!",
       text: `Thanks ${info.member_name}! 
-      
+
       You're signed up for ${info.meal} on ${info.date}. We're looking forward to seeing you there!
 
       -The Bayonne Soup Kitchen Staff`

@@ -39,7 +39,7 @@ app.use(session({
 // clears the cookie
 app.use((req, res, next) => {
     if (req.cookies.user_cole && !req.session.user) {
-        res.clearCookie('user_cole');        
+        res.clearCookie('user_soup');        
     }
     next();
 });

@@ -91,8 +91,17 @@
 	text-decoration: underline;
 }
 
+.schedule-heading {
+	margin-top: 16px;
+	margin-bottom: 15px;
+}
+
 .meal-outline, .schedule-div {
-	width: 600px;
+	width: 600px;	
+}
+
+.schedule-div {
+	line-height: 34px;
 }
 
 .admin-forms {

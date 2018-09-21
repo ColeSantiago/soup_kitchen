@@ -19,6 +19,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import BlockIcon from '@material-ui/icons/Block';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 const styles = {
     mediumIcon: {
@@ -30,6 +31,9 @@ const styles = {
         height: 96,
         padding: 24,
     },
+    tab: {
+        fontSize: 27
+    }
 };
 
 class JobSignUp extends Component {
@@ -55,6 +59,7 @@ class JobSignUp extends Component {
         .then(res => {
             this.setState({
                 login_status: res.data.login_status,
+                date: res.data.date,
                 jobsNeeded: res.data.jobsNeeded,
                 jobsTaken: res.data.jobsTaken,
                 mealsNeeded: res.data.mealsNeeded,
@@ -174,11 +179,12 @@ class JobSignUp extends Component {
 
     // handles form submit to create new meal
     handleFormSubmit = event => {
+        console.log(this.state.date.date);
         if(this.state.newMeal) {
             let newMealData = {
                 date_ID: this.props.match.params.id,
                 meal: this.state.newMeal,
-                date: this.state.mealsTaken.date
+                date: this.state.date.date
             }
             API.createMeal(newMealData)
             .then(result => {
@@ -208,8 +214,10 @@ class JobSignUp extends Component {
                                 <h1 className='signup-title'>Bayonne Soup Kitchen Sign Up</h1>
                             </div>
                             <Tabs value={this.state.value} onChange={this.handleChange}>
-                                <Tab label='Job Sign Up' value='a'>
+                                <Tab style={styles.tab} label='Job Sign Up' value='a'>
                                     <div className='signup-headings'>
+                                        <h2>Sign up for jobs on this tab. For Meal Sign Up click this tab <ArrowUpwardIcon/> </h2> <br></br>
+                                        <h2>Sign Up Date: {this.state.date.date}</h2> <br></br>
                                         <h2>Please sign up for one job.</h2>
                                         <h2>All Staff helps to set up and clean up. Arrival time 3:00pm***</h2>
                                     </div>
@@ -231,9 +239,7 @@ class JobSignUp extends Component {
                                                             <IconButton tooltip='Delete Job' touch={true} tooltipPosition='top-right'>
                                                                 <DeleteForeverIcon className='delete-job' onClick={() => this.deleteJob(jobNeeded.id)} />
                                                             </IconButton>
-                                                        ) : (
-                                                                null
-                                                            )}
+                                                        ) : (null)}
                                                             <Divider />
                                                         </ListItem>
                                                     ))}
@@ -270,9 +276,10 @@ class JobSignUp extends Component {
                                         </div>
                                     </div>
                                 </Tab>
-                                <Tab label='Meal Sign Up' value='b'>
+                                <Tab style={styles.tab} label='Meal Sign Up' value='b'>
                                     <div className='signup-headings'>
-                                        <h2>All food/bread to be dropped off at All Saints Catholic Academy cafeteria at 3:00pm</h2>
+                                        <h2>All food/bread to be dropped off at All Saints Catholic Academy cafeteria at 3:00pm</h2> <br></br>
+                                        <h2>Sign Up Date: {this.state.date.date}</h2>
                                         <div className='signup-admin-div'>
                                             {this.state.admin ? (
                                                 <form className='add-meal-form'>
