@@ -57,6 +57,7 @@ class RequestSignUp extends Component {
 
     // handles form submit to request to sign up 
     handleFormSubmit = event => {
+        console.log(this.state.captcha)
         if(this.state.first_name && this.state.last_name && this.state.email !== '' && this.state.captcha === true) {
             let requestInfo = {
                 first_name: this.state.first_name,

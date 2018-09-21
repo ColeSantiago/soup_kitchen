@@ -107,6 +107,8 @@ class Dashboard extends Component {
 	// handles menu toggle
 	handleToggle = () => this.setState({open: !this.state.open});
 
+  	handleClose = () => this.setState({open: false});
+
 	// handles form input
     handleInputChange = event => {
         const { name, value } = event.target;
@@ -162,7 +164,11 @@ class Dashboard extends Component {
 				      				<MenuIcon className='menu-icon' label="Toggle Drawer" onClick={this.handleToggle}/>
 	          					</IconButton>
 			      			</div>
-			      			<Drawer open={this.state.open}>
+			      			<Drawer 
+			      				docked={false}
+						        open={this.state.open}
+						        onRequestChange={(open) => this.setState({open})}
+			      			>
 					          	<MenuItem><Link className='menu-item' to='/'><SignOutBtn onClick={() => API.logoutMember()} /></Link></MenuItem>
 					          	<MenuItem><Link className='menu-item' to='/updateinfo'>Update Your Personal Info</Link></MenuItem>
 					          	<MenuItem><Link className='menu-item' to='/gallery'>Photo Gallery</Link></MenuItem>

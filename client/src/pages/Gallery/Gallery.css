@@ -1,3 +1,4 @@
+/*gallery header*/
 .gallery-header {
 	text-align: center;
 	background: url('./images/gallery.jpg');
@@ -13,16 +14,11 @@
 	border-radius: 10px;
 }
 
+/*dropzone area*/
 .dropzone-div {
 	text-align: center;
 	background: #eaeaea;
 	padding: 30px;
-}
-
-.gallery-heading {
-	margin-top: 34px;
-	font-size: 50px;
-	color: white;
 }
 
 .dropzone {
@@ -39,6 +35,13 @@
 	border: 2px solid rgb(0, 189, 212);
 }
 
+/*other headings*/
+.gallery-heading {
+	margin-top: 34px;
+	font-size: 50px;
+	color: white;
+}
+
 .navbar-toggler {
 	background-color: rgb(0, 189, 212);
 	margin: 10px;
@@ -50,6 +53,13 @@
 	background-color: #eaeaea;
 	cursor: pointer;
 	box-shadow: 0 5px 41px -9px #00bdd4;
+}
+
+/*where the photos actually are*/
+.gallery-div {
+	max-width: 900px;
+	margin: auto;
+	padding: 40px;
 }
 
 .gallery-list {
@@ -64,18 +74,13 @@
 }
 
 .gallery-photo {
-	max-width: 380px;
-	max-height: 286px;
+	max-width: 800px;
 	border-radius: 3px;
 	margin-bottom: 15px;
+	box-shadow: 0 5px 41px -9px #00bdd4;
 }
 
-.gallery-photo:hover {
-	max-width: 450px;
-	max-height: 350px;
-	box-shadow: 0 5px 41px -9px #00bdd4; 
-}
-
+/*delete buttons*/
 .delete-photo-btn {
 	margin-bottom: 10px;
 }
@@ -85,6 +90,7 @@
 	cursor: pointer;
 }
 
+/*the load more div and button*/
 .load-more-div {
 	text-align: center;
 	margin-bottom: 90px;

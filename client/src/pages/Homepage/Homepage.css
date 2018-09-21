@@ -1,3 +1,5 @@
+/*homepage css*/
+/*added fade in affect just in case the npm fails*/
 .homepage-div  {
 	min-height: 100vh; /* will cover the 100% of viewport */
  	overflow: hidden;
@@ -40,6 +42,7 @@
     to   { opacity: 1; }
 }
 
+/*nav*/
 nav {
 	display: flex;
     justify-content: center;
@@ -59,6 +62,7 @@ nav {
 	text-decoration: none;
 }
 
+/*header*/
 header {
 	background: url('./images/hands.jpg');
 	background-repeat: no-repeat;
@@ -81,6 +85,7 @@ header {
 	font-size: 50px;
 }
 
+/*infor area*/
 .info {
 	background: url('./images/crossword.png');
 	padding: 70px;
@@ -97,6 +102,7 @@ header {
 	font-size: 30px;
 }
 
+/*location div*/
 .location {
 	background: url('./images/location.jpg');
 	background-repeat: no-repeat;

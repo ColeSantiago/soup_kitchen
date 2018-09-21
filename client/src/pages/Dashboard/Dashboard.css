@@ -1,3 +1,4 @@
+/*header*/
 .dashboard-header {
 	background: url('./images/footer_lodyas.png');
 	display: flex;
@@ -16,7 +17,6 @@
 	font-size: 50px;
 	margin-bottom: 30px;
 }
-
 .dashboard-message {
 	color: white;
 	margin-left: 40px;
@@ -29,12 +29,20 @@
 	text-align: center;
 }
 
+/*announcement div*/
 .announcement-div {
 	text-align: center;
 	padding: 80px;
 	font-size: 30px;
 }
 
+.announcement-textarea {
+	padding: 15px;
+	width: 80%;
+	margin: 5px;
+}
+
+/*sidebar menu*/
 .sidebar-toggle {
 	background-color: white;
 	font-size: 25px;
@@ -44,6 +52,7 @@
 	box-shadow: 0 5px 41px -9px #00bdd4; 
 }
 
+/*welcome user div*/
 .welcome {
 	margin-top: 12px;
 }
@@ -62,6 +71,7 @@
 	background: white;
 }
 
+/*admin area*/
 .admin-div {
 	background-color: white;
 	text-align: center;
@@ -104,6 +114,7 @@
 	line-height: 34px;
 }
 
+/*admin forms*/
 .admin-forms {
 	display: flex;
 	justify-content: center;
@@ -120,12 +131,7 @@
 	margin: 40px;
 }
 
-.announcement-textarea {
-	padding: 15px;
-	width: 80%;
-	margin: 5px;
-}
-
+/*dates list div*/
 .dates-div {
 	text-align: center;
 	padding: 50px;
