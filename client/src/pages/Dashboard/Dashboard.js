@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
 import { withRouter } from "react-router";
-import DashboardPhoto from './images/soup_kitchen_2.jpg'
+import DashboardPhoto from './images/group_photo.jpg'
 import './Dashboard.css';
 // components
 import { List, ListItem } from '../../components/DatesList';

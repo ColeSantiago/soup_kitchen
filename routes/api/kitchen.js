@@ -156,7 +156,7 @@ router.get('/signup/:token', (req, res) => {
 
 // reset password page
 router.get('/resetpassword/:token', function(req, res) {
-	models.member.findOne({ where: {resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now()} }})
+	models.member.findOne({ where: {resetPasswordToken: req.params.token, resetPasswordExpires: { [Op.gt]: Date.now()} }})
 	.then(memberFound => {
 		if (memberFound) {
 			res.json({
