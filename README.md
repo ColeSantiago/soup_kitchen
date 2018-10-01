@@ -4,7 +4,7 @@ This is a react app built for the local soup kitchen in Bayonne, NJ. While the h
 
 This was a solo project that I built to help the Bayonne Soup Kitchen's weekly sign up process go smoother and be simple.
 
-This site utilizes a custom made mySql database to keep track of all data. It is hosted with Heroku and has a custom domain with Google Domains. Appropriate data is encrypted.
+This site utilizes a custom made mySql database to keep track of all data. It is hosted with Heroku and has a custom domain with Google Domains. The appropriate data is encrypted, and every page is mobile responsive.
 
 While this site is mainly for members of the Soup Kitchen, the homepage can be viewed [here.](http://www.bayonnesoupkitchen.com) 
 
