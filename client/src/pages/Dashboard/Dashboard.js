@@ -160,7 +160,7 @@ class Dashboard extends Component {
 			      			</div>
 			      			<div className='sidebar-toggle'>
 			      				<h2 className='welcome'>Welcome {this.state.user.first_name}!</h2>
-			      				<IconButton tooltip='Menu' touch={true} tooltipPosition='bottom-right'>
+			      				<IconButton touch={true}>
 				      				<MenuIcon className='menu-icon' label="Toggle Drawer" onClick={this.handleToggle}/>
 	          					</IconButton>
 			      			</div>
