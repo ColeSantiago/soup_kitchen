@@ -2,9 +2,6 @@ import axios from 'axios';
 
 // directs the client side info and functions to the server
 export default {
-	ssl: function(token) {
-		return axios.get('/api/kitchen/.well-known/acme-challenge/' + token)
-	},
 	loadSignUp: function(token) {
 		return axios.get('/api/kitchen/signup/' + token);
 	},

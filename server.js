@@ -53,6 +53,10 @@ app.use(function (req, res, next) {
   res.status(404).send('Sorry cant find that!')
 });
 
+app.get('/.well-known/acme-challenge/' + process.env.REACT_API_SSL_TOKEN, (req, res) => {
+  res.send(process.env.REACT_API_SSL);
+});
+
 // starting the server
 models.sequelize.sync().then(function () {
 	app.listen(PORT, function() {
