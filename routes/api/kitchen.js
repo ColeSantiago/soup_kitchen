@@ -7,6 +7,12 @@ const Op = Sequelize.Op
 
 // ---------GET ROUTES----------------------
 
+router.get('/.well-known/acme-challenge/:token', function(req, res) {
+	if (req.params.token === process.env.REACT_API_SSL_TOKEN) {
+		// console.log(process.env.REACT_API_SSL);
+  		res.json({SSL: process.env.REACT_API_SSL});
+	}
+});
 
 // member sign in
 router.get('/signin', (req, res) => {

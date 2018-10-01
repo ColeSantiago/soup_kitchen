@@ -13,6 +13,7 @@ import RequestSignUp from './pages/RequestSignUp';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Footer from './components/Footer';
+import SSL from './pages/SSL';
 
 import Favicon from 'react-favicon';
 
@@ -21,6 +22,7 @@ const App = () => (
         <div>
             <Favicon url="https://www.favicon.cc/logo3d/504502.png" />
             <Switch>
+                <Route exact path='/.well-known/acme-challenge/:token' component={SSL} />
             	<Route exact path='/' component={Homepage} />
        		   	<Route exact path='/signin' component={MemberSignIn} />
        		   	<Route exact path='/signup/:token' component={MemberSignUp} />
