@@ -712,7 +712,7 @@ function sendRequestEmail(newUserRequest){
       Hi ${newUserRequest.first_name}, 
       Your request to sign up for the Bayonne Soup Kitchen website has been approved. Please follow the link below to complete your registration. 
       This link is specific for you, please do not share it with anyone else. Note this link will expire on ${newUserRequest.signUpTokenExpires}. 
-      https://bayonnesoupkitchen.herokuapp.com/signup/${newUserRequest.signUpToken} 
+      https://bayonnesoupkitchen.com/signup/${newUserRequest.signUpToken} 
 
       Thank You! 
       -The Bayonne Soup Kitchen Staff`
@@ -745,7 +745,7 @@ function sendForgotEmail(member, token){
       subject: 'Password Reset Request',
       text: `You are receiving this because you (or someone else) have requested the reset of your password for your Bayonne Soup Kitchen account. 
       Please click on the following link, or paste this into your browser to complete the process:
-      https://bayonnesoupkitchen.herokuapp.com/resetpassword/${token}
+      https://bayonnesoupkitchen.com/resetpassword/${token}
 
       If you did not request this, please ignore this email and your password will remain unchanged.`
     };
