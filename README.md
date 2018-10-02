@@ -6,7 +6,7 @@ This was a solo project that I built to help the Bayonne Soup Kitchen's weekly s
 
 This site utilizes a custom made mySql database to keep track of all data. It is hosted with Heroku and has a custom domain with Google Domains. The appropriate data is encrypted, and every page is mobile responsive.
 
-While this site is mainly for members of the Soup Kitchen, the homepage can be viewed [here.](http://www.bayonnesoupkitchen.com) 
+While this site is mainly for members of the Soup Kitchen, the homepage can be viewed [here.](https://www.bayonnesoupkitchen.com) 
 
 ### Technologies Used:
 
