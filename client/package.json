@@ -19,6 +19,7 @@
     "@progress/kendo-react-pdf": "^2.0.0",
     "array-filter": "^1.0.0",
     "axios": "^0.18.0",
+    "js-file-download": "^0.4.4",
     "mapbox-gl": "^0.48.0",
     "material-ui": "^0.20.0",
     "query-string": "^6.0.0",

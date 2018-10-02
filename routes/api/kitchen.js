@@ -3,7 +3,7 @@ const models = require('../../models/index.js');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const Sequelize = require('sequelize');
-const Op = Sequelize.Op
+const Op = Sequelize.Op;
 
 // ---------GET ROUTES----------------------
 
