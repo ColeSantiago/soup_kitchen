@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <!-- reset css -->
-    <link rel="stylesheet" type="text/css" href="/reset.css">
-    <!-- google fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:700|Nanum+Gothic" rel="stylesheet">
-    <!-- animate library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <!-- mapbox for dashboard -->
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
-    <title>Bayonne Soup Kitchen</title>
-  </head>
-  <body>
-    <noscript>
-      You need to enable JavaScript to run this app.
-    </noscript>
-    <div id="root"></div>
-  </body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="theme-color" content="#000000">
+        <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+        <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+        <!-- reset css -->
+        <link rel="stylesheet" type="text/css" href="/reset.css">
+        <!-- google fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Lato:700|Nanum+Gothic" rel="stylesheet">
+        <!-- animate library -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+        <!-- mapbox for dashboard -->
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
+
+        <script>
+            let host = "www.bayonnesoupkitchen.com";
+            if ((host == window.location.host) && (window.location.protocol != "https:")){
+                window.location.protocol = "https";
+            }
+        </script>
+        <title>Bayonne Soup Kitchen</title>
+    </head>
+    <body>
+        <noscript>
+            You need to enable JavaScript to run this app.
+        </noscript>
+        <div id="root"></div>
+    </body>
 </html>
