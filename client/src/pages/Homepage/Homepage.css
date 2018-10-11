@@ -185,7 +185,8 @@ header {
 	}
 
 	.address {
-	    font-size: 41px;
+	    font-size: 27px;
+	    padding-top: 16px;
 	}
 
 	.location {
@@ -199,12 +200,16 @@ header {
 	}
 
 	.location-photo {
-	    margin: 20px;
+	    margin-top: 20px;
+	    margin-bottom: 20px;
 	    height: 300px;
 	}
 }
 
 @media only screen and (max-width: 450px) {
+	.nav-p {
+		font-size: 14px;
+	}
 
 	.slideshow-1, .slideshow-2, .slideshow-3 {
 	    height: 19em;
@@ -213,6 +218,8 @@ header {
 	.header-text {
 	    font-size: 47px;
 	    padding-top: 14%;
+	    font-size: 30px;
+	    line-height: 40px;
 	}
 
 	.sub-title {
@@ -234,6 +241,13 @@ header {
 	    margin-left: -3%;
 	}
 
+	.location-photo {
+	    margin: 10px;
+	}
+
+	.time {
+		line-height: 40px;
+	}
 }
 
 
