@@ -7,6 +7,7 @@ footer {
  	bottom: 0;
  	width: 100%;
  	height: 60px;
+ 	z-index: -1;
 }
 
 .facebook-icon {
@@ -15,23 +16,13 @@ footer {
 	vertical-align: middle;
 }
 
-.made-by, .administration {
+.administration {
 	margin: 25px;
-}
-
-.made-by-link {
-	text-decoration: none;
-	color: black;
-}
-
-.laptop {
-	vertical-align: middle;
-	margin-left: 10px;
 }
 
 @media only screen and (max-width: 450px) {
 
-	.made-by, .administration {
+	.administration {
 	    margin: 12px;
 	    font-size: 12px;
 	}

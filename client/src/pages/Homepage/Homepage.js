@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router";
 import './Homepage.css';
-import LocationPhoto from './images/300x250.png';
+import LocationPhoto from './images/soup_kitchen_outside.JPG';
+// import HandsPhoto from './images/hands.jpg';
+// import VolunteerPhoto from './images/volunteer.jpg';
+// import SpoonsPhoto from './images/spoons.jpg';
 import MapMarker from './images/marker.svg.png';
 import ReactMapboxGl, { Marker } from 'react-mapbox-gl';
 
@@ -14,22 +17,54 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import ScrollAnimation from 'react-animate-on-scroll';
+import { Fade } from 'react-slideshow-image';
 
 const Map = ReactMapboxGl({
   accessToken: process.env.REACT_APP_MAP_API_KEY
 });
 
 const markerStyle = {
-	height: '50px'
+	height: '50px',
+};
+ 
+const fadeProperties = {
+  duration: 5000,
+  transitionDuration: 900,
+  infinite: true,
+  arrows: false
+}
+
+let style = {
+	background: 'white'
 };
 
 class Homepage extends Component {
+
+	componentDidMount = () => {
+    window.addEventListener('scroll', this.handleScroll);
+	};
+
+	componentWillUnmount = () =>  {
+	    window.removeEventListener('scroll', this.handleScroll);
+	};
+
+	handleScroll = event =>  {
+	    let scrollTop = event.srcElement.body.scrollTop,
+	        itemTranslate = Math.min(0, scrollTop/3 - 60);
+	        style = {
+	        	transition: 'background-color 2000ms linear',
+	        	background: '#00bdd4'
+	        };
+	    this.setState({
+	      transform: itemTranslate
+	    });
+	};
 
   	render() {
     	return (
     		<MuiThemeProvider>
 	    		<div className='homepage-div'>
-	    			<nav>
+	    			<nav style={style}>
 	    				<p className='nav-p'>Are you a member or would like to become one? </p>
 	    				<IconMenu
 					      	iconButtonElement={<IconButton><MenuIcon /></IconButton>}
@@ -46,28 +81,38 @@ class Homepage extends Component {
 				    </nav>
 				    <ScrollAnimation animateIn='fadeIn' animateOut='fadeOut' duration={4} animateOnce={true}>
 	    				<header>
-	    					<ScrollAnimation animateIn='fadeIn' animateOut='fadeOut' delay={2000} animateOnce={true}> 
+			      			<Fade {...fadeProperties}>
+						    	<div className="each-fade">
+						        	<div className="slideshow-1"></div>
+						      	</div>
+						      	<div className="each-fade">
+						        	<div className="slideshow-2"></div>
+						      	</div>
+						      	<div className="each-fade">
+						        	<div className="slideshow-3"></div>
+						      	</div>
+						    </Fade>
 		    					<div className='header-text'>
 				      				<h1 className='main-title'>Bayonne Soup Kitchen</h1>
 				      				<h2 className='sub-title'>Helping Our Neighbors In Need</h2>
 				      			</div>
-			      			</ScrollAnimation>
 			      		</header>
 		      		</ScrollAnimation>
 		      		<div className='info'>
-		      			<p className='history'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eleifend. 
-		      			Aliquam erat volutpat. Nunc quis risus scelerisque, dictum justo id, cursus sapien. Aliquam 
-		      			facilisis erat quis lacinia pharetra. Vestibulum aliquet justo quis enim vehicula fermentum. 
-		      			Praesent pulvinar aliquam magna nec varius. Suspendisse facilisis pretium feugiat. Cras vel 
-		      			feugiat neque, nec mollis elit. Integer at lorem in purus condimentum interdum in nec neque. 
-		      			Praesent et porta risus, efficitur feugiat nibh. Aliquam non ligula dignissim, euismod odio sed, 
-		      			vulputate magna.</p> <br></br>
+		      			<h1 className='info-heading'>Who We Are</h1> <br></br>
+		      			<p className='history'>The Bayonne Soup Kitchen was established in 2008. Our mission is to help our neighbors in need. 
+		      			We do this by providing a meal every Saturday at 4pm. All are welcome! <br></br>  <br></br> We encourage you to become a member 
+		      			so you can learn more about how you can be a part of this mission. If you belong to a parish group and/or 
+		      			civic community group we welcome you to help us to continue this mission! <br></br> <br></br> When you sign up with us, please 
+		      			state your parish or organization. Also, if you are a student needing community service hours, please mark the correct
+		      			status. <br></br> <br></br> We look forward to volunteering with you!</p> <br></br>
 		      			<ScrollAnimation animateIn='bounceInRight' animateOnce={true}>
 		      				<p className='time'> We serve a meal every Saturday from 4pm to 5pm. </p>
 		      			</ScrollAnimation>
 		      		</div>
 		      		<div className='location'>
 		      			<p className='address'>
+		      				Our Location <br></br> <br></br>
 			      			All Saints Catholic Academy Cafeteria <br></br>
 			      			19 West 13th Street
 			      		</p>

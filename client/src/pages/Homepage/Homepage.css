@@ -49,7 +49,7 @@ nav {
     position: fixed;
     width: 100%;
 	top: 0;
-	background: white;
+	background: #00bdd4;
 	z-index: 100;
 	box-shadow: 0 6px 6px -6px black;
 }
@@ -64,21 +64,44 @@ nav {
 
 /*header*/
 header {
+    position: relative;
+   	box-shadow: 0 17px 54px -11px black; 
+}
+
+.slideshow-1 {
 	background: url('./images/hands.jpg');
+}
+
+.slideshow-2 {
+	background: url('./images/volunteer.jpg');
+}
+
+.slideshow-3 {
+	background: url('./images/spoons.jpg');
+}
+
+.slideshow-1, .slideshow-2, .slideshow-3 {
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
 	height: 40em;
-    filter: contrast(78.9%);
-   	box-shadow: 0 17px 54px -11px black; 
 }
 
 .header-text {
+	position: absolute;
+	z-index: 101;
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 	font-size: 70px;
 	line-height: 77px;
 	text-align: center;
-	padding-top: 4%;
 	color: white;
+	text-shadow:
+    -1px -1px 0 #6c7475,
+    1px -1px 0 #6c7475,
+    -1px 1px 0 #6c7475,
+    1px 1px 0 #6c7475;
 }
 
 .sub-title {
@@ -86,6 +109,11 @@ header {
 }
 
 /*infor area*/
+.info-heading {
+	font-size: 30px;
+	color: #00bdd4;
+}
+
 .info {
 	background: url('./images/crossword.png');
 	padding: 70px;
@@ -95,11 +123,12 @@ header {
 }
 
 .history {
-	margin: 0px 100px;
+	margin: 0px 200px;
 }
 
 .time {
 	font-size: 30px;
+	color: #00bdd4;
 }
 
 /*location div*/
@@ -122,6 +151,12 @@ header {
 	padding-top: 50px;
 	font-size: 30px;
 	color: white;
+	font-weight: bold;
+	text-shadow:
+    -1px -1px 0 #6c7475,
+    1px -1px 0 #6c7475,
+    -1px 1px 0 #6c7475,
+    1px 1px 0 #6c7475;
 }
 
 .location-photo {
@@ -131,7 +166,7 @@ header {
 
 @media only screen and (max-width: 768px) {
 
-	header {
+	.slideshow-1, .slideshow-2, .slideshow-3 {
 		height: 28em;
 	}
 
@@ -171,9 +206,8 @@ header {
 
 @media only screen and (max-width: 450px) {
 
-	header {
+	.slideshow-1, .slideshow-2, .slideshow-3 {
 	    height: 19em;
-	    filter: contrast(100%);
 	}
 
 	.header-text {

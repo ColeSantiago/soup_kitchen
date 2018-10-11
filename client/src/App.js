@@ -19,7 +19,7 @@ import Favicon from 'react-favicon';
 const App = () => (
     <Router>
         <div>
-            <Favicon url="https://www.favicon.cc/logo3d/504502.png" />
+            <Favicon url="https://www.favicon.cc/logo3d/668791.png" />
             <Switch>
             	<Route exact path='/' component={Homepage} />
        		   	<Route exact path='/signin' component={MemberSignIn} />
