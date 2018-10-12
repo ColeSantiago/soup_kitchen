@@ -1,3 +1,8 @@
+.gallery-wrapper {
+	background: url('./images/crossword.png');
+	margin-bottom: 100px;
+}
+
 /*gallery header*/
 .gallery-header {
 	text-align: center;

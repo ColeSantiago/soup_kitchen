@@ -31,9 +31,11 @@
 
 /*announcement div*/
 .announcement-div {
+	background: url('./images/crossword.png');
 	text-align: center;
 	padding: 80px;
 	font-size: 30px;
+	line-height: 39px;
 }
 
 .announcement-textarea {
@@ -50,6 +52,7 @@
 	justify-content: center;
 	padding: 30px;
 	box-shadow: 0 5px 41px -9px #00bdd4; 
+	position: relative;
 }
 
 /*welcome user div*/

@@ -15,6 +15,7 @@ import DatePicker from 'material-ui/DatePicker';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
 // icons
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
@@ -31,6 +32,9 @@ class Dashboard extends Component {
 		announcementText: '',
 		announcement: '',
 		open: false,
+		nameInput: '',
+		contactText: '',
+		emailInput: '',
 	};
 	
 	componentDidMount() {
@@ -135,6 +139,30 @@ class Dashboard extends Component {
     	}
     };
 
+    // submit for contact form
+    handleContactFormSubmit = () => {
+    	if (this.state.nameInput && this.state.emailInput && this.state.contactText) {
+    		let contactInfo = {
+    			name: this.state.nameInput,
+    			email: this.state.emailInput,
+    			message: this.state.contactText
+    		}
+    		API.contactSoupKitchen(contactInfo)
+    		.then(res => {
+    			this.setState({
+    				nameInput: '',
+    				emailInput: '',
+    				contactText: ''
+    			})
+    			alert('Your message has been received by The Bayonne Soup Kitchen. Please allow us a few business days to respond.');
+    			this.loadDashboard()
+    		})
+    		.catch(err => console.log(err));
+    	} else {
+    		alert('Please fill out all areas to contact the soup kitchen.')
+    	}
+    }
+
 	render() {
 	    return (
 	    	<MuiThemeProvider>
@@ -144,17 +172,16 @@ class Dashboard extends Component {
 			      			<div className='dashboard-header'>
 				      			<img className='dashboard-photo' alt='dashboard' src={DashboardPhoto} />
 				      			<div className='dashboard-message'>
-				      				<h1 className='dashboard-heading'>Welcome to the Bayonne Soup Kitchen</h1>
+				      				<h1 className='dashboard-heading'>Welcome to the Bayonne Soup Kitchen!</h1>
 					      			<p className='dashboard-paragraph'>
-					      				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut magna eros. 
-					      				Vivamus semper ex non nisl iaculis euismod. Quisque pulvinar enim eu ligula mattis 
-					      				pharetra. Etiam nec rhoncus nibh, volutpat rhoncus elit. Ut id rhoncus ante. 
-					      				Nulla lacinia purus magna, et sollicitudin odio porta bibendum. Proin ac tellus sed 
-					      				libero blandit ullamcorper. Vivamus quis felis nisl. Suspendisse finibus tristique 
-					      				maximus. Proin tempor ex justo, eget tempus diam commodo et. Fusce quam enim, vulputate 
-					      				sit amet elementum vitae, porttitor a diam. Nunc mollis justo magna, id lacinia purus 
-					      				consequat a. Maecenas elementum ex tristique arcu accumsan, eu ultricies nulla porttitor. 
-					      				Morbi a rhoncus elit. Pellentesque ullamcorper nec mi at commodo
+					      				Thank you for being apart of our mission to help our neighbors in need! We hope to make
+					      				signing up for the soup kitchen easier. Check the announcements below to see when your group is 
+					      				hosting so you can sign up to help. <br></br> <br></br> Every week either a Parish, organization,
+					      				or individual is the Administrator in charge. They will make sure all food, staff, and bread/key pick ups
+					      				are taken care of. <br></br> <br></br> Our goal is to have EVERY WEEK permanently secured. We still have
+					      				many weeks available and if you and/or a parish/organization are interested in joining our mission
+					      				on a permanent basis, please contact us using the form at the bottom of this page. <br></br> <br></br>
+					      				Thank you for the bottom of our hearts! <br></br> - Donna Santiago & Anita Neal
 					      			</p>
 					      		</div>
 			      			</div>
@@ -287,6 +314,40 @@ class Dashboard extends Component {
 			                            ))}
 			                        </List>
 			                    ) : (null)}
+				      		</div>
+				      		<div className='contact-form'>
+				      			<form className='meal-form'>
+			      					<label>Contact The Bayonne Soup Kitchen:</label>
+			      					<input
+			      						placeholder='Your First and Last Name'
+                                    	className='name-input'
+                                        value={this.state.nameInput}
+                                        onChange={this.handleInputChange}
+                                        name='nameInput'
+			      					/>
+			      					<input
+			      						placeholder='An email address where we can contact you'
+                                    	className='email-input'
+                                        value={this.state.emailInput}
+                                        onChange={this.handleInputChange}
+                                        name='emailInput'
+			      					/>
+                                    <textarea
+                                    	maxLength='1000'
+                                    	placeholder='Max 1000 Characters'
+                                    	className='contact-textarea'
+                                        value={this.state.contactText}
+                                        onChange={this.handleInputChange}
+                                        name='contactText'
+                                    />
+                                    <br></br>
+                                    	<RaisedButton 
+                                    		className='contact-submit-btn'
+                                    		label="Submit" 
+                                    		primary={true}
+                                    		onClick={this.handleContactFormSubmit}
+                                    	/>
+                                </form>
 				      		</div>
 			      		</div>
 			      	) : (<div>Please <Link to='/signin'>sign in</Link> to see this page</div>)}

@@ -63,33 +63,36 @@ export default {
 		return axios.post('/api/kitchen/toggleadmin', memberInfo)
 	},
 	loadGallery: function() {
-	return axios.get('/api/kitchen/gallery')
+		return axios.get('/api/kitchen/gallery')
 	},
 	savePhoto: function(photoInfo) {
-	return axios.post('/api/kitchen/savephoto', photoInfo)
+		return axios.post('/api/kitchen/savephoto', photoInfo)
 	},
 	deletePhoto: function(photoId) {
-	return axios.post('/api/kitchen/deletephoto', photoId)
+		return axios.post('/api/kitchen/deletephoto', photoId)
 	},
 	loadUpdate: function() {
-	return axios.get('/api/kitchen/updateinfo')
+		return axios.get('/api/kitchen/updateinfo')
 	},
 	updateInfo: function(memberId) {
-	return axios.post('api/kitchen/updateinfo', memberId)
+		return axios.post('api/kitchen/updateinfo', memberId)
 	},
 	updateAnnouncement: function(announcementInfo) {
-	return axios.post('/api/kitchen/updateannouncement', announcementInfo)
+		return axios.post('/api/kitchen/updateannouncement', announcementInfo)
 	},
 	requestSignUp: function(requestInfo) {
-	return axios.post('/api/kitchen/requestsignup', requestInfo)
+		return axios.post('/api/kitchen/requestsignup', requestInfo)
 	},
 	forgotPassword: function(emailInfo) {
-	return axios.post('/api/kitchen/forgotpassword', emailInfo)
+		return axios.post('/api/kitchen/forgotpassword', emailInfo)
 	},
 	loadResetPassword: function(token) {
-	return axios.get('/api/kitchen/resetpassword/' + token)
+		return axios.get('/api/kitchen/resetpassword/' + token)
 	},
 	changePassword: function(newPasswordInfo) {
-	return axios.post('/api/kitchen/resetpassword', newPasswordInfo)
+		return axios.post('/api/kitchen/resetpassword', newPasswordInfo)
+	},
+	contactSoupKitchen: function(contactInfo) {
+		return axios.post('/api/kitchen/contact', contactInfo)
 	},
 };

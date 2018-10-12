@@ -652,6 +652,12 @@ router.post('/resetpassword', function(req, res) {
 	.catch(error => {console.log(error)})	
 });
 
+// sends the message from the contact form
+router.post('/contact', function(req, res) {
+	sendContactEmail(req.body)
+	res.json({sent: true})
+});
+
 // -------------EMAIL FUNCTIONS-------------------------
 
 // sends the welcome email when a user signs up
@@ -841,6 +847,36 @@ function sendSignUpMealEmail(email, info) {
       You're signed up for ${info.meal} on ${info.date}. We're looking forward to seeing you there!
 
       -The Bayonne Soup Kitchen Staff`
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } 
+    });
+};
+
+// sends the contact message email
+function sendContactEmail(contact) {
+	let transporter = nodemailer.createTransport({
+      	host: 'smtp.gmail.com',
+      	auth: {
+      		type: 'OAuth2',
+	        user: 'thebayonnesoupkitchen@gmail.com',
+	        clientId: process.env.REACT_API_CLIENT_ID,
+	        clientSecret: process.env.REACT_API_SECRET,
+	        refreshToken: process.env.REACT_API_REFRESH_TOKEN,
+	        accessToken: process.env.REACT_API_ACCESS_TOKEN
+      	}
+    });
+
+    let mailOptions = {
+      from: 'thebayonnesoupkitchen@gmail.com',
+      to: 'thebayonnesoupkitchen@gmail.com',
+      subject: `You've received a message from ${contact.name}`,
+      text: `${contact.message}
+
+      Send response to ${contact.email}`
     };
 
     transporter.sendMail(mailOptions, function(error, info){
