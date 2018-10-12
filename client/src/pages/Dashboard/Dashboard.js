@@ -315,9 +315,9 @@ class Dashboard extends Component {
 			                        </List>
 			                    ) : (null)}
 				      		</div>
-				      		<div className='contact-form'>
-				      			<form className='meal-form'>
-			      					<label>Contact The Bayonne Soup Kitchen:</label>
+				      		<div className='contact-form-div'>
+				      			<form className='contact-form'>
+			      					<label className='contact-label'>Contact The Bayonne Soup Kitchen:</label>
 			      					<input
 			      						placeholder='Your First and Last Name'
                                     	className='name-input'
@@ -334,7 +334,7 @@ class Dashboard extends Component {
 			      					/>
                                     <textarea
                                     	maxLength='1000'
-                                    	placeholder='Max 1000 Characters'
+                                    	placeholder='Your message - Max 1000 Characters'
                                     	className='contact-textarea'
                                         value={this.state.contactText}
                                         onChange={this.handleInputChange}

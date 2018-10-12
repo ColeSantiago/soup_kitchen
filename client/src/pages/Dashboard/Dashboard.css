@@ -140,7 +140,7 @@
 	padding: 50px;
 	background: url('./images/double_lined.png');
 	border-bottom: 40px solid #00bdd4;
-	margin-bottom: 90px;
+	/*margin-bottom: 90px;*/
 }
 
 .date-heading, .date-sub-heading {
@@ -168,6 +168,45 @@
 .menu-item {
 	color: gray;
 }
+
+/*contact form*/
+.contact-form-div {
+	background-color: white;
+	position: relative;
+	padding-bottom: 80px;
+	margin-bottom: 70px;
+	border-bottom: 1px solid #00bdd4;
+}
+
+.contact-form {
+	display: grid;
+	max-width: 525px;
+	margin: 0 auto;
+	padding-top: 50px;
+}
+
+.contact-label {
+	margin-bottom: 20px;
+	font-size: 30px;
+	text-align: center;
+}
+
+.name-input, .email-input {
+	margin: 10px;
+	padding: 7px;
+	font-size: 12px;
+}
+
+.contact-textarea {
+	margin: 10px;
+	height: 100px;
+	font-size: 12px;
+}
+
+.contact-submit-btn {
+	margin: 0 auto;
+}
+
 
 @media only screen and (max-width: 1400px) {
 
@@ -261,6 +300,10 @@
 
 	.date-sub-heading {
 	    font-size: 23px;
+	}
+
+	.contact-label {
+		font-size: 25px;
 	}
 }
 
